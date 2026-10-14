@@ -9,16 +9,16 @@ built around Swing, while some exercises are console programs.
 
 ## Projects
 
+`H*` folders and `MyList` are class projects. `X*` folders are personal
+practice projects and mock tests.
+
 | Folder | Description |
 | --- | --- |
-| `H5_WordStats` | Live word statistics with HashMap and ArrayList versions, plus a complexity comparison (packaged version). |
-| `H5_WordsStats` | Earlier default-package draft of the word statistics exercise. |
+| `H5_WordStats` | Live word statistics with HashMap and ArrayList versions, plus a complexity comparison. |
 | `H6_Vectors` | Vector drawing app: `Drawing` holds `Shape` objects (`Line`, `Rectangle`, `Oval`). |
-| `F06_Checkers` | Checkers board with pieces (carried over from 2CI). |
 | `MyList` | Hand-written singly linked list of integers (add, insert, delete, sort, search) with a Swing tester. |
-| `mocktest1ci` | Mock test: print-desk job queue (contains a revised `PrintDeskMock`). |
-| `OrbitPatrolMock` | Mock test: shooter game with a linked list of objects, sorting, and save/load. |
-| `PrintDeskMock` | Mock test: print-job queue as a linked list with urgent jobs, priority sorting, and file save. |
+| `X1_PrintDeskMock` | Mock test: print-job queue as a linked list with urgent jobs, priority sorting, and file save. |
+| `X2_OrbitPatrolMock` | Mock test: shooter game with a linked list of objects, sorting, and save/load. |
 
 ## Building
 

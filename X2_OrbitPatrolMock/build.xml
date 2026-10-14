@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="OrbitPatrol" default="run" basedir=".">
+<project name="X2_OrbitPatrolMock" default="run" basedir=".">
   <property file="nbproject/private/private.properties"/>
   <property file="nbproject/project.properties"/>
   <target name="init"><mkdir dir="${build.classes.dir}"/><mkdir dir="${dist.dir}"/></target>

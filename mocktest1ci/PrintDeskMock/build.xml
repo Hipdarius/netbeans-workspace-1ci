@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project name="PrintDeskMock" default="default" basedir=".">
-  <description>Standalone Swing mock exam with no external libraries.</description>
-  <import file="nbproject/build-impl.xml"/>
-</project>
