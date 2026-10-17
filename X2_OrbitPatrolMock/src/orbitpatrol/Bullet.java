@@ -9,7 +9,12 @@ public class Bullet extends Orb {
 
     @Override
     public void move(int width, int height) {
-        // TODO C1_BULLET_MOVE
+        x += vx;
+        y += vy;
+        
+        if(x + radius < 0 || x - radius > width || y + radius > height || y + radius < 0) {
+            setInactive(true);
+        }
     }
 
     @Override

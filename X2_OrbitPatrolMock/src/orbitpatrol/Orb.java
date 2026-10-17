@@ -10,18 +10,30 @@ public abstract class Orb {
     private boolean inactive;
 
     public Orb(int x, int y, int vx, int vy, int radius, Color color) {
-        // TODO C1_ORB_CONSTRUCTOR
+        this.x = x;
+        this.y = y;
+        this.vx = vx;
+        this.vy = vy;
+        this.radius = radius;
+        this.color = color;
     }
 
     public abstract void move(int width, int height);
 
     public void draw(Graphics g) {
-        // TODO C1_DRAW
+        g.setColor(color);
+        g.fillOval(x - radius, y - radius, radius * 2, radius * 2);
+        g.setColor(Color.BLACK);
+        g.drawOval(x - radius, y - radius, radius * 2, radius * 2);
     }
 
     public boolean collidesWith(Orb other) {
-        // TODO C1_COLLISION
-        return false;
+        int dx = x - other.x;
+        int dy = y - other.y;
+        
+        double distance = Math.sqrt(dx * dx + dy * dy);
+        
+        return distance <= radius + other.radius;
     }
 
     public abstract String toFileRecord(); // supplied file format in subclasses

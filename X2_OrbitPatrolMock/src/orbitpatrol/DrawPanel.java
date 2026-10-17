@@ -10,7 +10,11 @@ public class DrawPanel extends javax.swing.JPanel {
 
     @Override
     protected void paintComponent(Graphics g) {
-        // TODO C7_PAINT
+        super.paintComponent(g);
+        
+        if(game != null) {
+            game.draw(g);
+        }
     }
 
     @SuppressWarnings("unchecked")

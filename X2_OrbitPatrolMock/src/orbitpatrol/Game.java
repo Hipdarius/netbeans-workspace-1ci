@@ -9,6 +9,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Game {
+    private Node root = null;
     private MyList objects = new MyList();
     private Player player = new Player(380, 415);
     private int width = 760, height = 440, score = 0;
@@ -55,10 +56,18 @@ public class Game {
     }
 
     public void shoot() {
-        // TODO C5_SHOOT
+        int vx = 0;
+        int vy = -8;
+        int radius = 5;
+        
+        Bullet b = new Bullet(player.x, player.y - player.radius - 18, vx, vy, radius);
+        objects.addToTail(b);
     }
+    
     public void move() {
-        // TODO C5_TICK
+        objects.move(width, height);
+        resolveHits();
+        objects.removeInactive();
     }
 
     /** SUPPLIED: flags hits first; structural deletion happens afterwards. */
@@ -79,9 +88,59 @@ public class Game {
     }
 
     public void saveToFile(String fileName) throws IOException {
-        // TODO C8_SAVE
+        try (PrintWriter out = new PrintWriter(fileName)) {
+            out.println("State;" + score + ";" + player.getX());
+            
+            Node tmp = objects.getRoot();
+            
+            while(tmp != null) {
+                if(!tmp.getData().isInactive()) {
+                    out.println(tmp.getData().toFileRecord());
+                }
+                
+                tmp = tmp.getNext();
+            }
+        }
     }
+    
+    public void sortThings() {
+        for(Node tmp = root; tmp != null; tmp = tmp.getNext()) {
+            Node min = tmp;
+            
+            for(Node search = tmp.getNext(); search != null; search = search.getNext()) {
+                if(search.getData().getRadius() < min.getData().getRadius()) {
+                    min = search;
+                }
+            }
+            
+            int saved = tmp.getData().getRadius();
+            tmp.setData(min.getData().getRadius());
+            min.setData(saved);
+        }
+    }
+    
     public void loadFromFile(String fileName) throws IOException {
-        // TODO C8_LOAD
+        try(Scanner input = new Scanner(new File(fileName))) {
+            if (!input.hasNextLine()) {
+                throw new IOException("Empty save file");
+            }
+            
+            int[] state = SnapshotCodec.parseState(input.nextLine());
+            
+            MyList loaded = new MyList();
+            
+            while(input.hasNextLine()) {
+                String line = input.nextLine();
+                
+                if (!line.trim().isEmpty()) {
+                    Orb orb = SnapshotCodec.parseOrb(line);
+                    loaded.addToTail(orb);
+                }
+            }
+            
+            objects = loaded;
+            score = state[0];
+            player.setPosition(state[1], width, height);
+        }
     }
 }

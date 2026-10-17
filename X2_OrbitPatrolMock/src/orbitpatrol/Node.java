@@ -6,20 +6,18 @@ public class Node {
     private Node node;
 
     public Node(Orb data) {
-        // TODO C2_NODE_CONSTRUCTOR
+        this.data = data;
     }
     public Orb getData() {
-        // TODO C2_NODE_GET_DATA
-        return null;
+        return data;
     }
     public void setData(Orb data) {
-        // TODO C2_NODE_SET_DATA
+        this.data = data;
     }
     public Node getNext() {
-        // TODO C2_NODE_GET_NEXT
-        return null;
+        return node;
     }
     public void setNext(Node node) {
-        // TODO C2_NODE_SET_NEXT
+        this.node = node;
     }
 }

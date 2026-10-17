@@ -12,8 +12,8 @@ public class MainFrame extends javax.swing.JFrame {
     public MainFrame() {
         initComponents();
         drawPanel.setGame(game);
-        // TODO C7_TIMER
-        timer = new Timer(20, null); // TODO: register the update callback.
+        stepButton.setVisible(false);
+        timer = new Timer(20, stepButton.getActionListeners()[0]);
         refresh();
         setLocationRelativeTo(null);
     }
@@ -27,6 +27,7 @@ public class MainFrame extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+
         toolbar = new javax.swing.JPanel();
         row1 = new javax.swing.JPanel();
         exampleButton = new javax.swing.JButton();
@@ -39,74 +40,111 @@ public class MainFrame extends javax.swing.JFrame {
         saveButton = new javax.swing.JButton();
         loadButton = new javax.swing.JButton();
         resetButton = new javax.swing.JButton();
-        drawPanel = new orbitpatrol.DrawPanel();
         statusLabel = new javax.swing.JLabel();
+        drawPanel = new orbitpatrol.DrawPanel();
+        stepButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Orbit Patrol - linked-list mock");
         setResizable(false);
-        getContentPane().setLayout(new java.awt.BorderLayout());
+
         toolbar.setLayout(new java.awt.GridLayout(2, 1));
+
         row1.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 8, 7));
+
         exampleButton.setText("Example");
         exampleButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) { exampleButtonActionPerformed(evt); }
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exampleButtonActionPerformed(evt);
+            }
         });
         row1.add(exampleButton);
+
         addButton.setText("Add target");
         addButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) { addButtonActionPerformed(evt); }
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addButtonActionPerformed(evt);
+            }
         });
         row1.add(addButton);
+
         shootButton.setText("Shoot");
         shootButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) { shootButtonActionPerformed(evt); }
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                shootButtonActionPerformed(evt);
+            }
         });
         row1.add(shootButton);
+
         startButton.setText("Start");
         startButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) { startButtonActionPerformed(evt); }
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                startButtonActionPerformed(evt);
+            }
         });
         row1.add(startButton);
+
         pauseButton.setText("Pause");
         pauseButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) { pauseButtonActionPerformed(evt); }
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pauseButtonActionPerformed(evt);
+            }
         });
         row1.add(pauseButton);
+
         toolbar.add(row1);
+
         row2.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 8, 7));
+
         sortButton.setText("Sort x");
         sortButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) { sortButtonActionPerformed(evt); }
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sortButtonActionPerformed(evt);
+            }
         });
         row2.add(sortButton);
+
         saveButton.setText("Save");
         saveButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) { saveButtonActionPerformed(evt); }
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveButtonActionPerformed(evt);
+            }
         });
         row2.add(saveButton);
+
         loadButton.setText("Load");
         loadButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) { loadButtonActionPerformed(evt); }
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loadButtonActionPerformed(evt);
+            }
         });
         row2.add(loadButton);
+
         resetButton.setText("Reset");
         resetButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) { resetButtonActionPerformed(evt); }
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resetButtonActionPerformed(evt);
+            }
         });
         row2.add(resetButton);
+
         toolbar.add(row2);
+
         getContentPane().add(toolbar, java.awt.BorderLayout.NORTH);
-        drawPanel.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseMoved(java.awt.event.MouseEvent evt) { drawPanelMouseMoved(evt); }
-        });
-        drawPanel.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) { drawPanelMousePressed(evt); }
-        });
-        getContentPane().add(drawPanel, java.awt.BorderLayout.CENTER);
-        statusLabel.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 12, 8, 12));
+
         statusLabel.setText("Score: 0     Objects: 0     Paused");
+        statusLabel.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 12, 8, 12));
         getContentPane().add(statusLabel, java.awt.BorderLayout.SOUTH);
+        getContentPane().add(drawPanel, java.awt.BorderLayout.CENTER);
+
+        stepButton.setText("jButton1");
+        stepButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                stepButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(stepButton, java.awt.BorderLayout.LINE_END);
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -117,7 +155,8 @@ public class MainFrame extends javax.swing.JFrame {
         game.addRandomTarget(); refresh();
     }//GEN-LAST:event_addButtonActionPerformed
     private void shootButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_shootButtonActionPerformed
-        // TODO C7_SHOOT_EVENT
+        game.shoot();
+        refresh();
     }//GEN-LAST:event_shootButtonActionPerformed
     private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
         timer.start(); refresh();
@@ -147,12 +186,11 @@ public class MainFrame extends javax.swing.JFrame {
     private void resetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetButtonActionPerformed
         timer.stop(); game.reset(); refresh();
     }//GEN-LAST:event_resetButtonActionPerformed
-    private void drawPanelMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_drawPanelMouseMoved
-        // TODO C7_AIM_EVENT
-    }//GEN-LAST:event_drawPanelMouseMoved
-    private void drawPanelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_drawPanelMousePressed
-        shootButton.doClick();
-    }//GEN-LAST:event_drawPanelMousePressed
+
+    private void stepButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stepButtonActionPerformed
+        game.move();
+        refresh();
+    }//GEN-LAST:event_stepButtonActionPerformed
 
     public static void main(String[] args) {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -174,6 +212,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton sortButton;
     private javax.swing.JButton startButton;
     private javax.swing.JLabel statusLabel;
+    private javax.swing.JButton stepButton;
     private javax.swing.JPanel toolbar;
     // End of variables declaration//GEN-END:variables
 }

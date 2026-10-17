@@ -7,14 +7,32 @@ public class Target extends Orb {
     private int points;
 
     public Target(int x, int y, int vx, int vy, int radius, int points) {
-        // TODO C1_TARGET_CONSTRUCTOR
         super(x, y, vx, vy, radius, points == 20 ? new Color(226, 145, 191) : new Color(130, 208, 155));
-        // TODO: keep the points value.
+        this.points = points;
     }
 
     @Override
     public void move(int width, int height) {
-        // TODO C1_TARGET_MOVE
+        x = x + vx;
+        y = y + vx;
+        
+        if(x < radius) {
+            x = radius;
+            vx = -vx;
+        } else if (x > width + radius) {
+            x = width - radius;
+            vx = -vx;
+        }
+        
+        int bottom = height / 3 * 2;
+        
+        if (y < radius) {
+            y = radius;
+            vy = -vy;
+        } else if (y > bottom - radius) {
+            y = bottom - radius;
+            vy = -vy;
+        }
     }
 
     @Override
