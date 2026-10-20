@@ -8,35 +8,17 @@ package h6_vectors;
 public class MainFrame extends javax.swing.JFrame {
     private Drawing drawing = new Drawing();
     private Shape shape;
-    private boolean selecting;
-    private boolean drawingLine;
-    private boolean drawingOval;
+    private int i = 1; // 0 = Select, 1 = Rectangle, 2 = Line, 3 = Oval
 
     public MainFrame() {
         initComponents();
         setTitle("Vector Drawer");
         drawPanel.setDrawing(drawing);
         colorTextField.setText("#000000");
-        selectionButton.addActionListener(event -> {
-            selecting = true;
-            drawingLine = false;
-            drawingOval = false;
-        });
-        lineButton.addActionListener(event -> {
-            selecting = false;
-            drawingLine = true;
-            drawingOval = false;
-        });
-        rectangleButton.addActionListener(event -> {
-            selecting = false;
-            drawingLine = false;
-            drawingOval = false;
-        });
-        ovalButton.addActionListener(event -> {
-            selecting = false;
-            drawingLine = false;
-            drawingOval = true;
-        });
+        selectionButton.addActionListener(event -> i = 0);
+        rectangleButton.addActionListener(event -> i = 1);
+        lineButton.addActionListener(event -> i = 2);
+        ovalButton.addActionListener(event -> i = 3);
     }
 
     /**
@@ -65,6 +47,20 @@ public class MainFrame extends javax.swing.JFrame {
         drawPanel = new h6_vectors.DrawPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        drawPanel.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                drawPanelMouseDragged(evt);
+            }
+        });
+        drawPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                drawPanelMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                drawPanelMouseReleased(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(0, 255, 130));
 
@@ -200,20 +196,19 @@ public class MainFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void drawPanelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_drawPanelMousePressed
-        if (selecting || evt.getButton() != java.awt.event.MouseEvent.BUTTON1) {
+        if (i == 0 || evt.getButton() != java.awt.event.MouseEvent.BUTTON1) {
             return;
         }
 
         int x = evt.getX();
         int y = evt.getY();
         java.awt.Color color = java.awt.Color.decode(colorTextField.getText());
-        boolean filled = filledCheck.isSelected();
-        if (drawingLine) {
+        if (i == 2) {
             shape = new Line(x, y, 0, 0, false, color, false);
-        } else if (drawingOval) {
-            shape = new Oval(x, y, 0, 0, false, color, filled);
+        } else if (i == 3) {
+            shape = new Oval(x, y, 0, 0, false, color, filledCheck.isSelected());
         } else {
-            shape = new Rectangle(x, y, 0, 0, false, color, filled);
+            shape = new Rectangle(x, y, 0, 0, false, color, filledCheck.isSelected());
         }
         drawing.addShape(shape);
         drawPanel.repaint();
