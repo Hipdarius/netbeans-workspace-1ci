@@ -4,6 +4,8 @@
  */
 package json_test;
 
+import com.google.gson.Gson;
+
 /**
  *
  * @author Darius
@@ -15,6 +17,20 @@ public class JSON_test {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        /*Gson gson = new Gson();
+        
+        String[] pieces = s.split("\\|");
+        String classname = pieces[0];
+        String json = pieces[1];
+        
+        if(classname.equals("Line"))
+            return gson.fromJson(json, Line.class);
+        else if (classname.equals("Rectangle"))
+            return gson.fromJson(json, Rectangle.class);
+        else if (classname.equals("Oval"))
+            return gson.fromJson(json, Oval.class);
+        
+        return null;*/
     }
     
 }
