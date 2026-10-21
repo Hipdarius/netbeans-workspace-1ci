@@ -3,9 +3,8 @@ package h6_vectors;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Point;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -19,8 +18,6 @@ import java.awt.event.MouseEvent;
 public class DrawPanel extends javax.swing.JPanel {
 
     private Drawing drawing;
-    private Point dragStart;
-    private Point dragCurrent;
 
     /**
      * Creates new form DrawPanel
@@ -28,6 +25,7 @@ public class DrawPanel extends javax.swing.JPanel {
     public DrawPanel() {
         initComponents();
         setBackground(Color.WHITE);
+        setFocusable(true);
     }
 
     public void setDrawing(Drawing drawing) {
@@ -38,7 +36,10 @@ public class DrawPanel extends javax.swing.JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         if (drawing != null) {
-            drawing.draw(g);
+            Graphics2D g2 = (Graphics2D) g.create();
+            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            drawing.draw(g2);
+            g2.dispose();
         }
     }
 

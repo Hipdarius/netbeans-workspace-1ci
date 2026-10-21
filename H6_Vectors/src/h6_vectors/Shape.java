@@ -2,8 +2,10 @@ package h6_vectors;
 
 import com.google.gson.Gson;
 import java.awt.Color;
+import java.awt.BasicStroke;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Stroke;
 
 public abstract class Shape {
     protected int x, y, width, height;
@@ -35,7 +37,10 @@ public abstract class Shape {
             g2.fill(outline);
         }
         g2.setColor(color);
+        Stroke oldStroke = g2.getStroke();
+        g2.setStroke(new BasicStroke(selected ? 3 : 1));
         g2.draw(outline);
+        g2.setStroke(oldStroke);
         if (selected) {
             g2.setColor(Color.BLUE);
             g2.drawRect(Math.min(x, x + width) - 3, Math.min(y, y + height) - 3,

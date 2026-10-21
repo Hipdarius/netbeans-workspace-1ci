@@ -30,6 +30,9 @@ public class Rectangle extends Shape {
 
     @Override
     public String toSvg() {
+        if (width == 0 || height == 0)
+            return "<line x1=\"" + x + "\" y1=\"" + y + "\" x2=\"" + (x + width)
+                    + "\" y2=\"" + (y + height) + "\"" + svgStyle() + "/>";
         Rectangle2D r = get2DShape();
         return "<rect x=\"" + r.getX() + "\" y=\"" + r.getY()
                 + "\" width=\"" + r.getWidth() + "\" height=\"" + r.getHeight()
