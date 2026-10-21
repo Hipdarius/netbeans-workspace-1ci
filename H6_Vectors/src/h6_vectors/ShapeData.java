@@ -13,6 +13,6 @@ public class ShapeData {
         height = shape.height;
         color = shape.color.getRGB();
         fillColor = shape.fillColor.getRGB();
-        filled = shape.filled;
+        filled = shape.filled; 
     }
 }
