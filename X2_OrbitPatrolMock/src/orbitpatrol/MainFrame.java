@@ -13,6 +13,8 @@ public class MainFrame extends javax.swing.JFrame {
         initComponents();
         drawPanel.setGame(game);
         stepButton.setVisible(false);
+        pack();
+        game.setSize(drawPanel.getWidth(), drawPanel.getHeight());
         timer = new Timer(20, stepButton.getActionListeners()[0]);
         refresh();
         setLocationRelativeTo(null);
@@ -135,6 +137,16 @@ public class MainFrame extends javax.swing.JFrame {
         statusLabel.setText("Score: 0     Objects: 0     Paused");
         statusLabel.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 12, 8, 12));
         getContentPane().add(statusLabel, java.awt.BorderLayout.SOUTH);
+        drawPanel.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                drawPanelMouseMoved(evt);
+            }
+        });
+        drawPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                drawPanelMousePressed(evt);
+            }
+        });
         getContentPane().add(drawPanel, java.awt.BorderLayout.CENTER);
 
         stepButton.setText("jButton1");
@@ -191,6 +203,17 @@ public class MainFrame extends javax.swing.JFrame {
         game.move();
         refresh();
     }//GEN-LAST:event_stepButtonActionPerformed
+
+    private void drawPanelMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_drawPanelMouseMoved
+        game.aimAt(evt.getX());
+        refresh();
+    }//GEN-LAST:event_drawPanelMouseMoved
+
+    private void drawPanelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_drawPanelMousePressed
+        game.aimAt(evt.getX());
+        game.shoot();
+        refresh();
+    }//GEN-LAST:event_drawPanelMousePressed
 
     public static void main(String[] args) {
         java.awt.EventQueue.invokeLater(new Runnable() {

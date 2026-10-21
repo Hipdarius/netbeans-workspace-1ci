@@ -1,35 +1,41 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package h6_vectors;
 
 import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.geom.Line2D;
+import java.awt.geom.Rectangle2D;
 
-/**
- *
- * @author Darius
- */
 public class Rectangle extends Shape {
-
     public Rectangle(int x, int y, int width, int height, boolean selected, Color color, boolean filled) {
         super(x, y, width, height, selected, color, filled);
     }
-    
-    @Override
-    public void draw(Graphics g) {
-        int left = Math.min(x, x + width);
-        int top = Math.min(y, y + height);
-        int actualWidth = Math.abs(width);
-        int actualHeight = Math.abs(height);
 
-        g.setColor(color);
-        
-        if (filled) {
-            g.fillRect(left, top, actualWidth, actualHeight);
-        }
-        
-        g.drawRect(left, top, actualWidth, actualHeight);
+    @Override
+    public Rectangle2D get2DShape() {
+        return new Rectangle2D.Double(Math.min(x, x + width), Math.min(y, y + height),
+                Math.abs(width), Math.abs(height));
+    }
+
+    @Override
+    public double distanceFrom(int px, int py) {
+        Rectangle2D r = get2DShape();
+        if (filled && r.contains(px, py))
+            return 0;
+        double left = r.getMinX(), right = r.getMaxX();
+        double top = r.getMinY(), bottom = r.getMaxY();
+        double d = Line2D.ptSegDist(left, top, right, top, px, py);
+        d = Math.min(d, Line2D.ptSegDist(right, top, right, bottom, px, py));
+        d = Math.min(d, Line2D.ptSegDist(right, bottom, left, bottom, px, py));
+        return Math.min(d, Line2D.ptSegDist(left, bottom, left, top, px, py));
+    }
+
+    @Override
+    public String toSvg() {
+        if (width == 0 || height == 0)
+            return "<line x1=\"" + x + "\" y1=\"" + y + "\" x2=\"" + (x + width)
+                    + "\" y2=\"" + (y + height) + "\"" + svgStyle() + "/>";
+        Rectangle2D r = get2DShape();
+        return "<rect x=\"" + r.getX() + "\" y=\"" + r.getY()
+                + "\" width=\"" + r.getWidth() + "\" height=\"" + r.getHeight()
+                + "\"" + svgStyle() + "/>";
     }
 }

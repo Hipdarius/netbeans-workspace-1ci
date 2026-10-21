@@ -1,5 +1,16 @@
 package h6_vectors;
 
+import java.awt.Color;
+import java.awt.geom.Point2D;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import javax.swing.JColorChooser;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.KeyStroke;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 /**
  * Main window for the vector drawing application.
  *
@@ -8,35 +19,107 @@ package h6_vectors;
 public class MainFrame extends javax.swing.JFrame {
     private Drawing drawing = new Drawing();
     private Shape shape;
-    private boolean selecting;
-    private boolean drawingLine;
-    private boolean drawingOval;
+    private int mouseX, mouseY;
+    private boolean resizing;
+    private Color fillColor = Color.BLACK;
+    private int i = 1; // 0 = Select, 1 = Rectangle, 2 = Line, 3 = Oval
 
     public MainFrame() {
         initComponents();
         setTitle("Vector Drawer");
         drawPanel.setDrawing(drawing);
         colorTextField.setText("#000000");
-        selectionButton.addActionListener(event -> {
-            selecting = true;
-            drawingLine = false;
-            drawingOval = false;
+        drawPanel.setToolTipText("Select and drag to move. Drag the blue square to resize.");
+        colorTextField.setToolTipText("Enter a color such as #ff0000, then press Enter.");
+        filledCheck.setToolTipText("Fill rectangles and ovals.");
+        
+        
+        selectionButton.addActionListener(event -> i = 0);
+        rectangleButton.addActionListener(event -> i = 1);
+        lineButton.addActionListener(event -> i = 2);
+        ovalButton.addActionListener(event -> i = 3);
+
+        colorTextField.addActionListener(event -> {
+            try {
+                Color color = Color.decode(colorTextField.getText().trim());
+                Shape selected = drawing.getSelected();
+                if (selected != null) selected.color = color;
+                drawPanel.repaint();
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(this, "Use a hex color such as #ff0000.");
+            }
         });
-        lineButton.addActionListener(event -> {
-            selecting = false;
-            drawingLine = true;
-            drawingOval = false;
+        fillColorButton.addActionListener(event -> {
+            Color chosen = JColorChooser.showDialog(this, "Fill color", fillColor);
+            if (chosen != null) {
+                fillColor = chosen;
+                Shape selected = drawing.getSelected();
+                if (selected != null && !(selected instanceof Line))
+                    selected.fillColor = chosen;
+                drawPanel.repaint();
+            }
         });
-        rectangleButton.addActionListener(event -> {
-            selecting = false;
-            drawingLine = false;
-            drawingOval = false;
+        filledCheck.addActionListener(event -> {
+            Shape selected = drawing.getSelected();
+            if (selected != null && !(selected instanceof Line))
+                selected.filled = filledCheck.isSelected();
+            drawPanel.repaint();
         });
-        ovalButton.addActionListener(event -> {
-            selecting = false;
-            drawingLine = false;
-            drawingOval = true;
+        frontButton.addActionListener(event -> {
+            drawing.bringToFront();
+            drawPanel.repaint();
         });
+        backButton.addActionListener(event -> {
+            drawing.sendToBack();
+            drawPanel.repaint();
+        });
+        deleteButton.addActionListener(event -> {
+            drawing.deleteSelected();
+            shape = null;
+            drawPanel.repaint();
+        });
+        getRootPane().registerKeyboardAction(event -> deleteButton.doClick(),
+                KeyStroke.getKeyStroke("DELETE"), javax.swing.JComponent.WHEN_IN_FOCUSED_WINDOW);
+        saveJsonButton.addActionListener(event -> saveDrawing("json"));
+        loadJsonButton.addActionListener(event -> loadDrawing());
+        saveSvgButton.addActionListener(event -> saveDrawing("svg"));
+        pack();
+    }
+
+    private void saveDrawing(String extension) {
+        JFileChooser chooser = new JFileChooser();
+        chooser.setFileFilter(new FileNameExtensionFilter(extension.toUpperCase() + " files", extension));
+        chooser.setSelectedFile(new File("drawing." + extension));
+        if (chooser.showSaveDialog(this) != JFileChooser.APPROVE_OPTION) return;
+        File file = chooser.getSelectedFile();
+        if (!file.getName().toLowerCase().endsWith("." + extension))
+            file = new File(file.getParentFile(), file.getName() + "." + extension);
+        if (file.exists() && JOptionPane.showConfirmDialog(this, "Replace " + file.getName() + "?",
+                "Save", JOptionPane.YES_NO_OPTION) != JOptionPane.YES_OPTION) return;
+        try {
+            String text = drawing.toJson();
+            if (extension.equals("svg"))
+                text = drawing.toSvg(drawPanel.getWidth(), drawPanel.getHeight());
+            Files.writeString(file.toPath(), text);
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(this, "Could not save: " + ex.getMessage());
+        }
+    }
+
+    private void loadDrawing() {
+        JFileChooser chooser = new JFileChooser();
+        chooser.setFileFilter(new FileNameExtensionFilter("JSON files", "json"));
+        if (chooser.showOpenDialog(this) != JFileChooser.APPROVE_OPTION) return;
+        try {
+            String text = Files.readString(chooser.getSelectedFile().toPath());
+            // Replace the current drawing only after the whole file was parsed.
+            drawing = Drawing.fromJson(text);
+            shape = null;
+            drawPanel.setDrawing(drawing);
+            drawPanel.repaint();
+        } catch (IOException | RuntimeException ex) {
+            JOptionPane.showMessageDialog(this, "Could not load: " + ex.getMessage());
+        }
     }
 
     /**
@@ -48,11 +131,12 @@ public class MainFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        drawPanel = new h6_vectors.DrawPanel();
         jPanel1 = new javax.swing.JPanel();
         colorTextField = new javax.swing.JTextField();
-        Color = new javax.swing.JLabel();
+        colorLabel = new javax.swing.JLabel();
         filledCheck = new javax.swing.JCheckBox();
+        fillColorButton = new javax.swing.JButton("Fill color...");
+        deleteButton = new javax.swing.JButton("Delete");
         frontButton = new javax.swing.JButton();
         backButton = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
@@ -63,6 +147,7 @@ public class MainFrame extends javax.swing.JFrame {
         saveJsonButton = new javax.swing.JButton();
         loadJsonButton = new javax.swing.JButton();
         saveSvgButton = new javax.swing.JButton();
+        drawPanel = new h6_vectors.DrawPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -80,21 +165,10 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout drawPanelLayout = new javax.swing.GroupLayout(drawPanel);
-        drawPanel.setLayout(drawPanelLayout);
-        drawPanelLayout.setHorizontalGroup(
-            drawPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        drawPanelLayout.setVerticalGroup(
-            drawPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
         jPanel1.setBackground(new java.awt.Color(0, 255, 130));
 
-        Color.setForeground(new java.awt.Color(30, 30, 30));
-        Color.setText("Color:");
+        colorLabel.setForeground(new java.awt.Color(30, 30, 30));
+        colorLabel.setText("Outline (Enter):");
 
         filledCheck.setBackground(new java.awt.Color(0, 255, 130));
         filledCheck.setForeground(new java.awt.Color(30, 30, 30));
@@ -112,8 +186,10 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(colorTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Color, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(colorLabel)
                     .addComponent(filledCheck)
+                    .addComponent(fillColorButton)
+                    .addComponent(deleteButton)
                     .addComponent(frontButton)
                     .addComponent(backButton))
                 .addContainerGap(44, Short.MAX_VALUE))
@@ -122,21 +198,25 @@ public class MainFrame extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addComponent(Color)
+                .addComponent(colorLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(colorTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(filledCheck)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(fillColorButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(frontButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(backButton)
-                .addContainerGap(138, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(deleteButton)
+                .addContainerGap(80, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 130));
 
-        selectionButton.setText(">>");
+        selectionButton.setText("Select");
 
         lineButton.setText("Line");
 
@@ -186,16 +266,28 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap(28, Short.MAX_VALUE))
         );
 
+        javax.swing.GroupLayout drawPanelLayout = new javax.swing.GroupLayout(drawPanel);
+        drawPanel.setLayout(drawPanelLayout);
+        drawPanelLayout.setHorizontalGroup(
+            drawPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        drawPanelLayout.setVerticalGroup(
+            drawPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(drawPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(drawPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -204,48 +296,72 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(drawPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(drawPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void drawPanelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_drawPanelMousePressed
-        if (selecting || evt.getButton() != java.awt.event.MouseEvent.BUTTON1) {
-            return;
-        }
+        if (evt.getButton() != java.awt.event.MouseEvent.BUTTON1) return;
+        drawPanel.requestFocusInWindow();
+        int x = evt.getX(), y = evt.getY();
+        mouseX = x;
+        mouseY = y;
+        resizing = false;
 
-        int x = evt.getX();
-        int y = evt.getY();
-        java.awt.Color color = java.awt.Color.decode(colorTextField.getText());
-        boolean filled = filledCheck.isSelected();
-        if (drawingLine) {
-            shape = new Line(x, y, 0, 0, false, color, false);
-        } else if (drawingOval) {
-            shape = new Oval(x, y, 0, 0, false, color, filled);
+        if (i == 0) {
+            shape = drawing.getSelected();
+            if (shape != null)
+                resizing = Point2D.distance(x, y, shape.x + shape.width, shape.y + shape.height) <= 6;
+            if (!resizing) shape = drawing.select(x, y);
+            if (shape != null) {
+                colorTextField.setText(String.format("#%06x", shape.color.getRGB() & 0xffffff));
+                fillColor = shape.fillColor;
+                filledCheck.setSelected(shape.filled);
+            }
         } else {
-            shape = new Rectangle(x, y, 0, 0, false, color, filled);
+            Color color;
+            try {
+                color = Color.decode(colorTextField.getText().trim());
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(this, "Use a hex color such as #ff0000.");
+                return;
+            }
+            drawing.clearSelection();
+            if (i == 2)
+                shape = new Line(x, y, 0, 0, true, color, false);
+            else if (i == 3)
+                shape = new Oval(x, y, 0, 0, true, color, filledCheck.isSelected());
+            else
+                shape = new Rectangle(x, y, 0, 0, true, color, filledCheck.isSelected());
+            shape.fillColor = fillColor;
+            drawing.addShape(shape);
         }
-        drawing.addShape(shape);
         drawPanel.repaint();
     }//GEN-LAST:event_drawPanelMousePressed
 
     private void drawPanelMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_drawPanelMouseReleased
-        if (shape != null) {
-            shape.width = evt.getX() - shape.x;
-            shape.height = evt.getY() - shape.y;
+        if (evt.getButton() == java.awt.event.MouseEvent.BUTTON1) {
+            drawPanelMouseDragged(evt);
             shape = null;
-            drawPanel.repaint();
+            resizing = false;
         }
     }//GEN-LAST:event_drawPanelMouseReleased
 
     private void drawPanelMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_drawPanelMouseDragged
-        if (shape != null) {
+        if (shape == null) return;
+        if (i == 0 && !resizing) {
+            shape.move(evt.getX() - mouseX, evt.getY() - mouseY);
+        } else {
             shape.width = evt.getX() - shape.x;
             shape.height = evt.getY() - shape.y;
-            drawPanel.repaint();
         }
+        mouseX = evt.getX();
+        mouseY = evt.getY();
+        drawPanel.repaint();
     }//GEN-LAST:event_drawPanelMouseDragged
 
     public static void main(String args[]) {
@@ -253,11 +369,13 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel Color;
+    private javax.swing.JLabel colorLabel;
     private javax.swing.JButton backButton;
     private javax.swing.JTextField colorTextField;
     private h6_vectors.DrawPanel drawPanel;
     private javax.swing.JCheckBox filledCheck;
+    private javax.swing.JButton fillColorButton;
+    private javax.swing.JButton deleteButton;
     private javax.swing.JButton frontButton;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

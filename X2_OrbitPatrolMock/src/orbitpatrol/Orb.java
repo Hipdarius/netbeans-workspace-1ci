@@ -28,8 +28,8 @@ public abstract class Orb {
     }
 
     public boolean collidesWith(Orb other) {
-        int dx = x - other.x;
-        int dy = y - other.y;
+        double dx = (double) x - other.x;
+        double dy = (double) y - other.y;
         
         double distance = Math.sqrt(dx * dx + dy * dy);
         

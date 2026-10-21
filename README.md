@@ -17,7 +17,7 @@ practice projects and mock tests.
 | `H5_WordStats` | Live word statistics with HashMap and ArrayList versions, plus a complexity comparison. |
 | `H6_Vectors` | Vector drawing app: `Drawing` holds `Shape` objects (`Line`, `Rectangle`, `Oval`). |
 | `MyList` | Hand-written singly linked list of integers (add, insert, delete, sort, search) with a Swing tester. |
-| `X1_PrintDeskMock` | Mock test: print-job queue as a linked list with urgent jobs, priority sorting, and file save. |
+| `X1_PrintDeskMock` | Unfinished mock-test exercises (TODOs preserved): print-job queue, urgent jobs, sorting, and file save. |
 | `X2_OrbitPatrolMock` | Mock test: shooter game with a linked list of objects, sorting, and save/load. |
 
 ## Building
