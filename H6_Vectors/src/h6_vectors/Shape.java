@@ -31,16 +31,23 @@ public abstract class Shape {
 
     public void draw(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
+        
         java.awt.Shape outline = get2DShape();
         if (filled && !(this instanceof Line)) {
             g2.setColor(fillColor);
             g2.fill(outline);
         }
+        
         g2.setColor(color);
+        
         Stroke oldStroke = g2.getStroke();
+        
         g2.setStroke(new BasicStroke(selected ? 3 : 1));
+        
         g2.draw(outline);
+        
         g2.setStroke(oldStroke);
+        
         if (selected) {
             g2.setColor(Color.BLUE);
             g2.drawRect(Math.min(x, x + width) - 3, Math.min(y, y + height) - 3,
@@ -64,13 +71,18 @@ public abstract class Shape {
         if (s == null || !s.contains("|")) {
             throw new IllegalArgumentException("Invalid saved shape.");
         }
+        
         String[] pieces = s.split("\\|", 2);
+        
         ShapeData data = new Gson().fromJson(pieces[1], ShapeData.class);
         if (data == null || data.color == null) {
             throw new IllegalArgumentException("The shape has no color.");
         }
+        
         Color color = new Color(data.color, true);
+        
         Shape shape;
+        
         if (pieces[0].equals("Line"))
             shape = new Line(data.x, data.y, data.width, data.height, false, color, false);
         else if (pieces[0].equals("Rectangle"))
@@ -88,7 +100,9 @@ public abstract class Shape {
 
     protected String svgStyle() {
         String stroke = String.format("#%06x", color.getRGB() & 0xffffff);
+        
         String fill = "none";
+        
         if (filled && !(this instanceof Line))
             fill = String.format("#%06x", fillColor.getRGB() & 0xffffff);
         return " stroke=\"" + stroke + "\" fill=\"" + fill

@@ -24,6 +24,7 @@ public class Drawing {
     public Shape getSelected() {
         for (Shape shape : shapes)
             if (shape.selected) return shape;
+        
         return null;
     }
 
@@ -37,6 +38,7 @@ public class Drawing {
                 return shape;
             }
         }
+        
         return null;
     }
 
@@ -62,6 +64,7 @@ public class Drawing {
 
     public String toJson() {
         ArrayList<String> savedShapes = new ArrayList<>();
+        
         for (Shape shape : shapes)
             savedShapes.add(shape.toString());
         return new Gson().toJson(savedShapes);
@@ -69,9 +72,12 @@ public class Drawing {
 
     public static Drawing fromJson(String json) {
         String[] savedShapes = new Gson().fromJson(json, String[].class);
+        
         if (savedShapes == null)
             throw new IllegalArgumentException("This file does not contain a drawing.");
+        
         Drawing drawing = new Drawing();
+        
         for (String savedShape : savedShapes)
             drawing.addShape(Shape.fromString(savedShape));
         return drawing;
@@ -80,8 +86,10 @@ public class Drawing {
     public String toSvg(int width, int height) {
         String text = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"" + width
                 + "\" height=\"" + height + "\" viewBox=\"0 0 " + width + " " + height + "\">\n";
+        
         for (Shape shape : shapes)
             text += "  " + shape.toSvg() + "\n";
+        
         return text + "</svg>\n";
     }
 }
