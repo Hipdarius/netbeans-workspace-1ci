@@ -96,6 +96,7 @@ public class MyList {
     
     // Time: O(n), Space: O(1)
     public void replace(int index, int data) {
+        if(index < 0 || index >= size) throw new IndexOutOfBoundsException(index);
         Node tmp = root;
         
         for(int i = 0; i < index; i++) {

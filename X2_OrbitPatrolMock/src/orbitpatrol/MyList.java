@@ -115,7 +115,7 @@ public class MyList {
                 tmp.setNext(tmp.getNext().getNext());
                 counter++;
                 size--;
-            } {
+            } else {
                 tmp = tmp.getNext();
             }
         } 
@@ -125,6 +125,16 @@ public class MyList {
 
     /** Ascending x; selection sort; exchange Orb references, never individual attributes. */
     public void sortByX() {
-        
+        for(Node tmp = root; tmp != null; tmp = tmp.getNext()) {
+            Node min = tmp;
+            for(Node search = tmp.getNext(); search != null; search = search.getNext()) {
+                if(search.getData().getX() < min.getData().getX()) {
+                    min = search;
+                }
+            }
+            Orb saved = tmp.getData();
+            tmp.setData(min.getData());
+            min.setData(saved);
+        }
     }
 }

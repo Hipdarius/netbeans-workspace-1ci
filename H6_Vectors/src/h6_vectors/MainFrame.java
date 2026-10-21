@@ -32,6 +32,8 @@ public class MainFrame extends javax.swing.JFrame {
         drawPanel.setToolTipText("Select and drag to move. Drag the blue square to resize.");
         colorTextField.setToolTipText("Enter a color such as #ff0000, then press Enter.");
         filledCheck.setToolTipText("Fill rectangles and ovals.");
+        
+        
         selectionButton.addActionListener(event -> i = 0);
         rectangleButton.addActionListener(event -> i = 1);
         lineButton.addActionListener(event -> i = 2);

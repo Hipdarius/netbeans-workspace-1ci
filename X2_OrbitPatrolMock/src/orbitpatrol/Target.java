@@ -14,17 +14,17 @@ public class Target extends Orb {
     @Override
     public void move(int width, int height) {
         x = x + vx;
-        y = y + vx;
+        y = y + vy;
         
         if(x < radius) {
             x = radius;
             vx = -vx;
-        } else if (x > width + radius) {
+        } else if (x > width - radius) {
             x = width - radius;
             vx = -vx;
         }
         
-        int bottom = height / 3 * 2;
+        int bottom = height * 2 / 3;
         
         if (y < radius) {
             y = radius;

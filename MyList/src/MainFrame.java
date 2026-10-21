@@ -291,7 +291,12 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_replaceBoxActionPerformed
 
     private void fillRandomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fillRandomActionPerformed
-       
+        java.util.Random random = new java.util.Random();
+        for(int i = 0; i < 10; i++) {
+            myList.add(random.nextInt(100));
+        }
+        listBox.setListData(myList.toArray());
+        sizeLabel.setText(String.valueOf(myList.sizeConstant()));
     }//GEN-LAST:event_fillRandomActionPerformed
 
     /**

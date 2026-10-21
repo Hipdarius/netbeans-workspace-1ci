@@ -9,7 +9,6 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Game {
-    private Node root = null;
     private MyList objects = new MyList();
     private Player player = new Player(380, 415);
     private int width = 760, height = 440, score = 0;
@@ -89,7 +88,7 @@ public class Game {
 
     public void saveToFile(String fileName) throws IOException {
         try (PrintWriter out = new PrintWriter(fileName)) {
-            out.println("State;" + score + ";" + player.getX());
+            out.println("STATE;" + score + ";" + player.getX());
             
             Node tmp = objects.getRoot();
             
@@ -104,7 +103,7 @@ public class Game {
     }
     
     public void sortThings() {
-        for(Node tmp = root; tmp != null; tmp = tmp.getNext()) {
+        for(Node tmp = objects.getRoot(); tmp != null; tmp = tmp.getNext()) {
             Node min = tmp;
             
             for(Node search = tmp.getNext(); search != null; search = search.getNext()) {
@@ -113,8 +112,8 @@ public class Game {
                 }
             }
             
-            int saved = tmp.getData().getRadius();
-            tmp.setData(min.getData().getRadius());
+            Orb saved = tmp.getData();
+            tmp.setData(min.getData());
             min.setData(saved);
         }
     }

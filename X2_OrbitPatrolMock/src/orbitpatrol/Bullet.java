@@ -12,7 +12,7 @@ public class Bullet extends Orb {
         x += vx;
         y += vy;
         
-        if(x + radius < 0 || x - radius > width || y + radius > height || y + radius < 0) {
+        if(x + radius < 0 || x - radius > width || y - radius > height || y + radius < 0) {
             setInactive(true);
         }
     }
