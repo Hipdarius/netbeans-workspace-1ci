@@ -4,6 +4,11 @@
  */
 package h6_vectors;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonSerializer;
 import java.awt.Color;
 import java.awt.Graphics;
 
@@ -32,4 +37,33 @@ public abstract class Shape {
     }
 
     public abstract void draw(Graphics g);
+
+    @Override
+    public String toString() {
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(Color.class, (JsonSerializer<Color>)
+                        (value, type, context) -> new JsonPrimitive(value.getRGB()))
+                .create();
+        return getClass().getSimpleName() + "|" + gson.toJson(this);
+    }
+
+    public static Shape fromString(String s) {
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(Color.class, (JsonDeserializer<Color>)
+                        (value, type, context) -> new Color(value.getAsInt(), true))
+                .create();
+
+        String[] pieces = s.split("\\|", 2);
+        String classname = pieces[0];
+        String json = pieces[1];
+
+        if (classname.equals("Line"))
+            return gson.fromJson(json, Line.class);
+        else if (classname.equals("Rectangle"))
+            return gson.fromJson(json, Rectangle.class);
+        else if (classname.equals("Oval"))
+            return gson.fromJson(json, Oval.class);
+
+        return null;
+    }
 }

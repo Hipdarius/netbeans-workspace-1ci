@@ -19,6 +19,30 @@ public class MainFrame extends javax.swing.JFrame {
         rectangleButton.addActionListener(event -> i = 1);
         lineButton.addActionListener(event -> i = 2);
         ovalButton.addActionListener(event -> i = 3);
+        saveJsonButton.addActionListener(event -> {
+            javax.swing.JFileChooser chooser = new javax.swing.JFileChooser();
+            if (chooser.showSaveDialog(this) == javax.swing.JFileChooser.APPROVE_OPTION) {
+                try {
+                    java.nio.file.Files.writeString(chooser.getSelectedFile().toPath(), drawing.toJson());
+                } catch (java.io.IOException ex) {
+                    javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), "Save failed", javax.swing.JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+        loadJsonButton.addActionListener(event -> {
+            javax.swing.JFileChooser chooser = new javax.swing.JFileChooser();
+            if (chooser.showOpenDialog(this) == javax.swing.JFileChooser.APPROVE_OPTION) {
+                try {
+                    String json = java.nio.file.Files.readString(chooser.getSelectedFile().toPath());
+                    drawing = Drawing.fromJson(json);
+                    shape = null;
+                    drawPanel.setDrawing(drawing);
+                    drawPanel.repaint();
+                } catch (java.io.IOException | RuntimeException ex) {
+                    javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), "Load failed", javax.swing.JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
     }
 
     /**
