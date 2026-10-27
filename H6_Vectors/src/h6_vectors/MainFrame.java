@@ -332,11 +332,11 @@ public class MainFrame extends javax.swing.JFrame {
             }
             drawing.clearSelection();
             if (i == 2)
-                shape = new Line(x, y, 0, 0, true, color, false);
+                shape = new Line(x, y, 0, 0, false, color, false);
             else if (i == 3)
-                shape = new Oval(x, y, 0, 0, true, color, filledCheck.isSelected());
+                shape = new Oval(x, y, 0, 0, false, color, filledCheck.isSelected());
             else
-                shape = new Rectangle(x, y, 0, 0, true, color, filledCheck.isSelected());
+                shape = new Rectangle(x, y, 0, 0, false, color, filledCheck.isSelected());
             shape.fillColor = fillColor;
             drawing.addShape(shape);
         }

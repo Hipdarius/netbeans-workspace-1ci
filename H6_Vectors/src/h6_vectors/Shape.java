@@ -31,28 +31,20 @@ public abstract class Shape {
 
     public void draw(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
-        
         java.awt.Shape outline = get2DShape();
         if (filled && !(this instanceof Line)) {
             g2.setColor(fillColor);
             g2.fill(outline);
         }
-        
-        g2.setColor(color);
-        
+
         Stroke oldStroke = g2.getStroke();
-        
+        g2.setColor(color);
         g2.setStroke(new BasicStroke(selected ? 3 : 1));
-        
         g2.draw(outline);
-        
         g2.setStroke(oldStroke);
-        
+
         if (selected) {
             g2.setColor(Color.BLUE);
-            g2.drawRect(Math.min(x, x + width) - 3, Math.min(y, y + height) - 3,
-                    Math.abs(width) + 6, Math.abs(height) + 6);
-            // Drag this little square to resize.
             g2.fillRect(x + width - 4, y + height - 4, 8, 8);
         }
     }
