@@ -1,8 +1,7 @@
 package h6_vectors;
 
 import java.awt.Color;
-import java.awt.geom.Line2D;
-import java.awt.geom.Rectangle2D;
+import java.awt.Graphics;
 
 public class Rectangle extends Shape {
     public Rectangle(int x, int y, int width, int height, boolean selected, Color color, boolean filled) {
@@ -10,22 +9,32 @@ public class Rectangle extends Shape {
     }
 
     @Override
-    public Rectangle2D get2DShape() {
-        return new Rectangle2D.Double(Math.min(x, x + width), Math.min(y, y + height),
-                Math.abs(width), Math.abs(height));
+    public void draw(Graphics g) {
+        int left = Math.min(x, x + width), top = Math.min(y, y + height);
+        int w = Math.abs(width), h = Math.abs(height);
+        if (filled) {
+            g.setColor(fillColor);
+            g.fillRect(left, top, w, h);
+        }
+        g.setColor(color);
+        g.drawRect(left, top, w, h);
+        if (selected) {
+            g.drawRect(left - 1, top - 1, w + 2, h + 2);
+            g.drawRect(left + 1, top + 1, w - 2, h - 2);
+        }
+        drawHandle(g);
     }
 
     @Override
     public double distanceFrom(int px, int py) {
-        Rectangle2D r = get2DShape();
-        if (filled && r.contains(px, py))
+        int left = Math.min(x, x + width), right = Math.max(x, x + width);
+        int top = Math.min(y, y + height), bottom = Math.max(y, y + height);
+        if (filled && px >= left && px <= right && py >= top && py <= bottom)
             return 0;
-        double left = r.getMinX(), right = r.getMaxX();
-        double top = r.getMinY(), bottom = r.getMaxY();
-        double d = Line2D.ptSegDist(left, top, right, top, px, py);
-        d = Math.min(d, Line2D.ptSegDist(right, top, right, bottom, px, py));
-        d = Math.min(d, Line2D.ptSegDist(right, bottom, left, bottom, px, py));
-        return Math.min(d, Line2D.ptSegDist(left, bottom, left, top, px, py));
+        double d = lineDistance(left, top, right, top, px, py);
+        d = Math.min(d, lineDistance(right, top, right, bottom, px, py));
+        d = Math.min(d, lineDistance(right, bottom, left, bottom, px, py));
+        return Math.min(d, lineDistance(left, bottom, left, top, px, py));
     }
 
     @Override
@@ -33,9 +42,8 @@ public class Rectangle extends Shape {
         if (width == 0 || height == 0)
             return "<line x1=\"" + x + "\" y1=\"" + y + "\" x2=\"" + (x + width)
                     + "\" y2=\"" + (y + height) + "\"" + svgStyle() + "/>";
-        Rectangle2D r = get2DShape();
-        return "<rect x=\"" + r.getX() + "\" y=\"" + r.getY()
-                + "\" width=\"" + r.getWidth() + "\" height=\"" + r.getHeight()
+        return "<rect x=\"" + Math.min(x, x + width) + "\" y=\"" + Math.min(y, y + height)
+                + "\" width=\"" + Math.abs(width) + "\" height=\"" + Math.abs(height)
                 + "\"" + svgStyle() + "/>";
     }
 }

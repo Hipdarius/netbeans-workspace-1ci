@@ -100,6 +100,9 @@
       </Layout>
       <SubComponents>
         <Component class="javax.swing.JTextField" name="colorTextField">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="colorTextFieldActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="colorLabel">
           <Properties>
@@ -110,6 +113,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JCheckBox" name="filledCheck">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="filledCheckActionPerformed"/>
+          </Events>
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="82" green="ff" red="0" type="rgb"/>
@@ -121,21 +127,33 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="fillColorButton">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="fillColorButtonActionPerformed"/>
+          </Events>
           <Properties>
             <Property name="text" type="java.lang.String" value="Fill color..."/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="deleteButton">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deleteButtonActionPerformed"/>
+          </Events>
           <Properties>
             <Property name="text" type="java.lang.String" value="Delete"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="frontButton">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="frontButtonActionPerformed"/>
+          </Events>
           <Properties>
             <Property name="text" type="java.lang.String" value="bring to front"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="backButton">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="backButtonActionPerformed"/>
+          </Events>
           <Properties>
             <Property name="text" type="java.lang.String" value="bring to back"/>
           </Properties>
@@ -191,36 +209,57 @@
       </Layout>
       <SubComponents>
         <Component class="javax.swing.JButton" name="selectionButton">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="selectionButtonActionPerformed"/>
+          </Events>
           <Properties>
             <Property name="text" type="java.lang.String" value="Select"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="lineButton">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="lineButtonActionPerformed"/>
+          </Events>
           <Properties>
             <Property name="text" type="java.lang.String" value="Line"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="rectangleButton">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rectangleButtonActionPerformed"/>
+          </Events>
           <Properties>
             <Property name="text" type="java.lang.String" value="Rectangle"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="ovalButton">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ovalButtonActionPerformed"/>
+          </Events>
           <Properties>
             <Property name="text" type="java.lang.String" value="Oval"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="saveJsonButton">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="saveJsonButtonActionPerformed"/>
+          </Events>
           <Properties>
             <Property name="text" type="java.lang.String" value="Save JSON"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="loadJsonButton">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="loadJsonButtonActionPerformed"/>
+          </Events>
           <Properties>
             <Property name="text" type="java.lang.String" value="Load JSON"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="saveSvgButton">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="saveSvgButtonActionPerformed"/>
+          </Events>
           <Properties>
             <Property name="text" type="java.lang.String" value="Save SVG"/>
           </Properties>

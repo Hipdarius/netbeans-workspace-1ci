@@ -1,13 +1,11 @@
 package h6_vectors;
 
 import java.awt.Color;
-import java.awt.geom.Point2D;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import javax.swing.JColorChooser;
 import javax.swing.JOptionPane;
-import javax.swing.KeyStroke;
 
 /**
  * Main window for the vector drawing application.
@@ -27,85 +25,6 @@ public class MainFrame extends javax.swing.JFrame {
         setTitle("Vector Drawer");
         drawPanel.setDrawing(drawing);
         colorTextField.setText("#000000");
-        drawPanel.setToolTipText("Select and drag to move. Drag the blue square to resize.");
-        colorTextField.setToolTipText("Enter a color such as #ff0000, then press Enter.");
-        filledCheck.setToolTipText("Fill rectangles and ovals.");
-        
-        
-        selectionButton.addActionListener(event -> i = 0);
-        rectangleButton.addActionListener(event -> i = 1);
-        lineButton.addActionListener(event -> i = 2);
-        ovalButton.addActionListener(event -> i = 3);
-
-        colorTextField.addActionListener(event -> {
-            try {
-                Color color = Color.decode(colorTextField.getText().trim());
-                Shape selected = drawing.getSelected();
-                if (selected != null) selected.color = color;
-                drawPanel.repaint();
-            } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(this, "Use a hex color such as #ff0000.");
-            }
-        });
-        fillColorButton.addActionListener(event -> {
-            Color chosen = JColorChooser.showDialog(this, "Fill color", fillColor);
-            if (chosen != null) {
-                fillColor = chosen;
-                Shape selected = drawing.getSelected();
-                if (selected != null && !(selected instanceof Line))
-                    selected.fillColor = chosen;
-                drawPanel.repaint();
-            }
-        });
-        filledCheck.addActionListener(event -> {
-            Shape selected = drawing.getSelected();
-            if (selected != null && !(selected instanceof Line))
-                selected.filled = filledCheck.isSelected();
-            drawPanel.repaint();
-        });
-        frontButton.addActionListener(event -> {
-            drawing.bringToFront();
-            drawPanel.repaint();
-        });
-        backButton.addActionListener(event -> {
-            drawing.sendToBack();
-            drawPanel.repaint();
-        });
-        deleteButton.addActionListener(event -> {
-            drawing.deleteSelected();
-            shape = null;
-            drawPanel.repaint();
-        });
-        getRootPane().registerKeyboardAction(event -> deleteButton.doClick(),
-                KeyStroke.getKeyStroke("DELETE"), javax.swing.JComponent.WHEN_IN_FOCUSED_WINDOW);
-        saveJsonButton.addActionListener(event -> saveDrawing("json"));
-        loadJsonButton.addActionListener(event -> loadDrawing());
-        saveSvgButton.addActionListener(event -> saveDrawing("svg"));
-        pack();
-    }
-
-    private void saveDrawing(String extension) {
-        try {
-            String text = drawing.toJson();
-            if (extension.equals("svg"))
-                text = drawing.toSvg(drawPanel.getWidth(), drawPanel.getHeight());
-            Files.writeString(Path.of("drawing." + extension), text);
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(this, "Could not save: " + ex.getMessage());
-        }
-    }
-
-    private void loadDrawing() {
-        try {
-            String text = Files.readString(Path.of("drawing.json"));
-            // Replace the current drawing only after the whole file was parsed.
-            drawing = Drawing.fromJson(text);
-            shape = null;
-            drawPanel.setDrawing(drawing);
-            drawPanel.repaint();
-        } catch (IOException | RuntimeException ex) {
-            JOptionPane.showMessageDialog(this, "Could not load: " + ex.getMessage());
-        }
     }
 
     /**
@@ -136,6 +55,72 @@ public class MainFrame extends javax.swing.JFrame {
         drawPanel = new h6_vectors.DrawPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        selectionButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selectionButtonActionPerformed(evt);
+            }
+        });
+        rectangleButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rectangleButtonActionPerformed(evt);
+            }
+        });
+        lineButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lineButtonActionPerformed(evt);
+            }
+        });
+        ovalButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ovalButtonActionPerformed(evt);
+            }
+        });
+        colorTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                colorTextFieldActionPerformed(evt);
+            }
+        });
+        fillColorButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fillColorButtonActionPerformed(evt);
+            }
+        });
+        filledCheck.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                filledCheckActionPerformed(evt);
+            }
+        });
+        frontButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                frontButtonActionPerformed(evt);
+            }
+        });
+        backButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backButtonActionPerformed(evt);
+            }
+        });
+        deleteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteButtonActionPerformed(evt);
+            }
+        });
+        saveJsonButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveJsonButtonActionPerformed(evt);
+            }
+        });
+        loadJsonButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loadJsonButtonActionPerformed(evt);
+            }
+        });
+        saveSvgButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveSvgButtonActionPerformed(evt);
+            }
+        });
 
         drawPanel.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
@@ -290,6 +275,100 @@ public class MainFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void selectionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectionButtonActionPerformed
+        i = 0;
+    }//GEN-LAST:event_selectionButtonActionPerformed
+
+    private void rectangleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rectangleButtonActionPerformed
+        i = 1;
+    }//GEN-LAST:event_rectangleButtonActionPerformed
+
+    private void lineButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lineButtonActionPerformed
+        i = 2;
+    }//GEN-LAST:event_lineButtonActionPerformed
+
+    private void ovalButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ovalButtonActionPerformed
+        i = 3;
+    }//GEN-LAST:event_ovalButtonActionPerformed
+
+    private void colorTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorTextFieldActionPerformed
+        try {
+            Color color = Color.decode(colorTextField.getText().trim());
+            Shape selected = drawing.getSelected();
+            if (selected != null) { 
+                selected.color = color; 
+            }
+            drawPanel.repaint();
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Use hex color code please");
+        }
+    }//GEN-LAST:event_colorTextFieldActionPerformed
+
+    private void fillColorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fillColorButtonActionPerformed
+        Color chosen = JColorChooser.showDialog(this, "Fill color", fillColor);
+        if (chosen != null) {
+            fillColor = chosen;
+            Shape selected = drawing.getSelected();
+            if (selected != null && !(selected instanceof Line))
+                selected.fillColor = chosen;
+            drawPanel.repaint();
+        }
+    }//GEN-LAST:event_fillColorButtonActionPerformed
+
+    private void filledCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filledCheckActionPerformed
+        Shape selected = drawing.getSelected();
+        if (selected != null && !(selected instanceof Line))
+            selected.filled = filledCheck.isSelected();
+        drawPanel.repaint();
+    }//GEN-LAST:event_filledCheckActionPerformed
+
+    private void frontButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_frontButtonActionPerformed
+        drawing.bringToFront();
+        drawPanel.repaint();
+    }//GEN-LAST:event_frontButtonActionPerformed
+
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
+        drawing.sendToBack();
+        drawPanel.repaint();
+    }//GEN-LAST:event_backButtonActionPerformed
+
+    private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
+        drawing.deleteSelected();
+        shape = null;
+        drawPanel.repaint();
+    }//GEN-LAST:event_deleteButtonActionPerformed
+
+    private void saveJsonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveJsonButtonActionPerformed
+        try {
+            String text = drawing.toJson();
+            Files.writeString(Path.of("drawing.json"), text);
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(this, "Could not save: " + ex.getMessage());
+        }
+    }//GEN-LAST:event_saveJsonButtonActionPerformed
+
+    private void loadJsonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadJsonButtonActionPerformed
+        try {
+            String text = Files.readString(Path.of("drawing.json"));
+            drawing = Drawing.fromJson(text);
+            shape = null;
+            drawPanel.setDrawing(drawing);
+            drawPanel.repaint();
+        } catch (IOException | RuntimeException ex) {
+            JOptionPane.showMessageDialog(this, "Could not load: " + ex.getMessage());
+        }
+    }//GEN-LAST:event_loadJsonButtonActionPerformed
+
+    private void saveSvgButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveSvgButtonActionPerformed
+        try {
+            String text = drawing.toSvg(drawPanel.getWidth(), drawPanel.getHeight());
+            Files.writeString(Path.of("drawing.svg"), text);
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(this, "Could not save: " + ex.getMessage());
+        }
+    }//GEN-LAST:event_saveSvgButtonActionPerformed
+
+
     private void drawPanelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_drawPanelMousePressed
         if (evt.getButton() != java.awt.event.MouseEvent.BUTTON1) return;
         drawPanel.requestFocusInWindow();
@@ -301,7 +380,8 @@ public class MainFrame extends javax.swing.JFrame {
         if (i == 0) {
             shape = drawing.getSelected();
             if (shape != null)
-                resizing = Point2D.distance(x, y, shape.x + shape.width, shape.y + shape.height) <= 6;
+                resizing = Math.hypot(x - (double) shape.x - shape.width,
+                        y - (double) shape.y - shape.height) <= 6;
             if (!resizing) shape = drawing.select(x, y);
             if (shape != null) {
                 colorTextField.setText(String.format("#%06x", shape.color.getRGB() & 0xffffff));

@@ -2,10 +2,7 @@ package h6_vectors;
 
 import com.google.gson.Gson;
 import java.awt.Color;
-import java.awt.BasicStroke;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Stroke;
 
 public abstract class Shape {
     protected int x, y, width, height;
@@ -25,28 +22,25 @@ public abstract class Shape {
         this.fillColor = color;
     }
 
-    public abstract java.awt.Shape get2DShape();
+    public abstract void draw(Graphics g);
     public abstract double distanceFrom(int px, int py);
     public abstract String toSvg();
 
-    public void draw(Graphics g) {
-        Graphics2D g2 = (Graphics2D) g;
-        java.awt.Shape outline = get2DShape();
-        if (filled && !(this instanceof Line)) {
-            g2.setColor(fillColor);
-            g2.fill(outline);
-        }
-
-        Stroke oldStroke = g2.getStroke();
-        g2.setColor(color);
-        g2.setStroke(new BasicStroke(selected ? 3 : 1));
-        g2.draw(outline);
-        g2.setStroke(oldStroke);
-
+    protected void drawHandle(Graphics g) {
         if (selected) {
-            g2.setColor(Color.BLUE);
-            g2.fillRect(x + width - 4, y + height - 4, 8, 8);
+            g.setColor(Color.BLUE);
+            g.fillRect(x + width - 4, y + height - 4, 8, 8);
         }
+    }
+
+    protected double lineDistance(double x1, double y1, double x2, double y2, int px, int py) {
+        double dx = x2 - x1;
+        double dy = y2 - y1;
+        double length = dx * dx + dy * dy;
+        if (length == 0) return Math.hypot(px - x1, py - y1);
+        double position = ((px - x1) * dx + (py - y1) * dy) / length;
+        position = Math.max(0, Math.min(1, position));
+        return Math.hypot(px - (x1 + position * dx), py - (y1 + position * dy));
     }
 
     public void move(int dx, int dy) {

@@ -12,14 +12,14 @@ There is another, older copy under C:/Dev/netbeans-workspace.
 - Outline: enter a hex color such as #ff0000 and press Enter.
 - Fill color: choose an interior color. Tick filled to show it.
 - Bring to front/back: change the selected shape's position in the list.
-- Delete button or Delete key: remove the selected shape.
+- Delete button: remove the selected shape.
 - Save JSON / Load JSON: save to or load from drawing.json in the program's working folder. Saving again replaces the previous file.
 - Save SVG: export to drawing.svg in the same folder. Selection marks are not exported.
 
 ## The code to understand
 
 1. Shape contains the common attributes. Line, Rectangle, and Oval extend it.
-2. get2DShape() builds a Java Line2D, Rectangle2D, or Ellipse2D from those attributes. Graphics2D.draw() draws its outline; fill() fills it.
+2. Each shape's draw(Graphics g) method uses drawLine, drawRect or drawOval. Rectangles and ovals use fillRect or fillOval when filled.
 3. Drawing keeps an ArrayList of Shapes. The last shape in the list is painted last, on top. Selecting searches backwards. Bring to back removes the selected shape and inserts it at index 0; bring to front appends it.
 4. MainFrame keeps int i: 0 selects, 1 draws rectangles, 2 draws lines, 3 draws ovals.
 5. Mouse pressed chooses/creates a shape. Mouse dragged updates its position or dimensions. Mouse released finishes the drag.
@@ -40,12 +40,11 @@ Negative dimensions are allowed. Rectangle and oval geometry use Math.min and Ma
 
 distanceFrom(px, py) returns the distance to the outline, or 0 when the point is inside a filled shape. Selection accepts distance <= 5.
 
-- Line: Line2D.ptSegDist calculates distance to a segment, including its endpoints.
+- Line: lineDistance in Shape calculates distance to a segment, including its endpoints.
 - Rectangle: take the smallest distance to its four sides.
 - Oval: approximate its outline with 360 short segments and find the smallest distance. Each point follows x = cx + rx * cos(angle) and y = cy + ry * sin(angle). This is an approximation, not the exact mathematical distance to an ellipse.
 
 Sources:
-- [Oracle Line2D.ptSegDist](https://docs.oracle.com/en/java/javase/22/docs/api/java.desktop/java/awt/geom/Line2D.html#ptSegDist(double,double))
 - [Ellipse parametric equations](https://mathworld.wolfram.com/Ellipse.html)
 
 ## JSON without adapters

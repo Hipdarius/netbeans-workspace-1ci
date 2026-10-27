@@ -1,7 +1,7 @@
 package h6_vectors;
 
 import java.awt.Color;
-import java.awt.geom.Line2D;
+import java.awt.Graphics;
 
 public class Line extends Shape {
     public Line(int x, int y, int width, int height, boolean selected, Color color, boolean filled) {
@@ -9,14 +9,19 @@ public class Line extends Shape {
     }
 
     @Override
-    public Line2D get2DShape() {
-        return new Line2D.Double(x, y, x + width, y + height);
+    public void draw(Graphics g) {
+        g.setColor(color);
+        g.drawLine(x, y, x + width, y + height);
+        if (selected) {
+            g.drawLine(x + 1, y, x + width + 1, y + height);
+            g.drawLine(x - 1, y, x + width - 1, y + height);
+        }
+        drawHandle(g);
     }
 
     @Override
     public double distanceFrom(int px, int py) {
-        // Java's point-to-segment distance also handles the two endpoints.
-        return get2DShape().ptSegDist(px, py);
+        return lineDistance(x, y, x + width, y + height, px, py);
     }
 
     @Override
