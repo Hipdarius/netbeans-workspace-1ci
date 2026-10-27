@@ -13,8 +13,8 @@ There is another, older copy under C:/Dev/netbeans-workspace.
 - Fill color: choose an interior color. Tick filled to show it.
 - Bring to front/back: change the selected shape's position in the list.
 - Delete button or Delete key: remove the selected shape.
-- Save JSON / Load JSON: choose a file. Loading replaces the current drawing after the whole file has been read successfully.
-- Save SVG: export the drawing. Selection marks are not exported.
+- Save JSON / Load JSON: save to or load from drawing.json in the program's working folder. Saving again replaces the previous file.
+- Save SVG: export to drawing.svg in the same folder. Selection marks are not exported.
 
 ## The code to understand
 
@@ -62,7 +62,7 @@ There is no registerTypeAdapter or setPrettyPrinting.
 The resulting file is a valid JSON array of strings. Older files from this project still load; if no separate fill color was saved, the outline color is used.
 
 File buttons follow the same pattern:
-choose file -> read/write text -> update the drawing -> repaint.
+read/write text using a fixed filename -> update the drawing -> repaint.
 The try/catch displays a message if a file cannot be read or written.
 
 The assignment PDF specifies JSON-P. This version uses Gson, following your later request and supplied Gson code. Those are different JSON libraries.

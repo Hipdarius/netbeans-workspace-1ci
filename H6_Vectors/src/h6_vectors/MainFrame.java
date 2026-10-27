@@ -2,14 +2,12 @@ package h6_vectors;
 
 import java.awt.Color;
 import java.awt.geom.Point2D;
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import javax.swing.JColorChooser;
-import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  * Main window for the vector drawing application.
@@ -87,31 +85,19 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     private void saveDrawing(String extension) {
-        JFileChooser chooser = new JFileChooser();
-        chooser.setFileFilter(new FileNameExtensionFilter(extension.toUpperCase() + " files", extension));
-        chooser.setSelectedFile(new File("drawing." + extension));
-        if (chooser.showSaveDialog(this) != JFileChooser.APPROVE_OPTION) return;
-        File file = chooser.getSelectedFile();
-        if (!file.getName().toLowerCase().endsWith("." + extension))
-            file = new File(file.getParentFile(), file.getName() + "." + extension);
-        if (file.exists() && JOptionPane.showConfirmDialog(this, "Replace " + file.getName() + "?",
-                "Save", JOptionPane.YES_NO_OPTION) != JOptionPane.YES_OPTION) return;
         try {
             String text = drawing.toJson();
             if (extension.equals("svg"))
                 text = drawing.toSvg(drawPanel.getWidth(), drawPanel.getHeight());
-            Files.writeString(file.toPath(), text);
+            Files.writeString(Path.of("drawing." + extension), text);
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(this, "Could not save: " + ex.getMessage());
         }
     }
 
     private void loadDrawing() {
-        JFileChooser chooser = new JFileChooser();
-        chooser.setFileFilter(new FileNameExtensionFilter("JSON files", "json"));
-        if (chooser.showOpenDialog(this) != JFileChooser.APPROVE_OPTION) return;
         try {
-            String text = Files.readString(chooser.getSelectedFile().toPath());
+            String text = Files.readString(Path.of("drawing.json"));
             // Replace the current drawing only after the whole file was parsed.
             drawing = Drawing.fromJson(text);
             shape = null;
