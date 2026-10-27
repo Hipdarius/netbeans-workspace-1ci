@@ -6,7 +6,7 @@ There is another, older copy under C:/Dev/netbeans-workspace.
 ## Controls
 
 - Rectangle, Line, Oval: choose a button, then press, drag, and release.
-- Select (previously >>): click a shape. Its outline becomes thicker.
+- Select (previously >>): click a shape. Its outline becomes thicker. New shapes are not selected automatically.
 - An outline can be selected within 5 pixels. A filled shape can also be selected anywhere inside it. A hollow shape is selected at its edge, so you can select objects behind its empty interior.
 - Drag a selected shape to move it. Drag its blue end/corner square to resize it.
 - Outline: enter a hex color such as #ff0000 and press Enter.
