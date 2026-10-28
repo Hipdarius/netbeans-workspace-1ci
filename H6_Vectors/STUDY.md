@@ -7,10 +7,10 @@ There is another, older copy under C:/Dev/netbeans-workspace.
 
 - Rectangle, Line, Oval: choose a button, then press, drag, and release.
 - Select (previously >>): click a shape. Its outline becomes thicker. New shapes are not selected automatically.
-- An outline can be selected within 5 pixels. A filled shape can also be selected anywhere inside it. A hollow shape is selected at its edge, so you can select objects behind its empty interior.
+- A rectangle or oval can be selected anywhere inside it, even when hollow. Lines and outlines can be selected within 5 pixels.
 - Drag a selected shape to move it. Drag its blue end/corner square to resize it.
-- Outline: enter a hex color such as #ff0000 and press Enter.
-- Fill color: choose an interior color. Tick filled to show it.
+- Color: click Fill color or the color box to choose a color. It changes the outline and the fill of a selected shape.
+- Filled: tick it to fill a selected rectangle or oval with its outline color. The setting also applies to new shapes.
 - Bring to front/back: change the selected shape's position in the list.
 - Delete button: remove the selected shape.
 - Save JSON / Load JSON: save to or load from drawing.json in the program's working folder. Saving again replaces the previous file.
@@ -21,13 +21,13 @@ There is another, older copy under C:/Dev/netbeans-workspace.
 1. Shape contains the common attributes. Line, Rectangle, and Oval extend it.
 2. Each shape's draw(Graphics g) method uses drawLine, drawRect or drawOval. Rectangles and ovals use fillRect or fillOval when filled.
 3. Drawing keeps an ArrayList of Shapes. The last shape in the list is painted last, on top. Selecting searches backwards. Bring to back removes the selected shape and inserts it at index 0; bring to front appends it.
-4. MainFrame keeps int i: 0 selects, 1 draws rectangles, 2 draws lines, 3 draws ovals.
-5. Mouse pressed chooses/creates a shape. Mouse dragged updates its position or dimensions. Mouse released finishes the drag.
+4. MainFrame keeps newShape: it is null for Select, or holds a rectangle, line, or oval to copy when drawing.
+5. Mouse pressed copies the chosen shape or selects one and remembers the click offset. Mouse dragged updates its position or dimensions. Mouse released finishes the drag.
 
 Movement is just:
 
-    x += newMouseX - previousMouseX;
-    y += newMouseY - previousMouseY;
+    x = mouseX - clickX;
+    y = mouseY - clickY;
 
 Resizing is just:
 

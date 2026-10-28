@@ -14,17 +14,17 @@ import javax.swing.JOptionPane;
  */
 public class MainFrame extends javax.swing.JFrame {
     private Drawing drawing = new Drawing();
-    private Shape shape;
-    private int mouseX, mouseY;
+    private Shape newShape = new Rectangle(0, 0, 0, 0, false, Color.BLACK, false);
+    private Shape selected;
+    private int clickX, clickY;
     private boolean resizing;
-    private Color fillColor = Color.BLACK;
-    private int i = 1; // 0 = Select, 1 = Rectangle, 2 = Line, 3 = Oval
 
     public MainFrame() {
         initComponents();
         setTitle("Vector Drawer");
         drawPanel.setDrawing(drawing);
-        colorTextField.setText("#000000");
+        colorTextField.setEditable(false);
+        colorTextField.setBackground(Color.BLACK);
     }
 
     /**
@@ -79,6 +79,11 @@ public class MainFrame extends javax.swing.JFrame {
         colorTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 colorTextFieldActionPerformed(evt);
+            }
+        });
+        colorTextField.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                colorTextFieldMouseClicked(evt);
             }
         });
         fillColorButton.addActionListener(new java.awt.event.ActionListener() {
@@ -139,7 +144,7 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(0, 255, 130));
 
         colorLabel.setForeground(new java.awt.Color(30, 30, 30));
-        colorLabel.setText("Outline (Enter):");
+        colorLabel.setText("Color:");
 
         filledCheck.setBackground(new java.awt.Color(0, 255, 130));
         filledCheck.setForeground(new java.awt.Color(30, 30, 30));
@@ -276,49 +281,54 @@ public class MainFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void selectionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectionButtonActionPerformed
-        i = 0;
+        newShape = null;
     }//GEN-LAST:event_selectionButtonActionPerformed
 
     private void rectangleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rectangleButtonActionPerformed
-        i = 1;
+        newShape = new Rectangle(0, 0, 0, 0, false, colorTextField.getBackground(), filledCheck.isSelected());
+        drawing.clearSelection();
+        drawPanel.repaint();
     }//GEN-LAST:event_rectangleButtonActionPerformed
 
     private void lineButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lineButtonActionPerformed
-        i = 2;
+        newShape = new Line(0, 0, 0, 0, false, colorTextField.getBackground(), false);
+        drawing.clearSelection();
+        drawPanel.repaint();
     }//GEN-LAST:event_lineButtonActionPerformed
 
     private void ovalButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ovalButtonActionPerformed
-        i = 3;
+        newShape = new Oval(0, 0, 0, 0, false, colorTextField.getBackground(), filledCheck.isSelected());
+        drawing.clearSelection();
+        drawPanel.repaint();
     }//GEN-LAST:event_ovalButtonActionPerformed
 
     private void colorTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorTextFieldActionPerformed
-        try {
-            Color color = Color.decode(colorTextField.getText().trim());
-            Shape selected = drawing.getSelected();
-            if (selected != null) { 
-                selected.color = color; 
-            }
-            drawPanel.repaint();
-        } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "Use hex color code please");
-        }
+        fillColorButton.doClick();
     }//GEN-LAST:event_colorTextFieldActionPerformed
 
+    private void colorTextFieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_colorTextFieldMouseClicked
+        fillColorButton.doClick();
+    }//GEN-LAST:event_colorTextFieldMouseClicked
+
     private void fillColorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fillColorButtonActionPerformed
-        Color chosen = JColorChooser.showDialog(this, "Fill color", fillColor);
+        Color chosen = JColorChooser.showDialog(this, "Choose color", colorTextField.getBackground());
         if (chosen != null) {
-            fillColor = chosen;
+            colorTextField.setBackground(chosen);
             Shape selected = drawing.getSelected();
-            if (selected != null && !(selected instanceof Line))
+            if (selected != null) {
+                selected.color = chosen;
                 selected.fillColor = chosen;
+            }
             drawPanel.repaint();
         }
     }//GEN-LAST:event_fillColorButtonActionPerformed
 
     private void filledCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filledCheckActionPerformed
         Shape selected = drawing.getSelected();
-        if (selected != null && !(selected instanceof Line))
+        if (selected != null && !(selected instanceof Line)) {
             selected.filled = filledCheck.isSelected();
+            if (selected.filled) selected.fillColor = selected.color;
+        }
         drawPanel.repaint();
     }//GEN-LAST:event_filledCheckActionPerformed
 
@@ -334,7 +344,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
         drawing.deleteSelected();
-        shape = null;
+        selected = null;
         drawPanel.repaint();
     }//GEN-LAST:event_deleteButtonActionPerformed
 
@@ -351,7 +361,7 @@ public class MainFrame extends javax.swing.JFrame {
         try {
             String text = Files.readString(Path.of("drawing.json"));
             drawing = Drawing.fromJson(text);
-            shape = null;
+            selected = null;
             drawPanel.setDrawing(drawing);
             drawPanel.repaint();
         } catch (IOException | RuntimeException ex) {
@@ -370,21 +380,27 @@ public class MainFrame extends javax.swing.JFrame {
 
 
     private void drawPanelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_drawPanelMousePressed
+        if (evt.getButton() != java.awt.event.MouseEvent.BUTTON1) return;
+        resizing = false;
         if(newShape != null) {
             selected = newShape.clone();
             if(selected != null) {
-                selected.setX(evt.getX - shape.x);
-                selected.setY(evt.getY - shape.y);
-                drawing.add(sleected);
+                selected.x = evt.getX();
+                selected.y = evt.getY();
+                selected.color = colorTextField.getBackground();
+                selected.fillColor = selected.color;
+                selected.filled = !(selected instanceof Line) && filledCheck.isSelected();
+                drawing.addShape(selected);
                 drawPanel.repaint();
             }
         }
         else {
             selected = drawing.getSelected(evt.getX(), evt.getY());
-            
             if(selected != null) {
-                clickX=evt.getX()-selected.getX();
-                clickY = evt.ggetY().selected.getY();
+                clickX = evt.getX() - selected.x;
+                clickY = evt.getY() - selected.y;
+                colorTextField.setBackground(selected.color);
+                filledCheck.setSelected(selected.filled);
                 drawPanel.repaint();
             }
         }
@@ -393,21 +409,20 @@ public class MainFrame extends javax.swing.JFrame {
     private void drawPanelMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_drawPanelMouseReleased
         if (evt.getButton() == java.awt.event.MouseEvent.BUTTON1) {
             drawPanelMouseDragged(evt);
-            shape = null;
+            selected = null;
             resizing = false;
         }
     }//GEN-LAST:event_drawPanelMouseReleased
 
     private void drawPanelMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_drawPanelMouseDragged
-        if (shape == null) return;
-        if (i == 0 && !resizing) {
-            shape.move(evt.getX() - mouseX, evt.getY() - mouseY);
+        if (selected == null) return;
+        if (newShape == null && !resizing) {
+            selected.x = evt.getX() - clickX;
+            selected.y = evt.getY() - clickY;
         } else {
-            shape.width = evt.getX() - shape.x;
-            shape.height = evt.getY() - shape.y;
+            selected.width = evt.getX() - selected.x;
+            selected.height = evt.getY() - selected.y;
         }
-        mouseX = evt.getX();
-        mouseY = evt.getY();
         drawPanel.repaint();
     }//GEN-LAST:event_drawPanelMouseDragged
 

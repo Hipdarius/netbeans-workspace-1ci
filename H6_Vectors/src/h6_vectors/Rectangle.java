@@ -38,6 +38,19 @@ public class Rectangle extends Shape {
     }
 
     @Override
+    public boolean contains(int px, int py) {
+        return px >= Math.min(x, x + width) && px <= Math.max(x, x + width)
+                && py >= Math.min(y, y + height) && py <= Math.max(y, y + height);
+    }
+
+    @Override
+    public Rectangle clone() {
+        Rectangle copy = new Rectangle(x, y, width, height, false, color, filled);
+        copy.fillColor = fillColor;
+        return copy;
+    }
+
+    @Override
     public String toSvg() {
         if (width == 0 || height == 0)
             return "<line x1=\"" + x + "\" y1=\"" + y + "\" x2=\"" + (x + width)

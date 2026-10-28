@@ -25,6 +25,16 @@ public class Line extends Shape {
     }
 
     @Override
+    public boolean contains(int px, int py) {
+        return distanceFrom(px, py) <= 5;
+    }
+
+    @Override
+    public Line clone() {
+        return new Line(x, y, width, height, false, color, false);
+    }
+
+    @Override
     public String toSvg() {
         return "<line x1=\"" + x + "\" y1=\"" + y + "\" x2=\"" + (x + width)
                 + "\" y2=\"" + (y + height) + "\"" + svgStyle() + "/>";

@@ -53,6 +53,22 @@ public class Oval extends Shape {
     }
 
     @Override
+    public boolean contains(int px, int py) {
+        if (width == 0 || height == 0) return false;
+        double cx = x + width / 2.0, cy = y + height / 2.0;
+        double dx = (px - cx) / (Math.abs(width) / 2.0);
+        double dy = (py - cy) / (Math.abs(height) / 2.0);
+        return dx * dx + dy * dy <= 1;
+    }
+
+    @Override
+    public Oval clone() {
+        Oval copy = new Oval(x, y, width, height, false, color, filled);
+        copy.fillColor = fillColor;
+        return copy;
+    }
+
+    @Override
     public String toSvg() {
         if (width == 0 || height == 0)
             return "<line x1=\"" + x + "\" y1=\"" + y + "\" x2=\"" + (x + width)

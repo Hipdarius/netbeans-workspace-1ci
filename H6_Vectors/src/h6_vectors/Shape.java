@@ -24,6 +24,8 @@ public abstract class Shape {
 
     public abstract void draw(Graphics g);
     public abstract double distanceFrom(int px, int py);
+    public abstract boolean contains(int px, int py);
+    public abstract Shape clone();
     public abstract String toSvg();
 
     protected void drawHandle(Graphics g) {
