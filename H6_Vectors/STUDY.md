@@ -8,7 +8,7 @@ There is another, older copy under C:/Dev/netbeans-workspace.
 - Rectangle, Line, Oval: choose a button, then press, drag, and release.
 - Select (previously >>): click a shape. Its outline becomes thicker. New shapes are not selected automatically.
 - A rectangle or oval can be selected anywhere inside it, even when hollow. Lines and outlines can be selected within 5 pixels.
-- Drag a selected shape to move it. Drag its blue end/corner square to resize it.
+- Drag a selected shape to move it.
 - Color: click Fill color or the color box to choose a color. It changes the outline and the fill of a selected shape.
 - Filled: tick it to fill a selected rectangle or oval with its outline color. The setting also applies to new shapes.
 - Bring to front/back: change the selected shape's position in the list.
@@ -22,14 +22,14 @@ There is another, older copy under C:/Dev/netbeans-workspace.
 2. Each shape's draw(Graphics g) method uses drawLine, drawRect or drawOval. Rectangles and ovals use fillRect or fillOval when filled.
 3. Drawing keeps an ArrayList of Shapes. The last shape in the list is painted last, on top. Selecting searches backwards. Bring to back removes the selected shape and inserts it at index 0; bring to front appends it.
 4. MainFrame keeps newShape: it is null for Select, or holds a rectangle, line, or oval to copy when drawing.
-5. Mouse pressed copies the chosen shape or selects one and remembers the click offset. Mouse dragged updates its position or dimensions. Mouse released finishes the drag.
+5. Mouse pressed copies the chosen shape or selects one and remembers the click offset. Mouse dragged moves a selected shape or sets the size of a new one. Mouse released finishes the drag.
 
 Movement is just:
 
     x = mouseX - clickX;
     y = mouseY - clickY;
 
-Resizing is just:
+While drawing a new shape, its size is:
 
     width = mouseX - x;
     height = mouseY - y;

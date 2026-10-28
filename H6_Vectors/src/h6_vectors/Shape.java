@@ -28,13 +28,6 @@ public abstract class Shape {
     public abstract Shape clone();
     public abstract String toSvg();
 
-    protected void drawHandle(Graphics g) {
-        if (selected) {
-            g.setColor(Color.BLUE);
-            g.fillRect(x + width - 4, y + height - 4, 8, 8);
-        }
-    }
-
     protected double lineDistance(double x1, double y1, double x2, double y2, int px, int py) {
         double dx = x2 - x1;
         double dy = y2 - y1;

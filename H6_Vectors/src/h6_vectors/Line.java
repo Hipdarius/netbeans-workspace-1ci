@@ -16,7 +16,6 @@ public class Line extends Shape {
             g.drawLine(x + 1, y, x + width + 1, y + height);
             g.drawLine(x - 1, y, x + width - 1, y + height);
         }
-        drawHandle(g);
     }
 
     @Override

@@ -17,7 +17,6 @@ public class MainFrame extends javax.swing.JFrame {
     private Shape newShape = new Rectangle(0, 0, 0, 0, false, Color.BLACK, false);
     private Shape selected;
     private int clickX, clickY;
-    private boolean resizing;
 
     public MainFrame() {
         initComponents();
@@ -381,7 +380,6 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void drawPanelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_drawPanelMousePressed
         if (evt.getButton() != java.awt.event.MouseEvent.BUTTON1) return;
-        resizing = false;
         if(newShape != null) {
             selected = newShape.clone();
             if(selected != null) {
@@ -410,13 +408,12 @@ public class MainFrame extends javax.swing.JFrame {
         if (evt.getButton() == java.awt.event.MouseEvent.BUTTON1) {
             drawPanelMouseDragged(evt);
             selected = null;
-            resizing = false;
         }
     }//GEN-LAST:event_drawPanelMouseReleased
 
     private void drawPanelMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_drawPanelMouseDragged
         if (selected == null) return;
-        if (newShape == null && !resizing) {
+        if (newShape == null) {
             selected.x = evt.getX() - clickX;
             selected.y = evt.getY() - clickY;
         } else {

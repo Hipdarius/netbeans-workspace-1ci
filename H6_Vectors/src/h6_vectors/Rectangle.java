@@ -22,7 +22,6 @@ public class Rectangle extends Shape {
             g.drawRect(left - 1, top - 1, w + 2, h + 2);
             g.drawRect(left + 1, top + 1, w - 2, h - 2);
         }
-        drawHandle(g);
     }
 
     @Override

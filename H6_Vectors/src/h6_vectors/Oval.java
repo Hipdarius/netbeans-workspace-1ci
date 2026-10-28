@@ -26,7 +26,6 @@ public class Oval extends Shape {
                 g.drawOval(left + 1, top + 1, w - 2, h - 2);
             }
         }
-        drawHandle(g);
     }
 
     @Override
