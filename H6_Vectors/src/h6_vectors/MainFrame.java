@@ -370,43 +370,24 @@ public class MainFrame extends javax.swing.JFrame {
 
 
     private void drawPanelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_drawPanelMousePressed
-        if (evt.getButton() != java.awt.event.MouseEvent.BUTTON1) return;
-        drawPanel.requestFocusInWindow();
-        int x = evt.getX(), y = evt.getY();
-        mouseX = x;
-        mouseY = y;
-        resizing = false;
-
-        if (i == 0) {
-            shape = drawing.getSelected();
-            if (shape != null)
-                resizing = Math.hypot(x - (double) shape.x - shape.width,
-                        y - (double) shape.y - shape.height) <= 6;
-            if (!resizing) shape = drawing.select(x, y);
-            if (shape != null) {
-                colorTextField.setText(String.format("#%06x", shape.color.getRGB() & 0xffffff));
-                fillColor = shape.fillColor;
-                filledCheck.setSelected(shape.filled);
+        if(newShape != null) {
+            selected = newShape.clone();
+            if(selected != null) {
+                selected.setX(evt.getX - shape.x);
+                selected.setY(evt.getY - shape.y);
+                drawing.add(sleected);
+                drawPanel.repaint();
             }
-        } else {
-            Color color;
-            try {
-                color = Color.decode(colorTextField.getText().trim());
-            } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(this, "Use a hex color such as #ff0000.");
-                return;
-            }
-            drawing.clearSelection();
-            if (i == 2)
-                shape = new Line(x, y, 0, 0, false, color, false);
-            else if (i == 3)
-                shape = new Oval(x, y, 0, 0, false, color, filledCheck.isSelected());
-            else
-                shape = new Rectangle(x, y, 0, 0, false, color, filledCheck.isSelected());
-            shape.fillColor = fillColor;
-            drawing.addShape(shape);
         }
-        drawPanel.repaint();
+        else {
+            selected = drawing.getSelected(evt.getX(), evt.getY());
+            
+            if(selected != null) {
+                clickX=evt.getX()-selected.getX();
+                clickY = evt.ggetY().selected.getY();
+                drawPanel.repaint();
+            }
+        }
     }//GEN-LAST:event_drawPanelMousePressed
 
     private void drawPanelMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_drawPanelMouseReleased
