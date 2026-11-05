@@ -2,10 +2,7 @@ package h6_vectors;
 
 import com.google.gson.Gson;
 import java.awt.Color;
-import java.awt.BasicStroke;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Stroke;
 
 public abstract class Shape {
     protected int x, y, width, height;
@@ -25,28 +22,25 @@ public abstract class Shape {
         this.fillColor = color;
     }
 
-    public abstract java.awt.Shape get2DShape();
+    public abstract void draw(Graphics g);
     public abstract double distanceFrom(int px, int py);
+    public abstract boolean contains(int px, int py);
+    public abstract Shape clone();
     public abstract String toSvg();
 
-    public void draw(Graphics g) {
-        Graphics2D g2 = (Graphics2D) g;
-        java.awt.Shape outline = get2DShape();
-        if (filled && !(this instanceof Line)) {
-            g2.setColor(fillColor);
-            g2.fill(outline);
-        }
+    protected double lineDistance(double x1, double y1, double x2, double y2, int px, int py) {
+        double dx = x2 - x1;
+        double dy = y2 - y1;
+        double lengthSquared = dx * dx + dy * dy;
+        if (lengthSquared == 0) return Math.hypot(px - x1, py - y1);
 
-        Stroke oldStroke = g2.getStroke();
-        g2.setColor(color);
-        g2.setStroke(new BasicStroke(selected ? 3 : 1));
-        g2.draw(outline);
-        g2.setStroke(oldStroke);
+        double position = ((px - x1) * dx + (py - y1) * dy) / lengthSquared;
+        if (position < 0) position = 0;
+        if (position > 1) position = 1;
 
-        if (selected) {
-            g2.setColor(Color.BLUE);
-            g2.fillRect(x + width - 4, y + height - 4, 8, 8);
-        }
+        double nearestX = x1 + position * dx;
+        double nearestY = y1 + position * dy;
+        return Math.hypot(px - nearestX, py - nearestY);
     }
 
     public void move(int dx, int dy) {
@@ -65,28 +59,31 @@ public abstract class Shape {
         }
         
         String[] pieces = s.split("\\|", 2);
+        String className = pieces[0];
+        String json = pieces[1];
         
-        ShapeData data = new Gson().fromJson(pieces[1], ShapeData.class);
+        ShapeData data = new Gson().fromJson(json, ShapeData.class);
         if (data == null || data.color == null) {
             throw new IllegalArgumentException("The shape has no color.");
         }
-        
-        Color color = new Color(data.color, true);
-        
-        Shape shape;
-        
-        if (pieces[0].equals("Line"))
-            shape = new Line(data.x, data.y, data.width, data.height, false, color, false);
-        else if (pieces[0].equals("Rectangle"))
-            shape = new Rectangle(data.x, data.y, data.width, data.height, false, color, data.filled);
-        else if (pieces[0].equals("Oval"))
-            shape = new Oval(data.x, data.y, data.width, data.height, false, color, data.filled);
-        else
-            throw new IllegalArgumentException("Unknown shape: " + pieces[0]);
 
-        // Older files used the outline color for the filling too.
-        if (data.fillColor != null)
+        Color color = new Color(data.color, true);
+        Shape shape;
+
+        if (className.equals("Line")) {
+            shape = new Line(data.x, data.y, data.width, data.height, false, color, false);
+        } else if (className.equals("Rectangle")) {
+            shape = new Rectangle(data.x, data.y, data.width, data.height, false, color, data.filled);
+        } else if (className.equals("Oval")) {
+            shape = new Oval(data.x, data.y, data.width, data.height, false, color, data.filled);
+        } else {
+            throw new IllegalArgumentException("Unknown shape: " + className);
+        }
+
+
+        if (data.fillColor != null) {
             shape.fillColor = new Color(data.fillColor, true);
+        }
         return shape;
     }
 

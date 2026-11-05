@@ -1,35 +1,35 @@
 # H6 Vectors: use and study
 
-The project NetBeans runs is C:/Dev/netbeans-workspace-1ci/H6_Vectors.
-There is another, older copy under C:/Dev/netbeans-workspace.
+Open the H6_Vectors folder from your checkout of this repository in NetBeans.
+When several copies are open, check the project folder and branch before editing.
 
 ## Controls
 
 - Rectangle, Line, Oval: choose a button, then press, drag, and release.
 - Select (previously >>): click a shape. Its outline becomes thicker. New shapes are not selected automatically.
-- An outline can be selected within 5 pixels. A filled shape can also be selected anywhere inside it. A hollow shape is selected at its edge, so you can select objects behind its empty interior.
-- Drag a selected shape to move it. Drag its blue end/corner square to resize it.
-- Outline: enter a hex color such as #ff0000 and press Enter.
-- Fill color: choose an interior color. Tick filled to show it.
+- A rectangle or oval can be selected anywhere inside it, even when hollow. Lines and outlines can be selected within 5 pixels.
+- Drag a selected shape to move it.
+- Color: click Fill color or the color box to choose a color. It changes the outline and the fill of a selected shape.
+- Filled: tick it to fill a selected rectangle or oval with its outline color. The setting also applies to new shapes.
 - Bring to front/back: change the selected shape's position in the list.
-- Delete button or Delete key: remove the selected shape.
-- Save JSON / Load JSON: choose a file. Loading replaces the current drawing after the whole file has been read successfully.
-- Save SVG: export the drawing. Selection marks are not exported.
+- Delete button: remove the selected shape.
+- Save JSON / Load JSON: save to or load from drawing.json in the program's working folder. Saving again replaces the previous file.
+- Save SVG: export to drawing.svg in the same folder. Selection marks are not exported.
 
 ## The code to understand
 
 1. Shape contains the common attributes. Line, Rectangle, and Oval extend it.
-2. get2DShape() builds a Java Line2D, Rectangle2D, or Ellipse2D from those attributes. Graphics2D.draw() draws its outline; fill() fills it.
+2. Each shape's draw(Graphics g) method uses drawLine, drawRect or drawOval. Rectangles and ovals use fillRect or fillOval when filled.
 3. Drawing keeps an ArrayList of Shapes. The last shape in the list is painted last, on top. Selecting searches backwards. Bring to back removes the selected shape and inserts it at index 0; bring to front appends it.
-4. MainFrame keeps int i: 0 selects, 1 draws rectangles, 2 draws lines, 3 draws ovals.
-5. Mouse pressed chooses/creates a shape. Mouse dragged updates its position or dimensions. Mouse released finishes the drag.
+4. MainFrame keeps newShape: it is null for Select, or holds a rectangle, line, or oval to copy when drawing.
+5. Mouse pressed copies the chosen shape or selects one and remembers the click offset. Mouse dragged moves a selected shape or sets the size of a new one. Mouse released finishes the drag.
 
 Movement is just:
 
-    x += newMouseX - previousMouseX;
-    y += newMouseY - previousMouseY;
+    x = mouseX - clickX;
+    y = mouseY - clickY;
 
-Resizing is just:
+While drawing a new shape, its size is:
 
     width = mouseX - x;
     height = mouseY - y;
@@ -40,12 +40,11 @@ Negative dimensions are allowed. Rectangle and oval geometry use Math.min and Ma
 
 distanceFrom(px, py) returns the distance to the outline, or 0 when the point is inside a filled shape. Selection accepts distance <= 5.
 
-- Line: Line2D.ptSegDist calculates distance to a segment, including its endpoints.
+- Line: lineDistance in Shape calculates distance to a segment, including its endpoints.
 - Rectangle: take the smallest distance to its four sides.
 - Oval: approximate its outline with 360 short segments and find the smallest distance. Each point follows x = cx + rx * cos(angle) and y = cy + ry * sin(angle). This is an approximation, not the exact mathematical distance to an ellipse.
 
 Sources:
-- [Oracle Line2D.ptSegDist](https://docs.oracle.com/en/java/javase/22/docs/api/java.desktop/java/awt/geom/Line2D.html#ptSegDist(double,double))
 - [Ellipse parametric equations](https://mathworld.wolfram.com/Ellipse.html)
 
 ## JSON without adapters
@@ -62,7 +61,7 @@ There is no registerTypeAdapter or setPrettyPrinting.
 The resulting file is a valid JSON array of strings. Older files from this project still load; if no separate fill color was saved, the outline color is used.
 
 File buttons follow the same pattern:
-choose file -> read/write text -> update the drawing -> repaint.
+read/write text using a fixed filename -> update the drawing -> repaint.
 The try/catch displays a message if a file cannot be read or written.
 
 The assignment PDF specifies JSON-P. This version uses Gson, following your later request and supplied Gson code. Those are different JSON libraries.

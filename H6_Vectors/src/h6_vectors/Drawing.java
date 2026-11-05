@@ -28,12 +28,12 @@ public class Drawing {
         return null;
     }
 
-    public Shape select(int x, int y) {
+    public Shape getSelected(int x, int y) {
         clearSelection();
         // Last drawn = on top, so search backwards.
         for (int n = shapes.size() - 1; n >= 0; n--) {
             Shape shape = shapes.get(n);
-            if (shape.distanceFrom(x, y) <= 5) {
+            if (shape.contains(x, y) || shape.distanceFrom(x, y) <= 5) {
                 shape.selected = true;
                 return shape;
             }
