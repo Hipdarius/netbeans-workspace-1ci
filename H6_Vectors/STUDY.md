@@ -49,7 +49,7 @@ Sources:
 
 ## JSON without adapters
 
-ShapeData holds simple values: coordinates, sizes, booleans, and color integers.
+ShapeData holds simple values: coordinates, sizes, a filled flag, and one color integer. The outline and filling use the same color.
 There is no registerTypeAdapter or setPrettyPrinting.
 
 - Saving a color: color.getRGB()
@@ -58,7 +58,7 @@ There is no registerTypeAdapter or setPrettyPrinting.
 - Saving a drawing: put those shape strings into a list, then new Gson().toJson(list).
 - Loading: read a String[], loop over it, and call Shape.fromString().
 
-The resulting file is a valid JSON array of strings. Older files from this project still load; if no separate fill color was saved, the outline color is used.
+The resulting file is a valid JSON array of strings. Older files still load, but any separate fill color is ignored: the outline color is now used for both.
 
 File buttons follow the same pattern:
 read/write text using a fixed filename -> update the drawing -> repaint.

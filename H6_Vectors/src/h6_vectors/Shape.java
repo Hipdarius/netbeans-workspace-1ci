@@ -9,7 +9,6 @@ public abstract class Shape {
     protected boolean selected;
     protected Color color;
     protected boolean filled;
-    protected Color fillColor;
 
     public Shape(int x, int y, int width, int height, boolean selected, Color color, boolean filled) {
         this.x = x;
@@ -19,7 +18,6 @@ public abstract class Shape {
         this.selected = selected;
         this.color = color;
         this.filled = filled;
-        this.fillColor = color;
     }
 
     public abstract void draw(Graphics g);
@@ -41,11 +39,6 @@ public abstract class Shape {
         double nearestX = x1 + position * dx;
         double nearestY = y1 + position * dy;
         return Math.hypot(px - nearestX, py - nearestY);
-    }
-
-    public void move(int dx, int dy) {
-        x += dx;
-        y += dy;
     }
 
     @Override
@@ -79,11 +72,6 @@ public abstract class Shape {
         } else {
             throw new IllegalArgumentException("Unknown shape: " + className);
         }
-
-
-        if (data.fillColor != null) {
-            shape.fillColor = new Color(data.fillColor, true);
-        }
         return shape;
     }
 
@@ -93,9 +81,9 @@ public abstract class Shape {
         String fill = "none";
         
         if (filled && !(this instanceof Line))
-            fill = String.format("#%06x", fillColor.getRGB() & 0xffffff);
+            fill = stroke;
         return " stroke=\"" + stroke + "\" fill=\"" + fill
                 + "\" stroke-opacity=\"" + color.getAlpha() / 255.0
-                + "\" fill-opacity=\"" + fillColor.getAlpha() / 255.0 + "\"";
+                + "\" fill-opacity=\"" + color.getAlpha() / 255.0 + "\"";
     }
 }

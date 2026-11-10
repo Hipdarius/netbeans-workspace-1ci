@@ -3,7 +3,7 @@ package h6_vectors;
 // Only simple data goes into JSON. Color objects stay in Shape.
 public class ShapeData {
     int x, y, width, height;
-    Integer color, fillColor;
+    Integer color;
     boolean filled;
 
     public ShapeData(Shape shape) {
@@ -12,7 +12,6 @@ public class ShapeData {
         width = shape.width;
         height = shape.height;
         color = shape.color.getRGB();
-        fillColor = shape.fillColor.getRGB();
         filled = shape.filled; 
     }
 }

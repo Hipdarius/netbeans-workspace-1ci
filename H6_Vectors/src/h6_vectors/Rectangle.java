@@ -12,11 +12,10 @@ public class Rectangle extends Shape {
     public void draw(Graphics g) {
         int left = Math.min(x, x + width), top = Math.min(y, y + height);
         int w = Math.abs(width), h = Math.abs(height);
+        g.setColor(color);
         if (filled) {
-            g.setColor(fillColor);
             g.fillRect(left, top, w, h);
         }
-        g.setColor(color);
         g.drawRect(left, top, w, h);
         if (selected) {
             g.drawRect(left - 1, top - 1, w + 2, h + 2);
@@ -28,7 +27,7 @@ public class Rectangle extends Shape {
     public double distanceFrom(int px, int py) {
         int left = Math.min(x, x + width), right = Math.max(x, x + width);
         int top = Math.min(y, y + height), bottom = Math.max(y, y + height);
-        if (filled && px >= left && px <= right && py >= top && py <= bottom)
+        if (filled && contains(px, py))
             return 0;
         double d = lineDistance(left, top, right, top, px, py);
         d = Math.min(d, lineDistance(right, top, right, bottom, px, py));
@@ -44,9 +43,7 @@ public class Rectangle extends Shape {
 
     @Override
     public Rectangle clone() {
-        Rectangle copy = new Rectangle(x, y, width, height, false, color, filled);
-        copy.fillColor = fillColor;
-        return copy;
+        return new Rectangle(x, y, width, height, false, color, filled);
     }
 
     @Override
