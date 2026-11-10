@@ -313,20 +313,18 @@ public class MainFrame extends javax.swing.JFrame {
         Color chosen = JColorChooser.showDialog(this, "Choose color", colorTextField.getBackground());
         if (chosen != null) {
             colorTextField.setBackground(chosen);
-            Shape selected = drawing.getSelected();
-            if (selected != null) {
-                selected.color = chosen;
-                selected.fillColor = chosen;
+            Shape shape = drawing.getSelected();
+            if (shape != null) {
+                shape.color = chosen;
             }
             drawPanel.repaint();
         }
     }//GEN-LAST:event_fillColorButtonActionPerformed
 
     private void filledCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filledCheckActionPerformed
-        Shape selected = drawing.getSelected();
-        if (selected != null && !(selected instanceof Line)) {
-            selected.filled = filledCheck.isSelected();
-            if (selected.filled) selected.fillColor = selected.color;
+        Shape shape = drawing.getSelected();
+        if (shape != null && !(shape instanceof Line)) {
+            shape.filled = filledCheck.isSelected();
         }
         drawPanel.repaint();
     }//GEN-LAST:event_filledCheckActionPerformed
@@ -386,7 +384,6 @@ public class MainFrame extends javax.swing.JFrame {
                 selected.x = evt.getX();
                 selected.y = evt.getY();
                 selected.color = colorTextField.getBackground();
-                selected.fillColor = selected.color;
                 selected.filled = !(selected instanceof Line) && filledCheck.isSelected();
                 drawing.addShape(selected);
                 drawPanel.repaint();
