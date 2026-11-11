@@ -29,12 +29,15 @@ public class H7_PerformanceTests {
      */
     public static void main(String[] args) {
         
+        //Initializing values
         Random random = new Random();
         
         for(int i = 0; i < size; i++) {
             values[i] = random.nextInt(max - min + 1) + min;
         }
         
+        
+        //ArrayList
         ArrayList<Integer> arrayList = new ArrayList<>();
         long alStart = Calendar.getInstance().getTimeInMillis();
         
@@ -46,6 +49,7 @@ public class H7_PerformanceTests {
         System.out.println("Time in ms for Array List: " + (alEnd - alStart));
        
         
+        //HashSet
         HashSet<Integer> hashSet = new HashSet<>();
         long hsStart = Calendar.getInstance().getTimeInMillis();
         
@@ -56,6 +60,8 @@ public class H7_PerformanceTests {
         long hsEnd = Calendar.getInstance().getTimeInMillis();
         System.out.println("Time in ms for Hash Set: " + (hsEnd - hsStart));
         
+        
+        //HashMap
         HashMap<Integer, Integer> hashMap = new HashMap<>();
         long hmStart = Calendar.getInstance().getTimeInMillis();
         
@@ -64,6 +70,8 @@ public class H7_PerformanceTests {
         }
         
         long hmEnd = Calendar.getInstance().getTimeInMillis();
-        System.out.println("Time in ms for Hash Map: " + (hmEnd - hmStart));        
+        System.out.println("Time in ms for Hash Map: " + (hmEnd - hmStart)); 
+        
+        
     }
 }
