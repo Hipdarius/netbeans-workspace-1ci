@@ -8,6 +8,7 @@ import static java.nio.file.Files.size;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -47,10 +48,22 @@ public class H7_PerformanceTests {
         
         HashSet<Integer> hashSet = new HashSet<>();
         long hsStart = Calendar.getInstance().getTimeInMillis();
+        
+        for (int i = 0; i < values.length; i++) {
+            hashSet.add(values[i]);
+        }
+        
         long hsEnd = Calendar.getInstance().getTimeInMillis();
         System.out.println("Time in ms for Hash Set: " + (hsEnd - hsStart));
         
+        HashMap<Integer, Integer> hashMap = new HashMap<>();
+        long hmStart = Calendar.getInstance().getTimeInMillis();
         
+        for (int i = 0; i < values.length; i++) {
+            hashMap.put(i, values[i]);
+        }
+        
+        long hmEnd = Calendar.getInstance().getTimeInMillis();
+        System.out.println("Time in ms for Hash Map: " + (hmEnd - hmStart));        
     }
-    
 }
