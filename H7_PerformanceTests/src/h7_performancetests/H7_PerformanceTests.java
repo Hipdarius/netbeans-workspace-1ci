@@ -7,6 +7,8 @@ package h7_performancetests;
 import static java.nio.file.Files.size;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Calendar;
+import java.util.HashSet;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -33,16 +35,22 @@ public class H7_PerformanceTests {
         }
         
         ArrayList<Integer> arrayList = new ArrayList<>();
-      
-        long alStart = System.nanoTime();
+        long alStart = Calendar.getInstance().getTimeInMillis();
         
         for (int i = 0; i < values.length; i++) {
             arrayList.add(values[i]);
         }
      
-        long alEnd = System.nanoTime();
-        
+        long alEnd = Calendar.getInstance().getTimeInMillis();
         System.out.println("Time in ms for Array List: " + (alEnd - alStart));
+       
+        
+        HashSet<Integer> hashSet = new HashSet<>();
+        long hsStart = Calendar.getInstance().getTimeInMillis();
+        long hsEnd = Calendar.getInstance().getTimeInMillis();
+        System.out.println("Time in ms for Hash Set: " + (hsEnd - hsStart));
+        
+        
     }
     
 }
