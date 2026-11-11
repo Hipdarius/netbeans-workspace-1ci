@@ -4,26 +4,45 @@
  */
 package h7_performancetests;
 
+import static java.nio.file.Files.size;
+import java.util.ArrayList;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
+
 /**
  *
  * @author Darius
  */
 public class H7_PerformanceTests {
+    
+    static int size = 1000000;
+    static int min = 0;
+    static int max = 999;
+        
+    static int[] values = new int[size];  
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        long start = System.nanoTime();
         
-        public static final int[] SOURCE_DATA = ThreadLocalRandom.current()
-                .ints(1_000_000, 0, 1000)
-                .toArray();
+        Random random = new Random();
         
+        for(int i = 0; i < size; i++) {
+            values[i] = random.nextInt(max - min + 1) + min;
+        }
         
+        ArrayList<Integer> arrayList = new ArrayList<>();
+      
+        long alStart = System.nanoTime();
         
-        long end = System.nanoTime();
-        System.out.println("Time in ms: " + (end - start));
+        for (int i = 0; i < values.length; i++) {
+            arrayList.add(values[i]);
+        }
+     
+        long alEnd = System.nanoTime();
+        
+        System.out.println("Time in ms for Array List: " + (alEnd - alStart));
     }
     
 }
