@@ -14,7 +14,16 @@ public class H7_PerformanceTests {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        long start = System.nanoTime();
+        
+        public static final int[] SOURCE_DATA = ThreadLocalRandom.current()
+                .ints(1_000_000, 0, 1000)
+                .toArray();
+        
+        
+        
+        long end = System.nanoTime();
+        System.out.println("Time in ms: " + (end - start));
     }
     
 }
