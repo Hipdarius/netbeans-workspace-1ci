@@ -73,5 +73,7 @@ public class H7_PerformanceTests {
         System.out.println("Time in ms for Hash Map: " + (hmEnd - hmStart)); 
         
         
+        //Linear search through each
+        
     }
 }
