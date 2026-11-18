@@ -15,7 +15,6 @@ public class StatsEntry implements Comparable<StatsEntry> {
 
     @Override
     public int compareTo(StatsEntry other) {
-        // Les mots les plus frequents apparaissent en premier.
         int result = Integer.compare(other.count, count);
         if (result == 0) {
             result = word.compareTo(other.word);

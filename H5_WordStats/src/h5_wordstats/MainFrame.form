@@ -27,55 +27,45 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-        <Group type="102" alignment="0" attributes="0">
-          <EmptySpace max="-2" attributes="0"/>
-          <Group type="103" groupAlignment="0" attributes="0">
-            <Component id="splitPane" pref="800" max="32767" attributes="0"/>
-            <Group type="102" attributes="0">
-              <Component id="versionLabel" min="-2" max="-2" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="versionComboBox" min="-2" pref="220" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
-              <Component id="clearButton" min="-2" max="-2" attributes="0"/>
-            </Group>
-            <Group type="102" attributes="0">
-              <Component id="textLabel" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
-              <Component id="statsLabel" min="-2" max="-2" attributes="0"/>
-            </Group>
-            <Group type="102" attributes="0">
-              <Component id="summaryLabel" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
-              <Component id="timeLabel" min="-2" max="-2" attributes="0"/>
-            </Group>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="splitPane" pref="800" max="32767" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Component id="versionLabel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="versionComboBox" min="-2" pref="220" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="clearButton" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Component id="summaryLabel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="timeLabel" min="-2" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
-          <EmptySpace max="-2" attributes="0"/>
-        </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-        <Group type="102" alignment="0" attributes="0">
-          <EmptySpace max="-2" attributes="0"/>
-          <Group type="103" groupAlignment="3" attributes="0">
-            <Component id="versionLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-            <Component id="versionComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
-            <Component id="clearButton" alignment="3" min="-2" max="-2" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="versionLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="versionComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="clearButton" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+              <Component id="splitPane" pref="320" max="32767" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="summaryLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="timeLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
-          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-          <Group type="103" groupAlignment="3" attributes="0">
-            <Component id="textLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-            <Component id="statsLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-          </Group>
-          <EmptySpace max="-2" attributes="0"/>
-          <Component id="splitPane" pref="320" max="32767" attributes="0"/>
-          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-          <Group type="103" groupAlignment="3" attributes="0">
-            <Component id="summaryLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-            <Component id="timeLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-          </Group>
-          <EmptySpace max="-2" attributes="0"/>
-        </Group>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -111,22 +101,6 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="clearButtonActionPerformed"/>
       </Events>
-    </Component>
-    <Component class="javax.swing.JLabel" name="textLabel">
-      <Properties>
-        <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
-          <ComponentRef name="textArea"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Texte — écrivez ou collez votre texte"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="statsLabel">
-      <Properties>
-        <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
-          <ComponentRef name="statsList"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Occurrences décroissantes"/>
-      </Properties>
     </Component>
     <Container class="javax.swing.JSplitPane" name="splitPane">
       <Properties>
@@ -189,17 +163,37 @@
             </Component>
           </SubComponents>
         </Container>
+        <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+          <AuxValues>
+            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+          </AuxValues>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout$JSplitPaneConstraintsDescription">
+              <JSplitPaneConstraints position="right"/>
+            </Constraint>
+          </Constraints>
+
+          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+          <SubComponents>
+            <Component class="javax.swing.JTextArea" name="jTextArea1">
+              <Properties>
+                <Property name="columns" type="int" value="20"/>
+                <Property name="rows" type="int" value="5"/>
+              </Properties>
+            </Component>
+          </SubComponents>
+        </Container>
       </SubComponents>
     </Container>
     <Component class="javax.swing.JLabel" name="summaryLabel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="0 mot  |  0 mot différent"/>
+        <Property name="text" type="java.lang.String" value="0 mot  |  0 mot diff&#xe9;rent"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="timeLabel">
       <Properties>
         <Property name="text" type="java.lang.String" value="Calcul : 0,000 ms"/>
-        <Property name="toolTipText" type="java.lang.String" value="Durée indicative du comptage et du tri, sans l'affichage. Elle varie à chaque calcul."/>
+        <Property name="toolTipText" type="java.lang.String" value="Dur&#xe9;e indicative du comptage et du tri, sans l&apos;affichage. Elle varie &#xe0; chaque calcul."/>
       </Properties>
     </Component>
   </SubComponents>

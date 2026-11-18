@@ -18,7 +18,6 @@ public class MainFrame extends javax.swing.JFrame {
         initComponents();
         statsList.setModel(statsListModel);
 
-        // Le document change aussi lors d'un collage, d'une coupe ou d'un effacement.
         textArea.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent evt) {
@@ -77,13 +76,13 @@ public class MainFrame extends javax.swing.JFrame {
         versionLabel = new javax.swing.JLabel();
         versionComboBox = new javax.swing.JComboBox<>();
         clearButton = new javax.swing.JButton();
-        textLabel = new javax.swing.JLabel();
-        statsLabel = new javax.swing.JLabel();
         splitPane = new javax.swing.JSplitPane();
         textScrollPane = new javax.swing.JScrollPane();
         textArea = new javax.swing.JTextArea();
         statsScrollPane = new javax.swing.JScrollPane();
         statsList = new javax.swing.JList<>();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
         summaryLabel = new javax.swing.JLabel();
         timeLabel = new javax.swing.JLabel();
 
@@ -108,12 +107,6 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        textLabel.setLabelFor(textArea);
-        textLabel.setText("Texte — écrivez ou collez votre texte");
-
-        statsLabel.setLabelFor(statsList);
-        statsLabel.setText("Occurrences décroissantes");
-
         splitPane.setDividerLocation(500);
         splitPane.setResizeWeight(0.65);
 
@@ -124,12 +117,20 @@ public class MainFrame extends javax.swing.JFrame {
         textArea.setWrapStyleWord(true);
         textArea.setMargin(new java.awt.Insets(8, 8, 8, 8));
         textScrollPane.setViewportView(textArea);
+
         splitPane.setLeftComponent(textScrollPane);
 
         statsList.setFont(new java.awt.Font("Monospaced", 0, 13)); // NOI18N
         statsList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         statsScrollPane.setViewportView(statsList);
+
         splitPane.setRightComponent(statsScrollPane);
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
+
+        splitPane.setRightComponent(jScrollPane1);
 
         summaryLabel.setText("0 mot  |  0 mot différent");
 
@@ -151,10 +152,6 @@ public class MainFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(clearButton))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(textLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(statsLabel))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(summaryLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(timeLabel)))
@@ -168,11 +165,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(versionLabel)
                     .addComponent(versionComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(clearButton))
-                .addGap(12, 12, 12)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textLabel)
-                    .addComponent(statsLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(34, 34, 34)
                 .addComponent(splitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -217,13 +210,13 @@ public class MainFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton clearButton;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JSplitPane splitPane;
-    private javax.swing.JLabel statsLabel;
     private javax.swing.JList<String> statsList;
     private javax.swing.JScrollPane statsScrollPane;
     private javax.swing.JLabel summaryLabel;
     private javax.swing.JTextArea textArea;
-    private javax.swing.JLabel textLabel;
     private javax.swing.JScrollPane textScrollPane;
     private javax.swing.JLabel timeLabel;
     private javax.swing.JComboBox<String> versionComboBox;
