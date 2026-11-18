@@ -11,29 +11,16 @@ import java.util.HashMap;
  * @author Darius
  */
 public class StatsEntry {
-    private HashMap<String, StatsEntry> entries = new HashMap<>();
-    
-    public void calculate(String text) {
-        entries.clear();
-        
-        text = text.toLowerCase().trim();
-        
-        if(text.isEmpty()) {
-            return;
-        }
-        
-        String[] word = text.split("\\s+");
-        
-        for(int i = 0; i < words.length; i++) {
-            String word = words[i];
-            
-            StatsEntry entry = entries.get(word);
-            
-            if(entry == null) {
-                entries.put(word, new StatsEntry(word));
-            } else {
-                entry.count++;
-            }
-        }
+    public String word;
+    public int count;
+
+    public StatsEntry(String word) {
+        this.word = word;
+        this.count = 1;
+    }
+
+    @Override
+    public String toString() {
+        return word + " ---> " + count;
     }
 }

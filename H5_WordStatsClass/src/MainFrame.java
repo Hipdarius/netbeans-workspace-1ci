@@ -9,6 +9,9 @@
  */
 public class MainFrame extends javax.swing.JFrame {
 
+    private WordsStats wordStats = new WordsStats();
+    
+    
     /**
      * Creates new form MainFrame
      */
