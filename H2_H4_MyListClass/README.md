@@ -1,23 +1,12 @@
-# H2–H4 · MyList classroom project
+# H2–H4 MyList
 
-[← Study desk](../README.md) · [H2–H7 revision notes](../docs/STUDY_GUIDE.md)
+This project uses the classroom integer Node, linked list and NetBeans form. Run MainFrame with F6. The tester uses the same integer inputs and NetBeans event handlers.
 
-This is your original NetBeans classroom project, extended in the same style to cover H2–H4 of the sheet. `Node` stores an `Object` and a reference to the next node. `MyList` keeps `root`, `last` and `size`.
+The list uses root to find the first node, last to append in constant time, and size to keep a count. Follow getNode, insert and remove to see the links change. The original selection sort swaps integer values. The added methods cover count, order checking, reversing, emptiness and integer JSON/XML output. They follow the loops and primitive values used in the class project.
 
-Open the project in NetBeans and run `MainFrame`. The existing GUI is a simple **integer tester**. The underlying `MyList` class also supports other Objects, as requested by the UML. The window uses `toIntegerArray()` because its JList contains integers; do not call that helper on a list of strings.
+- `insert(index, value)` and `replace(index, value)` keep the original classroom order.
+- `remove(index)` returns the removed integer. Use `removeValue(value)` to remove the first matching integer.
+- `set(value, index)` follows the sheet's order.
+- `toArray()` returns a separate `Integer[]`.
 
-## Methods to revise
-
-- H2: `add`, `size`, `remove(int)`, `remove(Object)`, `indexOf`, `print`, `clear`, `get`, private `getNode`, `toArray`, `insert(Object, int)` and `set(Object, int)`.
-- H3: `count`, `sort`, `verifySort`, `reverse`, `isEmpty`, `toJson`, and `toXML`.
-- H4: `last` and `size` are updated when adding, inserting, removing, clearing and reversing. Appending and reading size are O(1).
-
-The sheet uses **value first**: `list.insert(10, 1)` inserts value 10 at index 1; `list.set(10, 1)` replaces index 1 with 10. The old classroom index-first insertion is available under the different name `insertAtIndex(index, value)`; `replace(index, value)` and `delete(index)` remain for the GUI. With both `remove` overloads, `remove(2)` removes index 2, whereas `remove(Integer.valueOf(2))` removes the first value 2.
-
-Selection sort uses the original nested-loop approach. Sort only mutually comparable values, such as all integers or all strings; null sorts first. `toArray()` copies the list structure, not the objects themselves. JSON uses the included Gson library, as in H6. XML stores each object's text in an `<item>` and represents null separately; it is an export, not a typed Java-object round trip.
-
-The older `getRoot()` method remains for class compatibility. Avoid changing node links directly: doing so bypasses MyList's updates to `last` and `size`.
-
-## Checks
-
-From the repository root run `powershell -NoProfile -ExecutionPolicy Bypass -File scripts/verify-study.ps1 -AllProjects`. The list checks cover boundary indices, different Object values, JSON/XML parsing, head/tail changes, reverse followed by append, and the original integer operations. Build with NetBeans or `ant jar`. Keep `dist/lib` beside the JAR.
+For the worksheet's Object-based signatures and exports, see the [separate H4 reference](../X6_H4_LinkedListImproved/). The integer project intentionally follows your classroom representation. See the [revision notes](../docs/STUDY_GUIDE.md) for the difference.

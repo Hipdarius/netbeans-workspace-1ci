@@ -4,9 +4,9 @@
 
 These references follow the supplied December 2025 exercise sheet. They are not teacher-issued corrections. Aim to understand the methods well enough to rebuild them on paper or in a fresh project.
 
-## 1 · Telephone book: separate data from the window
+## 1 · Telephone book (AI-supported reference)
 
-Read [Person](../H1_TelephoneBook/src/Person.java), then [PhoneBook](../H1_TelephoneBook/src/PhoneBook.java), then [MainFrame](../H1_TelephoneBook/src/MainFrame.java).
+Read [Person](../X7_H1_TelephoneBook/src/Person.java), then [PhoneBook](../X7_H1_TelephoneBook/src/PhoneBook.java), then [MainFrame](../X7_H1_TelephoneBook/src/MainFrame.java).
 
 `Person` holds one name, telephone number and email. A telephone number is a `String`: an integer cannot preserve leading zeroes, spaces or `+`.
 
@@ -30,26 +30,21 @@ Read the classroom [Node](../H2_H4_MyListClass/src/Node.java) and [MyList](../H2
 root ──► [ A | next ] ──► [ B | next ] ──► [ C | null ]
 ```
 
-`root` references the first Node. A Node contains an `Object` value and a reference to its successor. To reach index 2, start at root and follow next twice. There is no direct indexed access as in an array.
+`root` references the first Node. A classroom Node contains an `int` and a reference to its successor. To reach index 2, start at root and follow next twice. There is no direct indexed access as in an array.
 
 | Operation | What changes |
 | :--- | :--- |
-| `add(value)` | Find the last node and attach a new node. Empty list: set root. |
-| `insert(value, index)` | Set the new node's next to the old successor, then connect its predecessor. At index 0, replace root. |
+| `add(value)` | Attach the new node after last and update last. For an empty list, set root too. |
+| `insert(index, value)` | Set the new node's next to the old successor, then connect its predecessor. At index 0, replace root. |
 | `remove(index)` | Connect the predecessor to the removed node's successor. At index 0, advance root. Return the removed value. |
-| `remove(value)` | Find the first equal value; remove that position; return whether it existed. |
+| `removeValue(value)` | Find the first equal value; remove that position; return whether it existed. |
 | `set(value, index)` | Replace the data in a node; links do not change. |
-| `clear()` | Set root to null. |
-| `toArray()` | Traverse and fill a new array. The array is independent; element objects are shared. |
+| `clear()` | Set root and last to null and size to zero. |
+| `toArray()` | Traverse and fill a new array. The resulting Integer array is independent of the node chain. |
 
 **Bounds:** get/set/remove accept `0 .. size - 1`. Insert also accepts `size`, meaning append. Negative indices fail. `getNode` is private, matching the UML: callers must not break the chain.
 
-**Two traps:**
-
-- `Objects.equals(a, b)` compares values and handles null. `a == b` compares object references.
-- With both overloads, `remove(2)` removes **index 2**. `remove(Integer.valueOf(2))` removes the first **value 2**.
-
-The class project now uses the sheet’s `insert(value, index)` and `set(value, index)`. Its earlier index-first insertion is retained as `insertAtIndex(index, value)`; `replace(index, value)` remains for the GUI.
+In the classroom list, `remove(2)` removes index 2 and `removeValue(2)` removes the first value 2. Classroom insertion uses `insert(index, value)`. The worksheet's separate [Object-based reference](../X6_H4_LinkedListImproved/) uses `insert(value, index)` and distinguishes the two remove overloads by argument type.
 
 ## 3 · Extend the list without losing the chain
 
@@ -58,8 +53,6 @@ Continue with the H3 methods in the same [classroom MyList](../H2_H4_MyListClass
 `count(value)` traverses the list and increments a counter for equal values. `isEmpty()` checks root against null. `verifySort()` compares neighboring values and stops on the first descending pair; empty and single-element lists are sorted.
 
 **Selection sort:** for each position, find the smallest value in the remaining suffix and swap the values. Links stay unchanged. There are roughly n(n−1)/2 comparisons: O(n²) time and O(1) extra space.
-
-Because `Object` has no universal ordering, this reference sorts mutually comparable values, such as all Integers or all Strings. Null sorts first. Mixing an Integer and a String is not a supported sort input. `Comparable` supplies ordering; the cast is necessary because the UML stores Object.
 
 **Reverse:** maintain `previous`, `current` and `next`.
 
@@ -72,7 +65,7 @@ current = next;
 
 At the end, root becomes previous. Trace this with three nodes, then with zero and one. Reversing twice must recover the original order.
 
-`toJson()` serializes an array of values, not the internal nodes. `toXML()` exports `<list><item>...</item></list>`; null uses `<item null="true"/>`. Text escapes `&`, `<`, `>`, quotes and apostrophes. XML export represents objects by their text and does not reconstruct their Java types. The sheet specifies no exact export schema; this is the documented choice. XML 1.0-invalid characters are rejected.
+For the integer list, `toJson()` produces a number array such as `[10, -2]`. `toXML()` puts each number inside an XML item. With integers there are no text characters to escape. The Object-based exports are in the separate reference.
 
 ## 4 · Faster operations require stronger invariants
 
@@ -110,7 +103,7 @@ Study the [classroom H5](../H5_WordStatsClass/) first. Its core uses loops, arra
 - `WordsStatsList`: search linearly for the word; increment if found, otherwise append.
 - Both calculate methods clear previous counts before recalculating. This matters after deletion.
 - Both toString methods use nested-loop sorting, highest frequency first. Equal-frequency order is unspecified and may differ between versions.
-- A document listener updates on insert, paste, cut and deletion, including changes without a key event. Switching versions also refreshes results.
+- The text area refreshes on NetBeans `keyReleased` and the version selector refreshes on `actionPerformed`. An edit that sends no key event does not automatically refresh.
 
 **Classroom token rule:** lowercase and split on whitespace. `Hello`, `hello,` and `hello.` become three different tokens; `42` is a token too. The sheet does not prescribe punctuation handling. This keeps the class convention. `X3_WordStatsAI` extracts letters and handles punctuation differently; its word definition is different.
 
@@ -124,7 +117,7 @@ Let N be total tokens and U distinct tokens. Initially treat word comparisons/ha
 
 If all words differ, list searches examine 0 + 1 + ... + (N−1) entries: quadratic counting. HashMap counting is faster on average, **but the classroom display still sorts quadratically**. Do not claim the whole program is O(N).
 
-More precisely, tokenization/lowercasing also scans L characters, hashing/equality inspect word characters, and repeated String `+=` can copy accumulated output repeatedly. The table isolates counting/sorting, not all rendering/allocation costs. Both keep O(U) entries; the split array also holds O(N) tokens and their characters. HashMap adds table overhead. Every edit recalculates all text on the Swing event thread, so this suits small classroom texts rather than large-document benchmarking.
+More precisely, tokenization/lowercasing also scans L characters, hashing/equality inspect word characters, and repeated String `+=` can copy accumulated output repeatedly. The table isolates counting/sorting, not all rendering/allocation costs. Both keep O(U) entries; the split array also holds O(N) tokens and their characters. HashMap adds table overhead. Each refresh recalculates all text on the Swing event thread, so this suits small classroom texts rather than large-document benchmarking.
 
 ## Practice before looking at the answers
 

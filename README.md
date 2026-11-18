@@ -8,29 +8,24 @@ Science de la programmation · 2026/27 · Java & NetBeans
 
 ---
 
-## Your route through H1–H5
+## Classroom projects
 
-Aligned with **EXERCICES_1CI_2025_12_03**, pages 2–5.
-These are worked study solutions, **not official teacher corrections**.
-H1 is a worked reference. The combined H2–H4 and H5 projects preserve the classroom approach; the `X` projects are AI-supported supplementary material.
-
-| Step | Open this NetBeans project | What to understand | Provenance |
-| :--- | :--- | :--- | :--- |
-| **H1** | [Telephone book](H1_TelephoneBook/) | Objects, alphabetical ordering, Swing events, JSON persistence | Worked reference |
-| **H2–H4** | [MyList — class project](H2_H4_MyListClass/) | Nodes, traversal, Object values, sorting, reverse, exports and cached tail | Classroom project extended for the sheet |
-| **H5** | [Words Stats — class version](H5_WordStatsClass/) | HashMap versus list; counting versus sorting costs | Classroom code with targeted fixes |
-
-**Recommended routine:** read the model → trace an example on paper → run it → rewrite one method without looking → run the tests.
+| Project | What to revise |
+| :--- | :--- |
+| [H2–H4 MyList](H2_H4_MyListClass/) | Integer nodes, traversal, insertion, removal, selection sort, reverse and a cached tail |
+| [H5 Words Stats](H5_WordStatsClass/) | HashMap and ArrayList counting, nested-loop sort and NetBeans events |
+| [H6 Vectors](H6_Vectors/STUDY.md) | Shapes, mouse events, drawing order and persistence |
+| [H7 Performance Tests](H7_PerformanceTests/) | Arrays, collections and linear searches |
 
 ## Open and run
 
 1. Use a JDK; **JDK 23** matches the existing classroom projects and the checked environment.
 2. In NetBeans, choose **File → Open Project** and select a project folder from the table.
-3. Choose **Run Project (F6)**. The classroom projects open windows; the supplementary linked-list references print examples in Output.
+3. Choose **Run Project (F6)**. H2–H6 open windows. H7 and the supplementary linked-list examples print in Output.
 4. Read the project's README and the [study guide](docs/STUDY_GUIDE.md) alongside its source.
 
 Each project is independent. The required Gson JSON JAR is included in the new projects' `lib/` directories with its license; no machine-specific library setup is needed.
-H1 and the X4–X6 references use Java 11-compatible source; the classroom MyList project targets Java 23. Runnable JARs using Gson need their accompanying `dist/lib/` folder.
+The classroom MyList project targets Java 23. The X4–X7 references use Java 11-compatible source. Runnable JARs using Gson need their accompanying `dist/lib/` folder.
 
 From a project directory, with Ant on your PATH:
 
@@ -50,15 +45,14 @@ powershell -NoProfile -ExecutionPolicy Bypass -File scripts/verify-study.ps1
 Add `-AllProjects` to compile the other projects and run their available regression tests too.
 The script exits with an error when compilation or a test fails. It does not open GUI windows.
 
-## Classroom originals and extra practice
+## Extra practice and AI-supported references
 
 | Project | Purpose and current scope |
 | :--- | :--- |
 | [X4_H2_LinkedList](X4_H2_LinkedList/) | AI-supported H2 reference matching the Object-based UML. |
 | [X5_H3_LinkedListContinued](X5_H3_LinkedListContinued/) | AI-supported H3 reference, extending H2. |
 | [X6_H4_LinkedListImproved](X6_H4_LinkedListImproved/) | AI-supported H4 reference with a last pointer and cached size. |
-| [H6_Vectors](H6_Vectors/) | Vector drawing; [its own study notes](H6_Vectors/STUDY.md). Beyond this H1–H5 review. |
-| [H7_PerformanceTests](H7_PerformanceTests/) | Array and collection timing, with manual and built-in searches. |
+| [X7_H1_TelephoneBook](X7_H1_TelephoneBook/) | AI-supported telephone book. The repository history does not contain a classroom H1. |
 | [X1_PrintDeskMock](X1_PrintDeskMock/) | Unfinished mock test: TODOs intentionally remain for practice. |
 | [X2_OrbitPatrolMock](X2_OrbitPatrolMock/) | Shooter mock test with linked-list and persistence regression checks. |
 | [X3_WordStatsAI](X3_WordStatsAI/) | Alternative AI-made H5, with different token rules and library sorting. Study the class version first. |

@@ -1,8 +1,7 @@
 param([switch]$AllProjects)
 $ErrorActionPreference = 'Stop'
 $root = Split-Path $PSScriptRoot -Parent
-$projects = @('H1_TelephoneBook', 'X4_H2_LinkedList', 'X5_H3_LinkedListContinued',
-    'X6_H4_LinkedListImproved', 'H2_H4_MyListClass', 'H5_WordStatsClass')
+$projects = @('H2_H4_MyListClass', 'H5_WordStatsClass', 'H6_Vectors', 'H7_PerformanceTests')
 if ($AllProjects) {
     $projects = @(Get-ChildItem $root -Directory | Where-Object {
         Test-Path (Join-Path $_.FullName 'src')

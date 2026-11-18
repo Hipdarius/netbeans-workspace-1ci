@@ -16,6 +16,30 @@ public class MyListTest {
         if(list.get(0) != 10 || list.get(1) != 30 || list.size() != list.sizeConstant()) {
             throw new AssertionError("Insert, sort or delete failed");
         }
+        list.insert(2, -5);
+        list.add(-5);
+        if (list.verifySort() || list.count(-5) != 2 || !list.removeValue(-5)) {
+            throw new AssertionError("Count, order or remove by value failed");
+        }
+        list.reverse();
+        list.add(7);
+        if (list.remove(3) != 7 || list.remove(2) != 10) {
+            throw new AssertionError("Reverse or tail removal failed");
+        }
+        list.add(20);
+        list.set(-6, 0);
+        if (list.size() != 3 || !list.toJson().equals("[-6, 30, 20]")
+                || !list.toXML().equals("<list><item>-6</item><item>30</item><item>20</item></list>")) {
+            throw new AssertionError("Append, replace or export failed");
+        }
+        list.clear();
+        list.reverse();
+        list.addToHead(11);
+        list.remove(0);
+        list.add(12);
+        if (list.isEmpty() || list.size() != 1 || list.get(0) != 12) {
+            throw new AssertionError("Cannot reuse an empty list");
+        }
         System.out.println("MyList regression checks passed");
     }
 
