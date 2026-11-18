@@ -19,6 +19,12 @@ public class MainFrame extends javax.swing.JFrame {
     public MainFrame() {
         initComponents();
         resultArea.setEditable(false);
+        // A document listener also catches paste/cut with the mouse.
+        textArea.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+            public void insertUpdate(javax.swing.event.DocumentEvent event) { updateStatistics(); }
+            public void removeUpdate(javax.swing.event.DocumentEvent event) { updateStatistics(); }
+            public void changedUpdate(javax.swing.event.DocumentEvent event) { updateStatistics(); }
+        });
     }
 
     private void updateStatistics() {
@@ -75,11 +81,6 @@ public class MainFrame extends javax.swing.JFrame {
 
         textArea.setColumns(20);
         textArea.setRows(5);
-        textArea.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                textAreaKeyReleased(evt);
-            }
-        });
         scrollPanel.setViewportView(textArea);
 
         javax.swing.GroupLayout TextPanelLayout = new javax.swing.GroupLayout(TextPanel);
@@ -121,9 +122,7 @@ public class MainFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void textAreaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textAreaKeyReleased
-        updateStatistics();
-    }//GEN-LAST:event_textAreaKeyReleased
+
 
     private void versionBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_versionBoxActionPerformed
         updateStatistics();

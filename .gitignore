@@ -12,3 +12,6 @@
 # OS clutter
 Thumbs.db
 *.log
+
+# Personal data created by the H1 application
+**/phonebook.json
