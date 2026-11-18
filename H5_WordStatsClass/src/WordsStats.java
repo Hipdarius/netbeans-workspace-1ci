@@ -8,5 +8,16 @@
  * @author Darius
  */
 public class WordsStats {
-    
+    String word;
+    int count;
+
+    public WordsStats(String word) {
+        this.word = word;
+        this.count = 1;
+    }
+
+    @Override
+    public String toString() {
+        return word + " ---> " + count;
+    }    
 }
