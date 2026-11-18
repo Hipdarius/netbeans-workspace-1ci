@@ -17,9 +17,9 @@ Reviewed on **18 November 2026** against `EXERCICES_1CI_2025_12_03.pdf`, pages 2
 | Exercise | Requirements covered | Where |
 | :--- | :--- | :--- |
 | H1 | Name, phone with spaces, email; sorted entries; add/edit; navigation; confirmation before deletion; automatic JSON load and close-time save | `H1_TelephoneBook` |
-| H2 | Object-valued Node/MyList; both remove overloads; add, size, print, clear, indexOf, get, private getNode, toArray, insert and set | `H2_LinkedList` |
-| H3 | count, sort, verifySort, reverse, isEmpty, toJson, toXML, plus H2 methods | `H3_LinkedListContinued` |
-| H4 | Maintained last and size; O(1) append and size; discussion of further improvements | `H4_LinkedListImproved`, study guide |
+| H2 | Object-valued Node/MyList; both remove overloads; add, size, print, clear, indexOf, get, private getNode, toArray, insert and set | `X4_H2_LinkedList` |
+| H3 | count, sort, verifySort, reverse, isEmpty, toJson, toXML, plus H2 methods | `X5_H3_LinkedListContinued` |
+| H4 | Maintained last and size; O(1) append and size; discussion of further improvements | `X6_H4_LinkedListImproved`, study guide |
 | H5 | Live statistics; HashMap and list versions; StatsEntry fields; descending frequency; complexity/performance discussion | `H5_WordStatsClass`, study guide |
 
 H1–H4 are **new worked references**, not recovered classroom work or teacher corrections. They use small model classes, loops and straightforward methods. Gson handles JSON. H5 retains the classroom counting/sorting algorithms; only event coverage and locale-independent lowercasing were changed.
@@ -46,6 +46,6 @@ Run the checks again with `scripts/verify-study.ps1`; use `-AllProjects` for the
 - H1 sorts names case-insensitively using Java string order. Its hand-written Swing window is readable Java, not a GUI-builder `.form`. Press Save entry to commit field edits before navigating or closing.
 - H3/H4 natural sorting expects mutually comparable values. XML exports text values and a null marker; it does not reconstruct arbitrary Java object types.
 - H5 intentionally preserves classroom whitespace tokenization and quadratic manual sorting. Large pasted documents can pause its interface. Equal-frequency order is unspecified.
-- Original `MyList` stays available as classroom material, with its differences clearly labeled. It is not the canonical complete H2–H4 correction.
+- The classroom `MyList`, renamed `H2_H4_MyListClass`, stays available as classroom material, with its differences clearly labeled. It is not the canonical complete H2–H4 correction.
 - H6, H7 and X projects are beyond the supplied H1–H5 review. Compilation does not certify them against their own full assignments. X1 still contains intentional TODOs.
 - `JSON_test` has no source or portable project metadata; only ignored private settings remain locally.

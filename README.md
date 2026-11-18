@@ -12,14 +12,12 @@ Science de la programmation · 2026/27 · Java & NetBeans
 
 Aligned with **EXERCICES_1CI_2025_12_03**, pages 2–5.
 These are worked study solutions, **not official teacher corrections**.
-H1–H4 are newly written reference projects; H5 keeps the existing classroom approach.
+H1 is a worked reference. The combined H2–H4 and H5 projects preserve the classroom approach; the `X` projects are AI-supported supplementary material.
 
 | Step | Open this NetBeans project | What to understand | Provenance |
 | :--- | :--- | :--- | :--- |
 | **H1** | [Telephone book](H1_TelephoneBook/) | Objects, alphabetical ordering, Swing events, JSON persistence | Worked reference |
-| **H2** | [Linked list](H2_LinkedList/) | Nodes, traversal, insertion, removal, index bounds | Worked reference matching the UML |
-| **H3** | [Linked list continued](H3_LinkedListContinued/) | Counting, selection sort, reversal, JSON/XML | H2 extended |
-| **H4** | [Linked list improved](H4_LinkedListImproved/) | Maintain `last` and `size`; reason about complexity | H3 extended |
+| **H2–H4** | [MyList — class project](H2_H4_MyListClass/) | Nodes, traversal, insertion, removal and sorting | Classroom project; see its README for PDF gaps |
 | **H5** | [Words Stats — class version](H5_WordStatsClass/) | HashMap versus list; counting versus sorting costs | Classroom code with targeted fixes |
 
 **Recommended routine:** read the model → trace an example on paper → run it → rewrite one method without looking → run the tests.
@@ -28,7 +26,7 @@ H1–H4 are newly written reference projects; H5 keeps the existing classroom ap
 
 1. Use a JDK; **JDK 23** matches the existing classroom projects and the checked environment.
 2. In NetBeans, choose **File → Open Project** and select a project folder from the table.
-3. Choose **Run Project (F6)**. H1 and H5 open windows; H2–H4 print examples in Output.
+3. Choose **Run Project (F6)**. The classroom projects open windows; the supplementary linked-list references print examples in Output.
 4. Read the project's README and the [study guide](docs/STUDY_GUIDE.md) alongside its source.
 
 Each project is independent. The required Gson JSON JAR is included in the new projects' `lib/` directories with its license; no machine-specific library setup is needed.
@@ -56,7 +54,9 @@ The script exits with an error when compilation or a test fails. It does not ope
 
 | Project | Purpose and current scope |
 | :--- | :--- |
-| [MyList](MyList/) | Original integer-only classroom list and Swing tester. Useful for comparing styles; **not the complete H2–H4 solution**. |
+| [X4_H2_LinkedList](X4_H2_LinkedList/) | AI-supported H2 reference matching the Object-based UML. |
+| [X5_H3_LinkedListContinued](X5_H3_LinkedListContinued/) | AI-supported H3 reference, extending H2. |
+| [X6_H4_LinkedListImproved](X6_H4_LinkedListImproved/) | AI-supported H4 reference with a last pointer and cached size. |
 | [H6_Vectors](H6_Vectors/) | Vector drawing; [its own study notes](H6_Vectors/STUDY.md). Beyond this H1–H5 review. |
 | [H7_PerformanceTests](H7_PerformanceTests/) | Collection timing experiments. Beyond this H1–H5 review. |
 | [X1_PrintDeskMock](X1_PrintDeskMock/) | Unfinished mock test: TODOs intentionally remain for practice. |

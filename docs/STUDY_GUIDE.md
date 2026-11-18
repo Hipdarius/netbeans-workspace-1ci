@@ -22,7 +22,7 @@ On startup, `load()` reads a JSON array. On close, `save()` writes saved entries
 
 ## 2 · Linked list: references, not array positions
 
-Read [Node](../H2_LinkedList/src/Node.java) and [MyList](../H2_LinkedList/src/MyList.java).
+Read [Node](../X4_H2_LinkedList/src/Node.java) and [MyList](../X4_H2_LinkedList/src/MyList.java).
 
 ```text
 root ──► [ A | next ] ──► [ B | next ] ──► [ C | null ]
@@ -51,7 +51,7 @@ The sheet uses `insert(value, index)` and `set(value, index)`. The original inte
 
 ## 3 · Extend the list without losing the chain
 
-Read [H3 MyList](../H3_LinkedListContinued/src/MyList.java) after H2.
+Read [H3 MyList](../X5_H3_LinkedListContinued/src/MyList.java) after H2.
 
 `count(value)` traverses the list and increments a counter for equal values. `isEmpty()` checks root against null. `verifySort()` compares neighboring values and stops on the first descending pair; empty and single-element lists are sorted.
 
@@ -74,7 +74,7 @@ At the end, root becomes previous. Trace this with three nodes, then with zero a
 
 ## 4 · Faster operations require stronger invariants
 
-Compare [H4 MyList](../H4_LinkedListImproved/src/MyList.java) with H3.
+Compare [H4 MyList](../X6_H4_LinkedListImproved/src/MyList.java) with H3.
 
 H4 caches `last` and `size`. After **every** change:
 

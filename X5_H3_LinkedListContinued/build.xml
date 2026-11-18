@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="H4_LinkedListImproved" default="default" basedir=".">
+<project name="X5_H3_LinkedListContinued" default="default" basedir=".">
     <description>Build and run the study project.</description>
     <import file="nbproject/build-impl.xml"/>
     <target name="-post-jar">

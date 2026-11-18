@@ -3,7 +3,7 @@
     <type>org.netbeans.modules.java.j2seproject</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/j2se-project/3">
-            <name>H2_LinkedList</name>
+            <name>H2_H4_MyListClass</name>
             <source-roots>
                 <root id="src.dir"/>
             </source-roots>
