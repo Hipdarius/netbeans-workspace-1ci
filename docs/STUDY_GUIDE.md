@@ -12,6 +12,8 @@ Read [Person](../H1_TelephoneBook/src/Person.java), then [PhoneBook](../H1_Telep
 
 `PhoneBook` owns an `ArrayList<Person>`. Adding or editing sorts the list by name, then returns the person's new index. The window needs that index because sorting can move the selected entry.
 
+In NetBeans open `MainFrame.java` and select **Design** to see the form. Its named buttons use NetBeans-generated event handlers; the `//GEN` section is maintained by the GUI Builder.
+
 The frame owns `selected`. `-1` means an unsaved new record. Previous/Next change the index; `showEntry()` updates the fields and enables valid navigation buttons. **Save entry** copies the fields into a Person. Field edits are not committed until this button is pressed.
 
 On startup, `load()` reads a JSON array. On close, `save()` writes saved entries to `phonebook.json` in the working directory. Gson handles quotes, accents and JSON syntax; it is an included library, not a built-in JDK class. Loading validates the whole file before replacing the current list. A damaged input file is reported and is not silently overwritten on close.

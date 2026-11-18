@@ -8,13 +8,44 @@
  * @author Darius
  */
 public class MainFrame extends javax.swing.JFrame {
+    private final PhoneBook book = new PhoneBook();
+    private final java.nio.file.Path file = java.nio.file.Path.of("phonebook.json");
+    private int selected = -1; // -1 means a new entry.
+    private boolean loaded = true;
+
 
     /**
      * Creates new form MainFrame
      */
     public MainFrame() {
         initComponents();
+        setTitle("H1 - Telephone book");
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        setLocationRelativeTo(null);
+        try {
+            book.load(file);
+        } catch (java.io.IOException ex) {
+            loaded = false;
+            javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage()
+                    + "\nThe file will not be overwritten. Repair it and restart.");
+        }
+        saveButton.setEnabled(loaded);
+        if (book.size() > 0) selected = 0;
+        showEntry();
     }
+
+    private void showEntry() {
+        Person person = selected >= 0 ? book.get(selected) : null;
+        nameTextField.setText(person == null ? "" : person.getFullName());
+        phoneTextField.setText(person == null ? "" : person.getPhone());
+        emailTextField.setText(person == null ? "" : person.getEmail());
+        positionLabel.setText(person == null ? "New entry"
+                : "Record " + (selected + 1) + " of " + book.size());
+        previousButton.setEnabled(selected > 0);
+        nextButton.setEnabled(selected < book.size() - 1);
+        deleteButton.setEnabled(selected >= 0);
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -30,9 +61,9 @@ public class MainFrame extends javax.swing.JFrame {
         newButton = new javax.swing.JButton();
         deleteButton = new javax.swing.JButton();
         saveButton = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        nameLabel = new javax.swing.JLabel();
+        phoneLabel = new javax.swing.JLabel();
+        emailLabel = new javax.swing.JLabel();
         positionLabel = new javax.swing.JLabel();
         nameTextField = new javax.swing.JTextField();
         phoneTextField = new javax.swing.JTextField();
@@ -80,11 +111,11 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Name");
+        nameLabel.setText("Name");
 
-        jLabel2.setText("Phone");
+        phoneLabel.setText("Phone");
 
-        jLabel3.setText("Email");
+        emailLabel.setText("Email");
 
         positionLabel.setText("positionLabel");
 
@@ -114,9 +145,9 @@ public class MainFrame extends javax.swing.JFrame {
                         .addGap(93, 93, 93))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(nameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(phoneLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(emailLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(57, 57, 57)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
@@ -143,15 +174,15 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(deleteButton))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
+                    .addComponent(nameLabel)
                     .addComponent(nameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(16, 16, 16)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
+                    .addComponent(phoneLabel)
                     .addComponent(phoneTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(16, 16, 16)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
+                    .addComponent(emailLabel)
                     .addComponent(emailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                 .addComponent(saveButton)
@@ -162,27 +193,50 @@ public class MainFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void previousButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_previousButtonActionPerformed
-        // TODO add your handling code here:
+        selected--;
+        showEntry();
     }//GEN-LAST:event_previousButtonActionPerformed
 
     private void nextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextButtonActionPerformed
-        // TODO add your handling code here:
+        selected++;
+        showEntry();
     }//GEN-LAST:event_nextButtonActionPerformed
 
     private void newButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newButtonActionPerformed
-        // TODO add your handling code here:
+        selected = -1;
+        showEntry();
+        nameTextField.requestFocusInWindow();
     }//GEN-LAST:event_newButtonActionPerformed
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
-        // TODO add your handling code here:
+        if (javax.swing.JOptionPane.showConfirmDialog(this,
+                "Are you sure you want to delete this entry permanently?",
+                "Delete entry", javax.swing.JOptionPane.YES_NO_OPTION)
+                == javax.swing.JOptionPane.YES_OPTION) {
+            book.remove(selected);
+            selected = Math.min(selected, book.size() - 1);
+            showEntry();
+        }
     }//GEN-LAST:event_deleteButtonActionPerformed
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
-        // TODO add your handling code here:
+        try {
+            Person person = new Person(nameTextField.getText(), phoneTextField.getText(), emailTextField.getText());
+            selected = selected < 0 ? book.add(person) : book.replace(selected, person);
+            showEntry();
+        } catch (IllegalArgumentException ex) {
+            javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
     }//GEN-LAST:event_saveButtonActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        // TODO add your handling code here:
+        try {
+            if (loaded) book.save(file);
+            dispose();
+        } catch (java.io.IOException ex) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Could not save: " + ex.getMessage()
+                    + "\nThe window stays open so you can retry.");
+        }
     }//GEN-LAST:event_formWindowClosing
 
     /**
@@ -223,9 +277,9 @@ public class MainFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton deleteButton;
     private javax.swing.JTextField emailTextField;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel nameLabel;
+    private javax.swing.JLabel phoneLabel;
+    private javax.swing.JLabel emailLabel;
     private javax.swing.JTextField nameTextField;
     private javax.swing.JButton newButton;
     private javax.swing.JButton nextButton;

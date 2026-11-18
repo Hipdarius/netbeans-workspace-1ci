@@ -8,7 +8,7 @@ Sorted people, navigation, confirmation before deletion, automatic JSON load/sav
 
 ## Read and run
 
-Read **Person → PhoneBook → MainFrame** in `src/`. Open this folder as a NetBeans project and run `MainFrame` with F6.
+Read **Person → PhoneBook → MainFrame** in `src/`. Open `MainFrame.java` and choose **Design** to see the NetBeans GUI Builder form; double-click a button to inspect its event handler. Open this folder as a NetBeans project and run `MainFrame` with F6.
 Java 11 or later is sufficient for this project; JDK 23 matches the overall workspace.
 
 ```text

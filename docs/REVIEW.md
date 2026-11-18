@@ -22,7 +22,7 @@ Reviewed on **18 November 2026** against `EXERCICES_1CI_2025_12_03.pdf`, pages 2
 | H4 | Maintained last and size; O(1) append and size; discussion of further improvements | `X6_H4_LinkedListImproved`, study guide |
 | H5 | Live statistics; HashMap and list versions; StatsEntry fields; descending frequency; complexity/performance discussion | `H5_WordStatsClass`, study guide |
 
-H1–H4 are **new worked references**, not recovered classroom work or teacher corrections. They use small model classes, loops and straightforward methods. Gson handles JSON. H5 retains the classroom counting/sorting algorithms; only event coverage and locale-independent lowercasing were changed.
+H1 and the X4–X6 references are **new worked references**, not recovered classroom work or teacher corrections. They use small model classes, loops and straightforward methods. Gson handles JSON. H5 retains the classroom counting/sorting algorithms; only event coverage and locale-independent lowercasing were changed.
 
 ## Checks performed
 
@@ -43,7 +43,7 @@ Run the checks again with `scripts/verify-study.ps1`; use `-AllProjects` for the
 ## Limits and conventions to understand
 
 - Passing these checks gives useful evidence, not a proof for every possible input or a guarantee of the teacher's marking preferences.
-- H1 sorts names case-insensitively using Java string order. Its hand-written Swing window is readable Java, not a GUI-builder `.form`. Press Save entry to commit field edits before navigating or closing.
+- H1 sorts names case-insensitively using Java string order. Its window is a NetBeans GUI Builder `.form`; buttons and the close event have named handlers. Press Save entry to commit field edits before navigating or closing.
 - H3/H4 natural sorting expects mutually comparable values. XML exports text values and a null marker; it does not reconstruct arbitrary Java object types.
 - H5 intentionally preserves classroom whitespace tokenization and quadratic manual sorting. Large pasted documents can pause its interface. Equal-frequency order is unspecified.
 - The classroom `MyList`, renamed `H2_H4_MyListClass`, stays available as classroom material, with its differences clearly labeled. It is not the canonical complete H2–H4 correction.
