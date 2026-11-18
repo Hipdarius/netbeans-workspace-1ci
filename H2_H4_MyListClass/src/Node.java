@@ -1,13 +1,13 @@
 
 public class Node {
-    private Object data;
+    private int data;
     private Node node;
 
-    public Node(Object data) {
+    public Node(int data) {
         this.data = data;
     }
 
-    public void setData(Object data) {
+    public void setData(int data) {
         this.data = data;
     }
 
@@ -15,7 +15,7 @@ public class Node {
         this.node = node;
     }
 
-    public Object getData() {
+    public int getData() {
         return data;
     }
 

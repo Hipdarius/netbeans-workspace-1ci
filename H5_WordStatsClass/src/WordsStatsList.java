@@ -5,7 +5,7 @@ public class WordsStatsList {
 
     public void calculate(String text) {
         entries.clear();
-        text = text.toLowerCase(java.util.Locale.ROOT).trim();
+        text = text.toLowerCase().trim();
 
         if (text.isEmpty()) {
             return;

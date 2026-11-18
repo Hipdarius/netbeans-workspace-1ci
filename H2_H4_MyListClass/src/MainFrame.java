@@ -24,7 +24,7 @@ public class MainFrame extends javax.swing.JFrame {
         myList.addToTail(67);
         myList.addToTail(5);
         
-        listBox.setListData(myList.toIntegerArray());
+        listBox.setListData(myList.toArray());
         sizeLabel.setText(String.valueOf(myList.sizeConstant()));
     }
 
@@ -219,14 +219,14 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void sortButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sortButtonActionPerformed
         myList.sort();
-        listBox.setListData(myList.toIntegerArray());
+        listBox.setListData(myList.toArray());
     }//GEN-LAST:event_sortButtonActionPerformed
 
     private void clearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearButtonActionPerformed
         int index = listBox.getSelectedIndex();
         if (index != -1) {
             myList.delete(index);
-            listBox.setListData(myList.toIntegerArray());
+            listBox.setListData(myList.toArray());
             sizeLabel.setText(String.valueOf(myList.sizeConstant()));
         }
     }//GEN-LAST:event_clearButtonActionPerformed
@@ -239,7 +239,7 @@ public class MainFrame extends javax.swing.JFrame {
         try {
             int number = Integer.parseInt(textBox.getText());
             myList.add(number);
-            listBox.setListData(myList.toIntegerArray());
+            listBox.setListData(myList.toArray());
             sizeLabel.setText(String.valueOf(myList.sizeConstant()));
             textBox.setText("");
         } catch (NumberFormatException ex) {
@@ -269,7 +269,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void clearAllButtonsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearAllButtonsActionPerformed
         myList.clear();
-        listBox.setListData(myList.toIntegerArray());
+        listBox.setListData(myList.toArray());
         sizeLabel.setText(String.valueOf(myList.sizeConstant()));
     }//GEN-LAST:event_clearAllButtonsActionPerformed
 
@@ -282,7 +282,7 @@ public class MainFrame extends javax.swing.JFrame {
         try {
             int number = Integer.parseInt(replaceBox.getText().trim());
             myList.replace(index, number);
-            listBox.setListData(myList.toIntegerArray());
+            listBox.setListData(myList.toArray());
             listBox.setSelectedIndex(index);
             replaceBox.setText("");
         } catch (NumberFormatException ex) {
@@ -295,7 +295,7 @@ public class MainFrame extends javax.swing.JFrame {
         for(int i = 0; i < 10; i++) {
             myList.add(random.nextInt(100));
         }
-        listBox.setListData(myList.toIntegerArray());
+        listBox.setListData(myList.toArray());
         sizeLabel.setText(String.valueOf(myList.sizeConstant()));
     }//GEN-LAST:event_fillRandomActionPerformed
 

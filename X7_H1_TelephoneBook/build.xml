@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="H1_TelephoneBook" default="default" basedir=".">
+<project name="X7_H1_TelephoneBook" default="default" basedir=".">
     <description>Build and run the study project.</description>
     <import file="nbproject/build-impl.xml"/>
     <target name="-post-jar">

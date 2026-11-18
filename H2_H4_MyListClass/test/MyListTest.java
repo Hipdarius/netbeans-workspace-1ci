@@ -7,13 +7,13 @@ public class MyListTest {
         list.replace(1, 20);
         checkInvalidReplace(list, -1);
         checkInvalidReplace(list, 2);
-        if(!list.get(0).equals(30) || !list.get(1).equals(20) || list.sizeConstant() != 2) {
+        if(list.get(0) != 30 || list.get(1) != 20 || list.sizeConstant() != 2) {
             throw new AssertionError("Replacement changed the wrong item or size");
         }
-        list.insert(10, 1);
+        list.insert(1, 10);
         list.sort();
         list.delete(1);
-        if(!list.get(0).equals(10) || !list.get(1).equals(30) || list.size() != list.sizeConstant()) {
+        if(list.get(0) != 10 || list.get(1) != 30 || list.size() != list.sizeConstant()) {
             throw new AssertionError("Insert, sort or delete failed");
         }
         System.out.println("MyList regression checks passed");

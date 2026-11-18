@@ -7,7 +7,6 @@ package h7_performancetests;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Calendar;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -77,7 +76,7 @@ public class H7_PerformanceTests {
         
         // Search the same data for a value at the beginning, in the middle,
         // and absent. 997 and 998 occur once; 1000 is outside [0, 999].
-        int[] searches = {997, 998, 1000};
+        int[] searches = {values[0], values[size / 2], max + 1};
         String[] names = {"beginning", "middle", "absent"};
         for (int i = 0; i < searches.length; i++) {
             int target = searches[i];
@@ -85,10 +84,6 @@ public class H7_PerformanceTests {
             long start = System.nanoTime();
             boolean found = searchArray(values, target);
             printSearch("Array, our linear search", found, start);
-
-            start = System.nanoTime();
-            found = Arrays.stream(values).anyMatch(value -> value == target);
-            printSearch("Array, stream anyMatch", found, start);
 
             start = System.nanoTime();
             found = searchArrayList(arrayList, target);
@@ -121,28 +116,36 @@ public class H7_PerformanceTests {
 
     public static boolean searchArray(int[] numbers, int target) {
         for (int i = 0; i < numbers.length; i++) {
-            if (numbers[i] == target) return true;
+            if (numbers[i] == target) {
+                return true;
+            }
         }
         return false;
     }
 
     public static boolean searchArrayList(ArrayList<Integer> numbers, int target) {
         for (int i = 0; i < numbers.size(); i++) {
-            if (numbers.get(i) == target) return true;
+            if (numbers.get(i) == target) {
+                return true;
+            }
         }
         return false;
     }
 
     public static boolean searchHashSet(HashSet<Integer> numbers, int target) {
         for (int number : numbers) {
-            if (number == target) return true;
+            if (number == target) {
+                return true;
+            }
         }
         return false;
     }
 
     public static boolean searchHashMap(HashMap<Integer, Integer> numbers, int target) {
         for (int number : numbers.values()) {
-            if (number == target) return true;
+            if (number == target) {
+                return true;
+            }
         }
         return false;
     }

@@ -2,7 +2,7 @@
 
 [← Study desk](../README.md) · [Explanations and practice](../docs/STUDY_GUIDE.md) · [Verification](../docs/REVIEW.md)
 
-**Worked reference, not an official teacher correction.** Based on the supplied 1CI December 2025 exercise sheet.
+**AI-supported reference.** Based on the supplied 1CI December 2025 exercise sheet.
 
 Sorted people, navigation, confirmation before deletion, automatic JSON load/save.
 
@@ -13,7 +13,7 @@ Java 11 or later is sufficient for this project; JDK 23 matches the overall work
 
 ```text
 ant jar
-java -jar dist/H1_TelephoneBook.jar
+java -jar dist/X7_H1_TelephoneBook.jar
 ```
 
 The root `scripts/verify-study.ps1` runs the regression tests in `test/`.
