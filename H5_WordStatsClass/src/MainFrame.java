@@ -19,12 +19,6 @@ public class MainFrame extends javax.swing.JFrame {
     public MainFrame() {
         initComponents();
         resultArea.setEditable(false);
-        versionBox.addActionListener(evt -> updateStatistics());
-        textArea.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
-            public void insertUpdate(javax.swing.event.DocumentEvent evt) { updateStatistics(); }
-            public void removeUpdate(javax.swing.event.DocumentEvent evt) { updateStatistics(); }
-            public void changedUpdate(javax.swing.event.DocumentEvent evt) { updateStatistics(); }
-        });
     }
 
     private void updateStatistics() {
@@ -47,7 +41,7 @@ public class MainFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        versionBox = new javax.swing.JComboBox<>();
+        versionBox = new javax.swing.JComboBox();
         jPanelScroll = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         resultArea = new javax.swing.JTextArea();
@@ -57,7 +51,12 @@ public class MainFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        versionBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Version 1: HashMap", "Version 2: ArrayList" }));
+        versionBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Version 1: HashMap", "Version 2: ArrayList" }));
+        versionBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                versionBoxActionPerformed(evt);
+            }
+        });
 
         resultArea.setColumns(20);
         resultArea.setRows(5);
@@ -126,6 +125,10 @@ public class MainFrame extends javax.swing.JFrame {
         updateStatistics();
     }//GEN-LAST:event_textAreaKeyReleased
 
+    private void versionBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_versionBoxActionPerformed
+        updateStatistics();
+    }//GEN-LAST:event_versionBoxActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -168,6 +171,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JTextArea resultArea;
     private javax.swing.JScrollPane scrollPanel;
     private javax.swing.JTextArea textArea;
-    private javax.swing.JComboBox<String> versionBox;
+    private javax.swing.JComboBox versionBox;
     // End of variables declaration//GEN-END:variables
 }
