@@ -10,6 +10,9 @@
 public class MainFrame extends javax.swing.JFrame {
 
     private WordsStats wordStats = new WordsStats();
+    private WordsStatsList wordStatsList = new WordsStatsList();
+    private javax.swing.JComboBox<String> versionBox = new javax.swing.JComboBox<>(
+            new String[] { "Version 1: HashMap", "Version 2: ArrayList" });
     
     
     /**
@@ -18,6 +21,26 @@ public class MainFrame extends javax.swing.JFrame {
     public MainFrame() {
         initComponents();
         resultArea.setEditable(false);
+        javax.swing.JMenuBar menuBar = new javax.swing.JMenuBar();
+        menuBar.add(versionBox);
+        setJMenuBar(menuBar);
+        versionBox.addActionListener(evt -> updateStatistics());
+        textArea.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+            public void insertUpdate(javax.swing.event.DocumentEvent evt) { updateStatistics(); }
+            public void removeUpdate(javax.swing.event.DocumentEvent evt) { updateStatistics(); }
+            public void changedUpdate(javax.swing.event.DocumentEvent evt) { updateStatistics(); }
+        });
+    }
+
+    private void updateStatistics() {
+        String text = textArea.getText();
+        if (versionBox.getSelectedIndex() == 0) {
+            wordStats.calculate(text);
+            resultArea.setText(wordStats.toString());
+        } else {
+            wordStatsList.calculate(text);
+            resultArea.setText(wordStatsList.toString());
+        }
     }
 
     /**
@@ -97,8 +120,7 @@ public class MainFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void textAreaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textAreaKeyReleased
-        wordStats.calculate(textArea.getText());
-        resultArea.setText(wordStats.toString());
+        updateStatistics();
     }//GEN-LAST:event_textAreaKeyReleased
 
     /**

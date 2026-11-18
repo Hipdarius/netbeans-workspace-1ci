@@ -14,7 +14,7 @@ practice projects, mock tests, or explicitly labelled AI-generated projects.
 
 | Folder | Description |
 | --- | --- |
-| `H5_WordStatsClass` | H5 correction: working reference code through Version 1 for now, with efficient HashMap counting and results ordered by highest count. Version 2 is pending. |
+| `H5_WordStatsClass` | H5 correction: live word counts using a HashMap or an ArrayList, ordered by highest count. |
 | `X3_WordStatsAI` | AI-made H5 implementation, previously named `H5_WordStats`; includes HashMap and ArrayList versions. |
 | `H6_Vectors` | Vector drawing app: `Drawing` holds `Shape` objects (`Line`, `Rectangle`, `Oval`). |
 | `MyList` | Hand-written singly linked list of integers (add, insert, delete, sort, search) with a Swing tester. |

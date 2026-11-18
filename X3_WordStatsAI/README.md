@@ -1,7 +1,7 @@
 # X3 Words Stats — AI-made H5 implementation
 
 This project was AI-made and was previously named `H5_WordStats`.
-The H5 correction and current reference through Version 1 is in `../H5_WordStatsClass`.
+The H5 correction is in `../H5_WordStatsClass`.
 
 Projet Java Swing pour NetBeans, avec une classe `MainFrame` pour la fenêtre et deux classes pour le calcul : `WordsStats` et `StatsEntry`. Les statistiques sont recalculées pendant la saisie, mais aussi après un collage ou une suppression. La liste place les mots les plus fréquents en premier ; les égalités sont départagées par le mot (`String.compareTo`).
 
