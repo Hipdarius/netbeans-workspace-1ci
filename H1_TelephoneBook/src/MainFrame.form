@@ -161,23 +161,14 @@
     </Component>
     <Component class="javax.swing.JLabel" name="positionLabel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="positionLabel"/>
+        <Property name="text" type="java.lang.String" value="New entry"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="nameTextField">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="jTextField1"/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="phoneTextField">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="jTextField2"/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="emailTextField">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="jTextField3"/>
-      </Properties>
     </Component>
   </SubComponents>
 </Form>

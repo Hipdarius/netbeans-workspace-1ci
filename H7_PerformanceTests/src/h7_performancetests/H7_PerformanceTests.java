@@ -4,13 +4,12 @@
  */
 package h7_performancetests;
 
-import static java.nio.file.Files.size;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Calendar;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.concurrent.ThreadLocalRandom;
 
 /**
  *
@@ -33,10 +32,13 @@ public class H7_PerformanceTests {
         Random random = new Random();
         
         for(int i = 0; i < size; i++) {
-            values[i] = random.nextInt(max - min + 1) + min;
+            // Reserve 997 and 998 so their first positions are known.
+            values[i] = random.nextInt(997);
         }
-        
-        
+        values[0] = 997;
+        values[size / 2] = 998;
+        values[size - 1] = 999;
+
         //ArrayList
         ArrayList<Integer> arrayList = new ArrayList<>();
         long alStart = Calendar.getInstance().getTimeInMillis();
@@ -73,8 +75,80 @@ public class H7_PerformanceTests {
         System.out.println("Time in ms for Hash Map: " + (hmEnd - hmStart)); 
         
         
-        //Linear search through each
-        
-        
+        // Search the same data for a value at the beginning, in the middle,
+        // and absent. 997 and 998 occur once; 1000 is outside [0, 999].
+        int[] searches = {997, 998, 1000};
+        String[] names = {"beginning", "middle", "absent"};
+        for (int i = 0; i < searches.length; i++) {
+            int target = searches[i];
+            System.out.println("\nSearch " + names[i] + ": " + target);
+            long start = System.nanoTime();
+            boolean found = searchArray(values, target);
+            printSearch("Array, our linear search", found, start);
+
+            start = System.nanoTime();
+            found = Arrays.stream(values).anyMatch(value -> value == target);
+            printSearch("Array, stream anyMatch", found, start);
+
+            start = System.nanoTime();
+            found = searchArrayList(arrayList, target);
+            printSearch("ArrayList, our linear search", found, start);
+
+            start = System.nanoTime();
+            found = arrayList.contains(target);
+            printSearch("ArrayList.contains", found, start);
+
+            start = System.nanoTime();
+            found = searchHashSet(hashSet, target);
+            printSearch("HashSet, our linear search", found, start);
+
+            start = System.nanoTime();
+            found = hashSet.contains(target);
+            printSearch("HashSet.contains (hash lookup)", found, start);
+
+            start = System.nanoTime();
+            found = searchHashMap(hashMap, target);
+            printSearch("HashMap, our linear search of values", found, start);
+
+            start = System.nanoTime();
+            found = hashMap.containsValue(target);
+            printSearch("HashMap.containsValue", found, start);
+        }
+        System.out.println("\nHashSet stores " + hashSet.size() + " distinct values; "
+                + "iteration order is not array order.");
+        System.out.println("Times are illustrative: repeat runs and account for JVM warm-up.");
+    }
+
+    public static boolean searchArray(int[] numbers, int target) {
+        for (int i = 0; i < numbers.length; i++) {
+            if (numbers[i] == target) return true;
+        }
+        return false;
+    }
+
+    public static boolean searchArrayList(ArrayList<Integer> numbers, int target) {
+        for (int i = 0; i < numbers.size(); i++) {
+            if (numbers.get(i) == target) return true;
+        }
+        return false;
+    }
+
+    public static boolean searchHashSet(HashSet<Integer> numbers, int target) {
+        for (int number : numbers) {
+            if (number == target) return true;
+        }
+        return false;
+    }
+
+    public static boolean searchHashMap(HashMap<Integer, Integer> numbers, int target) {
+        for (int number : numbers.values()) {
+            if (number == target) return true;
+        }
+        return false;
+    }
+
+    private static void printSearch(String name, boolean found, long start) {
+        long elapsed = System.nanoTime() - start;
+        System.out.println(name + ": " + found + " (" + elapsed + " ns)");
     }
 }

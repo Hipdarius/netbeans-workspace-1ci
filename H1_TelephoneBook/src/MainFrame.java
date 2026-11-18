@@ -117,13 +117,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         emailLabel.setText("Email");
 
-        positionLabel.setText("positionLabel");
-
-        nameTextField.setText("jTextField1");
-
-        phoneTextField.setText("jTextField2");
-
-        emailTextField.setText("jTextField3");
+        positionLabel.setText("New entry");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -276,13 +270,13 @@ public class MainFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton deleteButton;
+    private javax.swing.JLabel emailLabel;
     private javax.swing.JTextField emailTextField;
     private javax.swing.JLabel nameLabel;
-    private javax.swing.JLabel phoneLabel;
-    private javax.swing.JLabel emailLabel;
     private javax.swing.JTextField nameTextField;
     private javax.swing.JButton newButton;
     private javax.swing.JButton nextButton;
+    private javax.swing.JLabel phoneLabel;
     private javax.swing.JTextField phoneTextField;
     private javax.swing.JLabel positionLabel;
     private javax.swing.JButton previousButton;

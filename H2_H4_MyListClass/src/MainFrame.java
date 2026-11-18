@@ -24,7 +24,7 @@ public class MainFrame extends javax.swing.JFrame {
         myList.addToTail(67);
         myList.addToTail(5);
         
-        listBox.setListData(myList.toArray());
+        listBox.setListData(myList.toIntegerArray());
         sizeLabel.setText(String.valueOf(myList.sizeConstant()));
     }
 
@@ -46,9 +46,9 @@ public class MainFrame extends javax.swing.JFrame {
         clearButton = new javax.swing.JButton();
         addButton = new javax.swing.JButton();
         replaceBox = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
+        replaceLabel = new javax.swing.JLabel();
         sizeLabel = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        sizeCaptionLabel = new javax.swing.JLabel();
         clearAllButtons = new javax.swing.JButton();
         findButton = new javax.swing.JButton();
         findTextField = new javax.swing.JTextField();
@@ -96,11 +96,11 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("replace ");
+        replaceLabel.setText("replace ");
 
         sizeLabel.setText(".");
 
-        jLabel2.setText("size of List");
+        sizeCaptionLabel.setText("size of List");
 
         clearAllButtons.setText("clear all");
         clearAllButtons.addActionListener(new java.awt.event.ActionListener() {
@@ -139,7 +139,7 @@ public class MainFrame extends javax.swing.JFrame {
                         .addGap(24, 24, 24)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(clearButton)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(sizeCaptionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(33, 33, 33)
                         .addComponent(sizeLabel)))
@@ -167,7 +167,7 @@ public class MainFrame extends javax.swing.JFrame {
                                     .addComponent(replaceBox, javax.swing.GroupLayout.Alignment.TRAILING))
                                 .addGap(34, 34, 34))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel1)
+                                .addComponent(replaceLabel)
                                 .addGap(50, 50, 50))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(fillRandom)
@@ -191,7 +191,7 @@ public class MainFrame extends javax.swing.JFrame {
                         .addGap(43, 43, 43)
                         .addComponent(replaceBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel1)
+                        .addComponent(replaceLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(findTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -205,7 +205,7 @@ public class MainFrame extends javax.swing.JFrame {
                         .addGap(59, 59, 59)
                         .addComponent(sizeLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2)
+                        .addComponent(sizeCaptionLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(sortButton)
@@ -219,14 +219,14 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void sortButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sortButtonActionPerformed
         myList.sort();
-        listBox.setListData(myList.toArray());
+        listBox.setListData(myList.toIntegerArray());
     }//GEN-LAST:event_sortButtonActionPerformed
 
     private void clearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearButtonActionPerformed
         int index = listBox.getSelectedIndex();
         if (index != -1) {
             myList.delete(index);
-            listBox.setListData(myList.toArray());
+            listBox.setListData(myList.toIntegerArray());
             sizeLabel.setText(String.valueOf(myList.sizeConstant()));
         }
     }//GEN-LAST:event_clearButtonActionPerformed
@@ -239,11 +239,11 @@ public class MainFrame extends javax.swing.JFrame {
         try {
             int number = Integer.parseInt(textBox.getText());
             myList.add(number);
-            listBox.setListData(myList.toArray());
+            listBox.setListData(myList.toIntegerArray());
             sizeLabel.setText(String.valueOf(myList.sizeConstant()));
             textBox.setText("");
         } catch (NumberFormatException ex) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Enter a natural number");
+            javax.swing.JOptionPane.showMessageDialog(this, "Enter a valid integer");
         }
     }//GEN-LAST:event_addButtonActionPerformed
 
@@ -257,36 +257,36 @@ public class MainFrame extends javax.swing.JFrame {
             int index = myList.indexOf(number);
             if (index == -1) {
                 listBox.clearSelection();
-                javax.swing.JOptionPane.showMessageDialog(this, "Try again lil bro");
+                javax.swing.JOptionPane.showMessageDialog(this, "Number not found");
             } else {
                 listBox.setSelectedIndex(index);
                 listBox.ensureIndexIsVisible(index);
             }
         } catch (NumberFormatException ex) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Enter a valid number lil bro");
+            javax.swing.JOptionPane.showMessageDialog(this, "Enter a valid number");
         }
     }//GEN-LAST:event_findButtonActionPerformed
 
     private void clearAllButtonsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearAllButtonsActionPerformed
         myList.clear();
-        listBox.setListData(myList.toArray());
+        listBox.setListData(myList.toIntegerArray());
         sizeLabel.setText(String.valueOf(myList.sizeConstant()));
     }//GEN-LAST:event_clearAllButtonsActionPerformed
 
     private void replaceBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_replaceBoxActionPerformed
         int index = listBox.getSelectedIndex();
         if (index == -1) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Select an item to replace lil bro");
+            javax.swing.JOptionPane.showMessageDialog(this, "Select an item to replace");
             return;
         }
         try {
             int number = Integer.parseInt(replaceBox.getText().trim());
             myList.replace(index, number);
-            listBox.setListData(myList.toArray());
+            listBox.setListData(myList.toIntegerArray());
             listBox.setSelectedIndex(index);
             replaceBox.setText("");
         } catch (NumberFormatException ex) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Enter a valid nr lil bro");
+            javax.swing.JOptionPane.showMessageDialog(this, "Enter a valid number");
         }
     }//GEN-LAST:event_replaceBoxActionPerformed
 
@@ -295,7 +295,7 @@ public class MainFrame extends javax.swing.JFrame {
         for(int i = 0; i < 10; i++) {
             myList.add(random.nextInt(100));
         }
-        listBox.setListData(myList.toArray());
+        listBox.setListData(myList.toIntegerArray());
         sizeLabel.setText(String.valueOf(myList.sizeConstant()));
     }//GEN-LAST:event_fillRandomActionPerformed
 
@@ -341,13 +341,13 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton fillRandom;
     private javax.swing.JButton findButton;
     private javax.swing.JTextField findTextField;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JList<Integer> listBox;
     private javax.swing.JTextField replaceBox;
+    private javax.swing.JLabel replaceLabel;
+    private javax.swing.JLabel sizeCaptionLabel;
     private javax.swing.JLabel sizeLabel;
     private javax.swing.JButton sortButton;
     private javax.swing.JTextField textBox;

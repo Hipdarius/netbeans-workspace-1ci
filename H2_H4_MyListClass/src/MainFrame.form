@@ -46,7 +46,7 @@
                       <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="clearButton" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel2" alignment="0" min="-2" pref="70" max="-2" attributes="0"/>
+                          <Component id="sizeCaptionLabel" alignment="0" min="-2" pref="70" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -85,7 +85,7 @@
                               <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
-                              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                              <Component id="replaceLabel" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
@@ -118,7 +118,7 @@
                       <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
                       <Component id="replaceBox" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                      <Component id="replaceLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="findTextField" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -134,7 +134,7 @@
                       <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
                       <Component id="sizeLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                      <Component id="sizeCaptionLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -203,7 +203,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="replaceBoxActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel1">
+    <Component class="javax.swing.JLabel" name="replaceLabel">
       <Properties>
         <Property name="text" type="java.lang.String" value="replace "/>
       </Properties>
@@ -213,7 +213,7 @@
         <Property name="text" type="java.lang.String" value="."/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel2">
+    <Component class="javax.swing.JLabel" name="sizeCaptionLabel">
       <Properties>
         <Property name="text" type="java.lang.String" value="size of List"/>
       </Properties>
