@@ -24,7 +24,7 @@ On startup, `load()` reads a JSON array. On close, `save()` writes saved entries
 
 ## 2 · Linked list: references, not array positions
 
-Read [Node](../X4_H2_LinkedList/src/Node.java) and [MyList](../X4_H2_LinkedList/src/MyList.java).
+Read the classroom [Node](../H2_H4_MyListClass/src/Node.java) and [MyList](../H2_H4_MyListClass/src/MyList.java).
 
 ```text
 root ──► [ A | next ] ──► [ B | next ] ──► [ C | null ]
@@ -49,11 +49,11 @@ root ──► [ A | next ] ──► [ B | next ] ──► [ C | null ]
 - `Objects.equals(a, b)` compares values and handles null. `a == b` compares object references.
 - With both overloads, `remove(2)` removes **index 2**. `remove(Integer.valueOf(2))` removes the first **value 2**.
 
-The sheet uses `insert(value, index)` and `set(value, index)`. The original integer-only `MyList` uses different names and argument order: do not mix them up.
+The class project now uses the sheet’s `insert(value, index)` and `set(value, index)`. Its earlier index-first insertion is retained as `insertAtIndex(index, value)`; `replace(index, value)` remains for the GUI.
 
 ## 3 · Extend the list without losing the chain
 
-Read [H3 MyList](../X5_H3_LinkedListContinued/src/MyList.java) after H2.
+Continue with the H3 methods in the same [classroom MyList](../H2_H4_MyListClass/src/MyList.java).
 
 `count(value)` traverses the list and increments a counter for equal values. `isEmpty()` checks root against null. `verifySort()` compares neighboring values and stops on the first descending pair; empty and single-element lists are sorted.
 
@@ -76,7 +76,7 @@ At the end, root becomes previous. Trace this with three nodes, then with zero a
 
 ## 4 · Faster operations require stronger invariants
 
-Compare [H4 MyList](../X6_H4_LinkedListImproved/src/MyList.java) with H3.
+The H4 improvements are in the same [classroom MyList](../H2_H4_MyListClass/src/MyList.java); compare its cached fields with the separate X4 reference.
 
 H4 caches `last` and `size`. After **every** change:
 

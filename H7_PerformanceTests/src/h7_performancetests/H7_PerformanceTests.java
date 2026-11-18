@@ -33,11 +33,11 @@ public class H7_PerformanceTests {
         
         for(int i = 0; i < size; i++) {
             // Reserve 997 and 998 so their first positions are known.
-            values[i] = random.nextInt(997);
+            values[i] = random.nextInt(max - min - 2) + min;
         }
-        values[0] = 997;
-        values[size / 2] = 998;
-        values[size - 1] = 999;
+        values[0] = max - 2;
+        values[size / 2] = max - 1;
+        values[size - 1] = max;
 
         //ArrayList
         ArrayList<Integer> arrayList = new ArrayList<>();

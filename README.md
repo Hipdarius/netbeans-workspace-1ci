@@ -17,7 +17,7 @@ H1 is a worked reference. The combined H2–H4 and H5 projects preserve the clas
 | Step | Open this NetBeans project | What to understand | Provenance |
 | :--- | :--- | :--- | :--- |
 | **H1** | [Telephone book](H1_TelephoneBook/) | Objects, alphabetical ordering, Swing events, JSON persistence | Worked reference |
-| **H2–H4** | [MyList — class project](H2_H4_MyListClass/) | Nodes, traversal, insertion, removal and sorting | Classroom project; see its README for PDF gaps |
+| **H2–H4** | [MyList — class project](H2_H4_MyListClass/) | Nodes, traversal, Object values, sorting, reverse, exports and cached tail | Classroom project extended for the sheet |
 | **H5** | [Words Stats — class version](H5_WordStatsClass/) | HashMap versus list; counting versus sorting costs | Classroom code with targeted fixes |
 
 **Recommended routine:** read the model → trace an example on paper → run it → rewrite one method without looking → run the tests.
@@ -58,7 +58,7 @@ The script exits with an error when compilation or a test fails. It does not ope
 | [X5_H3_LinkedListContinued](X5_H3_LinkedListContinued/) | AI-supported H3 reference, extending H2. |
 | [X6_H4_LinkedListImproved](X6_H4_LinkedListImproved/) | AI-supported H4 reference with a last pointer and cached size. |
 | [H6_Vectors](H6_Vectors/) | Vector drawing; [its own study notes](H6_Vectors/STUDY.md). Beyond this H1–H5 review. |
-| [H7_PerformanceTests](H7_PerformanceTests/) | Collection timing experiments. Beyond this H1–H5 review. |
+| [H7_PerformanceTests](H7_PerformanceTests/) | Array and collection timing, with manual and built-in searches. |
 | [X1_PrintDeskMock](X1_PrintDeskMock/) | Unfinished mock test: TODOs intentionally remain for practice. |
 | [X2_OrbitPatrolMock](X2_OrbitPatrolMock/) | Shooter mock test with linked-list and persistence regression checks. |
 | [X3_WordStatsAI](X3_WordStatsAI/) | Alternative AI-made H5, with different token rules and library sorting. Study the class version first. |
