@@ -11,8 +11,6 @@ public class MainFrame extends javax.swing.JFrame {
 
     private WordsStats wordStats = new WordsStats();
     private WordsStatsList wordStatsList = new WordsStatsList();
-    private javax.swing.JComboBox<String> versionBox = new javax.swing.JComboBox<>(
-            new String[] { "Version 1: HashMap", "Version 2: ArrayList" });
     
     
     /**
@@ -21,9 +19,6 @@ public class MainFrame extends javax.swing.JFrame {
     public MainFrame() {
         initComponents();
         resultArea.setEditable(false);
-        javax.swing.JMenuBar menuBar = new javax.swing.JMenuBar();
-        menuBar.add(versionBox);
-        setJMenuBar(menuBar);
         versionBox.addActionListener(evt -> updateStatistics());
         textArea.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
             public void insertUpdate(javax.swing.event.DocumentEvent evt) { updateStatistics(); }
@@ -52,6 +47,7 @@ public class MainFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        versionBox = new javax.swing.JComboBox<>();
         jPanelScroll = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         resultArea = new javax.swing.JTextArea();
@@ -60,6 +56,8 @@ public class MainFrame extends javax.swing.JFrame {
         textArea = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        versionBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Version 1: HashMap", "Version 2: ArrayList" }));
 
         resultArea.setColumns(20);
         resultArea.setRows(5);
@@ -105,6 +103,7 @@ public class MainFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(versionBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(TextPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(144, 144, 144)
@@ -112,8 +111,12 @@ public class MainFrame extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelScroll, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(TextPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(versionBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanelScroll, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(TextPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         pack();
@@ -165,5 +168,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JTextArea resultArea;
     private javax.swing.JScrollPane scrollPanel;
     private javax.swing.JTextArea textArea;
+    private javax.swing.JComboBox<String> versionBox;
     // End of variables declaration//GEN-END:variables
 }
