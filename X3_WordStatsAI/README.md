@@ -1,11 +1,14 @@
-# Exercice H.5 — Words Stats
+# X3 Words Stats — AI-made H5 implementation
+
+This project was AI-made and was previously named `H5_WordStats`.
+The H5 correction and current reference through Version 1 is in `../H5_WordStatsClass`.
 
 Projet Java Swing pour NetBeans, avec une classe `MainFrame` pour la fenêtre et deux classes pour le calcul : `WordsStats` et `StatsEntry`. Les statistiques sont recalculées pendant la saisie, mais aussi après un collage ou une suppression. La liste place les mots les plus fréquents en premier ; les égalités sont départagées par le mot (`String.compareTo`).
 
 ## Exécuter dans NetBeans
 
-1. Ouvrir le dossier **H5_WordStats** avec **File > Open Project**.
-2. Lancer le projet avec **Run Project (F6)**. La classe principale `h5_wordstats.H5_WordStats` ouvre `MainFrame`.
+1. Ouvrir le dossier **X3_WordStatsAI** avec **File > Open Project**.
+2. Lancer le projet avec **Run Project (F6)**. La classe principale est `h5_wordstats.MainFrame`.
 3. Saisir du texte et choisir l'une des deux versions pour comparer leur fonctionnement.
 
 Le bouton **Effacer** vide le texte. La fenêtre affiche également le nombre total de mots, le nombre de mots distincts et la durée du dernier calcul.

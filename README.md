@@ -10,11 +10,12 @@ built around Swing, while some exercises are console programs.
 ## Projects
 
 `H*` folders and `MyList` are class projects. `X*` folders are personal
-practice projects and mock tests.
+practice projects, mock tests, or explicitly labelled AI-generated projects.
 
 | Folder | Description |
 | --- | --- |
-| `H5_WordStats` | Live word statistics with HashMap and ArrayList versions, plus a complexity comparison. |
+| `H5_WordStatsClass` | H5 correction: working reference code through Version 1 for now, with efficient HashMap counting and results ordered by highest count. Version 2 is pending. |
+| `X3_WordStatsAI` | AI-made H5 implementation, previously named `H5_WordStats`; includes HashMap and ArrayList versions. |
 | `H6_Vectors` | Vector drawing app: `Drawing` holds `Shape` objects (`Line`, `Rectangle`, `Oval`). |
 | `MyList` | Hand-written singly linked list of integers (add, insert, delete, sort, search) with a Swing tester. |
 | `X1_PrintDeskMock` | Unfinished mock-test exercises (TODOs preserved): print-job queue, urgent jobs, sorting, and file save. |
