@@ -17,6 +17,7 @@ public class MainFrame extends javax.swing.JFrame {
      */
     public MainFrame() {
         initComponents();
+        resultArea.setEditable(false);
     }
 
     /**
@@ -29,43 +30,57 @@ public class MainFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanelScroll = new javax.swing.JPanel();
-        scrollPanel = new javax.swing.JScrollPane();
+        resultArea = new javax.swing.JTextArea();
         TextPanel = new javax.swing.JPanel();
+        scrollPanel = new javax.swing.JScrollPane();
         textArea = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        resultArea.setColumns(20);
+        resultArea.setRows(5);
 
         javax.swing.GroupLayout jPanelScrollLayout = new javax.swing.GroupLayout(jPanelScroll);
         jPanelScroll.setLayout(jPanelScrollLayout);
         jPanelScrollLayout.setHorizontalGroup(
             jPanelScrollLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 302, Short.MAX_VALUE)
+            .addGroup(jPanelScrollLayout.createSequentialGroup()
+                .addGap(0, 3, Short.MAX_VALUE)
+                .addComponent(resultArea, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 3, Short.MAX_VALUE))
         );
         jPanelScrollLayout.setVerticalGroup(
             jPanelScrollLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelScrollLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(scrollPanel))
+                .addGap(0, 6, Short.MAX_VALUE)
+                .addComponent(resultArea, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 6, Short.MAX_VALUE))
         );
 
         textArea.setColumns(20);
         textArea.setRows(5);
+        textArea.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                textAreaKeyReleased(evt);
+            }
+        });
+        scrollPanel.setViewportView(textArea);
 
         javax.swing.GroupLayout TextPanelLayout = new javax.swing.GroupLayout(TextPanel);
         TextPanel.setLayout(TextPanelLayout);
         TextPanelLayout.setHorizontalGroup(
             TextPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(TextPanelLayout.createSequentialGroup()
-                .addGap(0, 3, Short.MAX_VALUE)
-                .addComponent(textArea, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 3, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(scrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
+                .addContainerGap())
         );
         TextPanelLayout.setVerticalGroup(
             TextPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(TextPanelLayout.createSequentialGroup()
-                .addGap(0, 6, Short.MAX_VALUE)
-                .addComponent(textArea, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 6, Short.MAX_VALUE))
+                .addGap(3, 3, 3)
+                .addComponent(scrollPanel)
+                .addGap(3, 3, 3))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -85,6 +100,11 @@ public class MainFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void textAreaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textAreaKeyReleased
+        wordStats.calculate(textArea.getText());
+        resultArea.setText(wordStats.toString());
+    }//GEN-LAST:event_textAreaKeyReleased
 
     /**
      * @param args the command line arguments
@@ -124,6 +144,7 @@ public class MainFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel TextPanel;
     private javax.swing.JPanel jPanelScroll;
+    private javax.swing.JTextArea resultArea;
     private javax.swing.JScrollPane scrollPanel;
     private javax.swing.JTextArea textArea;
     // End of variables declaration//GEN-END:variables
