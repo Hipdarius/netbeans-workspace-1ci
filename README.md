@@ -30,7 +30,7 @@ H1 is a worked reference. The combined H2–H4 and H5 projects preserve the clas
 4. Read the project's README and the [study guide](docs/STUDY_GUIDE.md) alongside its source.
 
 Each project is independent. The required Gson JSON JAR is included in the new projects' `lib/` directories with its license; no machine-specific library setup is needed.
-H1–H4 use Java 11-compatible source. Runnable JARs using Gson need their accompanying `dist/lib/` folder.
+H1 and the X4–X6 references use Java 11-compatible source; the classroom MyList project targets Java 23. Runnable JARs using Gson need their accompanying `dist/lib/` folder.
 
 From a project directory, with Ant on your PATH:
 
