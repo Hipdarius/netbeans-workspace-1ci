@@ -43,6 +43,16 @@ public class WordsStats {
         
         String[] words = entries.keySet().toArray(new String[0]);
         
+        for(int i = 0; i < words.length - 1; i++) {
+            for(int j = i + 1; j < words.length; j++) {
+                if(entries.get(words[j]).count > entries.get(words[i]).count) {
+                    String temp = words[i];
+                    words[i] = words[j];
+                    words[j] = temp;
+                }
+            }
+        }
+        
         for(int i = 0; i < words.length; i++) {
             StatsEntry entry = entries.get(words[i]);
             result += entry.toString() + "\n";
