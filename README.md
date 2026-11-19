@@ -21,15 +21,17 @@ Science de la programmation · 2026/27 · Java & NetBeans
 
 The `Z` prefix identifies two-part SCIPR practice exams with NetBeans starters.
 Each exam lasts 180 minutes and is worth 60 points. Allow up to 35 minutes for
-the 11-point modelling paper. Open Part II after finishing Part I.
+the modelling paper. Modelling is worth 11 points in Z1 and Z2, and 15 points
+in Z3. Open the implementation paper after finishing modelling.
 
 | Exam | Practice focus |
 | :--- | :--- |
 | [Z1 · Board Game Club Desk](Z1_BoardGameClubDesk/) | Linked lists, JSON, collections, board graphics, search and recursion |
 | [Z2 · Museum Crate Planner](Z2_MuseumCratePlanner/) | Recursive tree operations, nested manifests and Swing integration |
+| [Z3 · DomeDesk](Z3_DomeDesk/) | Ordered node insertion, selection sort, single-dome scheduling, group counts and file handling |
 
 Each exam folder links to both papers and a downloadable starter ZIP. You can
-also open either project folder directly in NetBeans. Press **F6** before
+also open each project folder directly in NetBeans. Press **F6** before
 starting the timer to check that the starter launches, then close the window
 and leave the source tabs closed until you finish modelling.
 
