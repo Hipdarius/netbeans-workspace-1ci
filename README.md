@@ -1,10 +1,10 @@
 # 1CI · Programming study desk
 
-**Five exercises. A clear progression. Code you can run, trace and explain.**
+**Classroom exercises, study references and timed mock exams.**
 
 Science de la programmation · 2026/27 · Java & NetBeans
 
-[Start studying](docs/STUDY_GUIDE.md) · [Coverage & checks](docs/REVIEW.md) · [Run the checks](scripts/verify-study.ps1)
+[Start studying](docs/STUDY_GUIDE.md) · [Coverage & checks](docs/REVIEW.md) · [Run the checks](scripts/verify-study.ps1) · [Mock exams](#timed-mock-exams)
 
 ---
 
@@ -17,6 +17,22 @@ Science de la programmation · 2026/27 · Java & NetBeans
 | [H6 Vectors](H6_Vectors/STUDY.md) | Shapes, mouse events, drawing order and persistence |
 | [H7 Performance Tests](H7_PerformanceTests/) | Arrays, collections and linear searches |
 
+## Timed mock exams
+
+The `Z` prefix identifies two-part SCIPR practice exams with NetBeans starters.
+Each exam lasts 180 minutes and is worth 60 points. Allow up to 35 minutes for
+the 11-point modelling paper. Open Part II after finishing Part I.
+
+| Exam | Practice focus |
+| :--- | :--- |
+| [Z1 · Board Game Club Desk](Z1_BoardGameClubDesk/) | Linked lists, JSON, collections, board graphics, search and recursion |
+| [Z2 · Museum Crate Planner](Z2_MuseumCratePlanner/) | Recursive tree operations, nested manifests and Swing integration |
+
+Each exam folder links to both papers and a downloadable starter ZIP. You can
+also open either project folder directly in NetBeans. Press **F6** before
+starting the timer to check that the starter launches, then close the window
+and leave the source tabs closed until you finish modelling.
+
 ## Open and run
 
 1. Use a JDK; **JDK 23** matches the existing classroom projects and the checked environment.
@@ -24,7 +40,7 @@ Science de la programmation · 2026/27 · Java & NetBeans
 3. Choose **Run Project (F6)**. H2–H6 open windows. H7 and the supplementary linked-list examples print in Output.
 4. Read the project's README and the [study guide](docs/STUDY_GUIDE.md) alongside its source.
 
-Each project is independent. The required Gson JSON JAR is included in the new projects' `lib/` directories with its license; no machine-specific library setup is needed.
+Each project is independent. Projects that use Gson bundle the JAR and its license in `lib/`.
 The classroom MyList project targets Java 23. The X4–X7 references use Java 11-compatible source. Runnable JARs using Gson need their accompanying `dist/lib/` folder.
 
 From a project directory, with Ant on your PATH:

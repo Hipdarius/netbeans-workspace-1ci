@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Z2_MuseumCratePlanner" default="default" basedir=".">
+    <description>Build and run Z2_MuseumCratePlanner.</description>
+    <import file="nbproject/build-impl.xml"/>
+</project>

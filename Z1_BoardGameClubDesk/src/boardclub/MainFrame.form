@@ -1,0 +1,331 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+  <Properties>
+    <Property name="defaultCloseOperation" type="int" value="3" />
+    <Property name="title" type="java.lang.String" value="Board Game Club Desk" />
+  </Properties>
+  <SyntheticProperties>
+    <SyntheticProperty name="formSizePolicy" type="int" value="1" />
+    <SyntheticProperty name="generateCenter" type="boolean" value="false" />
+  </SyntheticProperties>
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0" />
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false" />
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true" />
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false" />
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false" />
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1" />
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0" />
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false" />
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2" />
+  </AuxValues>
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" attributes="0" groupAlignment="0">
+        <Group type="102" attributes="0">
+          <EmptySpace min="-2" pref="14" max="-2" attributes="0" />
+          <Group type="103" attributes="0" groupAlignment="0">
+            <Component id="statusLabel" min="-2" max="-2" attributes="0" />
+            <Group type="102" attributes="0">
+              <Group type="103" attributes="0" groupAlignment="0">
+                <Component id="rosterLabel" min="-2" max="-2" attributes="0" />
+                <Component id="rosterScroll" min="-2" pref="274" max="-2" attributes="0" />
+                <Component id="emailLabel" min="-2" max="-2" attributes="0" />
+                <Group type="102" attributes="0">
+                  <Component id="checkedInBox" min="-2" max="-2" attributes="0" />
+                  <EmptySpace min="-2" pref="8" max="-2" attributes="0" />
+                  <Component id="doneButton" min="-2" max="-2" attributes="0" />
+                </Group>
+                <Group type="102" attributes="0">
+                  <Component id="addButton" min="-2" max="-2" attributes="0" />
+                  <EmptySpace min="-2" pref="8" max="-2" attributes="0" />
+                  <Component id="deleteButton" min="-2" max="-2" attributes="0" />
+                  <EmptySpace min="-2" pref="8" max="-2" attributes="0" />
+                  <Component id="sortButton" min="-2" max="-2" attributes="0" />
+                  <EmptySpace min="-2" pref="8" max="-2" attributes="0" />
+                  <Component id="reverseButton" min="-2" max="-2" attributes="0" />
+                </Group>
+                <Group type="102" attributes="0">
+                  <Component id="saveButton" min="-2" max="-2" attributes="0" />
+                  <EmptySpace min="-2" pref="8" max="-2" attributes="0" />
+                  <Component id="loadButton" min="-2" max="-2" attributes="0" />
+                </Group>
+              </Group>
+              <EmptySpace min="-2" pref="18" max="-2" attributes="0" />
+              <Group type="103" attributes="0" groupAlignment="0">
+                <Component id="notesLabel" min="-2" max="-2" attributes="0" />
+                <Component id="modeBox" min="0" pref="235" max="32767" attributes="0" />
+                <Component id="notesScroll" min="0" pref="235" max="32767" attributes="0" />
+                <Component id="notesResultLabel" min="-2" max="-2" attributes="0" />
+                <Component id="notesResultScroll" min="0" pref="235" max="32767" attributes="0" />
+              </Group>
+              <EmptySpace min="-2" pref="18" max="-2" attributes="0" />
+              <Group type="103" attributes="0" groupAlignment="0">
+                <Component id="boardLabel" min="-2" max="-2" attributes="0" />
+                <Component id="boardHelpLabel" min="-2" max="-2" attributes="0" />
+                <Group type="102" attributes="0">
+                  <Component id="markerBox" min="-2" max="-2" attributes="0" />
+                  <EmptySpace min="-2" pref="8" max="-2" attributes="0" />
+                  <Component id="fillButton" min="-2" max="-2" attributes="0" />
+                </Group>
+                <Component id="boardPanel" min="0" pref="322" max="32767" attributes="0" />
+              </Group>
+            </Group>
+          </Group>
+          <EmptySpace min="-2" pref="14" max="-2" attributes="0" />
+        </Group>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" attributes="0" groupAlignment="0">
+        <Group type="102" attributes="0">
+          <EmptySpace min="-2" pref="14" max="-2" attributes="0" />
+          <Group type="103" attributes="0" groupAlignment="0">
+            <Group type="102" attributes="0">
+              <Component id="rosterLabel" min="-2" max="-2" attributes="0" />
+              <EmptySpace min="-2" pref="8" max="-2" attributes="0" />
+              <Component id="rosterScroll" min="0" pref="244" max="32767" attributes="0" />
+              <EmptySpace min="-2" pref="8" max="-2" attributes="0" />
+              <Component id="emailLabel" min="-2" max="-2" attributes="0" />
+              <EmptySpace min="-2" pref="8" max="-2" attributes="0" />
+              <Group type="103" attributes="0" groupAlignment="3">
+                <Component id="checkedInBox" min="-2" max="-2" attributes="0" />
+                <Component id="doneButton" min="-2" max="-2" attributes="0" />
+              </Group>
+              <EmptySpace min="-2" pref="8" max="-2" attributes="0" />
+              <Group type="103" attributes="0" groupAlignment="3">
+                <Component id="addButton" min="-2" max="-2" attributes="0" />
+                <Component id="deleteButton" min="-2" max="-2" attributes="0" />
+                <Component id="sortButton" min="-2" max="-2" attributes="0" />
+                <Component id="reverseButton" min="-2" max="-2" attributes="0" />
+              </Group>
+              <EmptySpace min="-2" pref="8" max="-2" attributes="0" />
+              <Group type="103" attributes="0" groupAlignment="3">
+                <Component id="saveButton" min="-2" max="-2" attributes="0" />
+                <Component id="loadButton" min="-2" max="-2" attributes="0" />
+              </Group>
+            </Group>
+            <Group type="102" attributes="0">
+              <Component id="notesLabel" min="-2" max="-2" attributes="0" />
+              <EmptySpace min="-2" pref="8" max="-2" attributes="0" />
+              <Component id="modeBox" min="-2" max="-2" attributes="0" />
+              <EmptySpace min="-2" pref="8" max="-2" attributes="0" />
+              <Component id="notesScroll" min="0" pref="142" max="32767" attributes="0" />
+              <EmptySpace min="-2" pref="8" max="-2" attributes="0" />
+              <Component id="notesResultLabel" min="-2" max="-2" attributes="0" />
+              <EmptySpace min="-2" pref="8" max="-2" attributes="0" />
+              <Component id="notesResultScroll" min="0" pref="142" max="32767" attributes="0" />
+            </Group>
+            <Group type="102" attributes="0">
+              <Component id="boardLabel" min="-2" max="-2" attributes="0" />
+              <EmptySpace min="-2" pref="8" max="-2" attributes="0" />
+              <Component id="boardHelpLabel" min="-2" max="-2" attributes="0" />
+              <EmptySpace min="-2" pref="8" max="-2" attributes="0" />
+              <Group type="103" attributes="0" groupAlignment="3">
+                <Component id="markerBox" min="-2" max="-2" attributes="0" />
+                <Component id="fillButton" min="-2" max="-2" attributes="0" />
+              </Group>
+              <EmptySpace min="-2" pref="8" max="-2" attributes="0" />
+              <Component id="boardPanel" min="0" pref="322" max="32767" attributes="0" />
+            </Group>
+          </Group>
+          <EmptySpace min="-2" pref="8" max="-2" attributes="0" />
+          <Component id="statusLabel" min="-2" max="-2" attributes="0" />
+          <EmptySpace min="-2" pref="14" max="-2" attributes="0" />
+        </Group>
+      </Group>
+    </DimensionLayout>
+  </Layout>
+  <SubComponents>
+    <Component class="javax.swing.JLabel" name="rosterLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Player roster" />
+      </Properties>
+    </Component>
+    <Container class="javax.swing.JScrollPane" name="rosterScroll">
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout" />
+      <SubComponents>
+        <Component class="javax.swing.JList" name="rosterList">
+          <Properties>
+            <Property name="selectionMode" type="int" value="0" />
+          </Properties>
+          <Events>
+            <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="rosterListValueChanged" />
+          </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Player&gt;" />
+          </AuxValues>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Component class="javax.swing.JLabel" name="emailLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Select a player to edit check-in." />
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="checkedInBox">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Checked in" />
+        <Property name="enabled" type="boolean" value="false" />
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="doneButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Done" />
+        <Property name="enabled" type="boolean" value="false" />
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="doneButtonActionPerformed" />
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="addButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Add" />
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addButtonActionPerformed" />
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="deleteButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Delete" />
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deleteButtonActionPerformed" />
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="sortButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Sort A-Z" />
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="sortButtonActionPerformed" />
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="reverseButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Reverse" />
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="reverseButtonActionPerformed" />
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="saveButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Save JSON" />
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="saveButtonActionPerformed" />
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="loadButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Load JSON" />
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="loadButtonActionPerformed" />
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="notesLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="German notes" />
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="modeBox">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="5">
+            <StringItem index="0" value="Counts (HashMap)" />
+            <StringItem index="1" value="Counts (ArrayList)" />
+            <StringItem index="2" value="Spelling (ArrayList)" />
+            <StringItem index="3" value="Spelling (TreeSet)" />
+            <StringItem index="4" value="Translate first word" />
+          </StringArray>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="modeBoxActionPerformed" />
+      </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;" />
+      </AuxValues>
+    </Component>
+    <Container class="javax.swing.JScrollPane" name="notesScroll">
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout" />
+      <SubComponents>
+        <Component class="javax.swing.JTextArea" name="notesArea">
+          <Properties>
+            <Property name="rows" type="int" value="5" />
+            <Property name="columns" type="int" value="18" />
+            <Property name="lineWrap" type="boolean" value="true" />
+            <Property name="wrapStyleWord" type="boolean" value="true" />
+          </Properties>
+          <Events>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="notesAreaKeyReleased" />
+          </Events>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Component class="javax.swing.JLabel" name="notesResultLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Results" />
+      </Properties>
+    </Component>
+    <Container class="javax.swing.JScrollPane" name="notesResultScroll">
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout" />
+      <SubComponents>
+        <Component class="javax.swing.JTextArea" name="notesResultArea">
+          <Properties>
+            <Property name="rows" type="int" value="5" />
+            <Property name="columns" type="int" value="18" />
+            <Property name="lineWrap" type="boolean" value="true" />
+            <Property name="wrapStyleWord" type="boolean" value="true" />
+            <Property name="editable" type="boolean" value="false" />
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Component class="javax.swing.JLabel" name="boardLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Game board" />
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="boardHelpLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Click to place. Drag to move." />
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="markerBox">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="2">
+            <StringItem index="0" value="Circle" />
+            <StringItem index="1" value="Square" />
+          </StringArray>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;" />
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JButton" name="fillButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Fill colour" />
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="fillButtonActionPerformed" />
+      </Events>
+    </Component>
+    <Component class="boardclub.BoardPanel" name="boardPanel">
+      <Events>
+        <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="boardPanelMousePressed" />
+        <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="boardPanelMouseReleased" />
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="statusLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Ready" />
+      </Properties>
+    </Component>
+  </SubComponents>
+</Form>

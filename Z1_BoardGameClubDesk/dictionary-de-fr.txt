@@ -1,0 +1,7 @@
+Spiel;jeu
+Runde;manche
+Brett;plateau
+Zug;coup
+Zug;train
+Würfel;dé
+Karte;carte

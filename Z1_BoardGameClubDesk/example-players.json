@@ -1,0 +1,5 @@
+[
+  {"name":"Ada Klein","phone":"621 000 101","email":"ada@example.test","checkedIn":true},
+  {"name":"Jo Weber","phone":"622 000 117","email":"jo@example.test","checkedIn":false},
+  {"name":"Mila Hoff","phone":"661 000 114","email":"mila@example.test","checkedIn":false}
+]

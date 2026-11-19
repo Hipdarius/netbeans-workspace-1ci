@@ -1,0 +1,12 @@
+C ROAD 4 45
+  C EAST 2 12
+    E MASK 7
+    C INNER 1 7
+      E SEAL 7
+    END
+  END
+  C WEST 3 17
+    E VASE 11
+  END
+  E SIGN 8
+END
