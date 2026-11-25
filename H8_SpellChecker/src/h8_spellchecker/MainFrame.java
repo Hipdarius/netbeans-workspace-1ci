@@ -4,20 +4,84 @@
  */
 package h8_spellchecker;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+import javax.swing.SwingWorker;
+
 /**
  *
  * @author Darius
  */
 public class MainFrame extends javax.swing.JFrame {
 
-    private SpellCheckerController controller;
+    private SpellChecker listChecker;
+    private SpellChecker hashChecker;
+    private SpellChecker treeChecker;
 
     /**
      * Creates new form MainFrame
      */
     public MainFrame() {
         initComponents();
-        controller = new SpellCheckerController(inputTextArea, resultsTextArea, checkButton, statusLabel);
+        loadWords();
+    }
+
+    private void loadWords() {
+        checkButton.setEnabled(false);
+        new SwingWorker<Void, Void>() {
+            @Override
+            protected Void doInBackground() throws IOException {
+                listChecker = new ArrayListSpellChecker();
+                hashChecker = new HashSetSpellChecker();
+                treeChecker = new TreeSetSpellChecker();
+                return null;
+            }
+            @Override
+            protected void done() {
+                try {
+                    get();
+                    statusLabel.setText("Word list loaded. Enter text and click Check.");
+                    checkButton.setEnabled(true);
+                } catch (InterruptedException ex) {
+                    Thread.currentThread().interrupt();
+                    statusLabel.setText("Loading interrupted.");
+                } catch (ExecutionException ex) {
+                    statusLabel.setText("Could not load DE_Wortliste_UTF8.txt from the project folder.");
+                    resultsTextArea.setText(ex.getCause().toString());
+                }
+            }
+        }.execute();
+    }
+
+    private String compareDictionaries(String text) {
+        long start = System.nanoTime();
+        List<Error> listResult = listChecker.analyseText(text);
+        double listTime = (System.nanoTime() - start) / 1_000_000.0;
+
+        start = System.nanoTime();
+        List<Error> hashResult = hashChecker.analyseText(text);
+        double hashTime = (System.nanoTime() - start) / 1_000_000.0;
+
+        start = System.nanoTime();
+        List<Error> treeResult = treeChecker.analyseText(text);
+        double treeTime = (System.nanoTime() - start) / 1_000_000.0;
+
+        String times = String.format("ArrayList: %.3f ms%nHashSet: %.3f ms%nTreeSet: %.3f ms%n", listTime, hashTime, treeTime);
+        if (listResult.size() != treeResult.size() || hashResult.size() != treeResult.size()) {
+            times += "Warning: result counts differ.\n";
+        }
+        return times + formatMisspellings(treeResult);
+    }
+
+    private String formatMisspellings(List<Error> mistakes) {
+        StringBuilder result = new StringBuilder();
+        result.append("Unknown occurrences: ").append(mistakes.size()).append("\n");
+        result.append("Word positions start at 0.\n\n");
+        for (Error mistake : mistakes) {
+            result.append(mistake).append("\n");
+        }
+        return result.toString();
     }
 
     /**
@@ -35,6 +99,9 @@ public class MainFrame extends javax.swing.JFrame {
         resultsTextArea = new javax.swing.JTextArea();
         checkButton = new javax.swing.JButton();
         statusLabel = new javax.swing.JLabel();
+        arrayListButton = new javax.swing.JButton();
+        hashsetButton = new javax.swing.JButton();
+        treesetButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("German Spell Checker");
@@ -57,19 +124,47 @@ public class MainFrame extends javax.swing.JFrame {
 
         statusLabel.setText("Loading word list...");
 
+        arrayListButton.setText("AL");
+        arrayListButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                arrayListButtonActionPerformed(evt);
+            }
+        });
+
+        hashsetButton.setText("HS");
+        hashsetButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hashsetButtonActionPerformed(evt);
+            }
+        });
+
+        treesetButton.setText("TS");
+        treesetButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                treesetButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(checkButton, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(inputScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
-                    .addComponent(resultsScrollPane)
-                    .addComponent(statusLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(checkButton, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(arrayListButton, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(hashsetButton, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(treesetButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(inputScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
+                            .addComponent(resultsScrollPane)
+                            .addComponent(statusLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(40, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -78,8 +173,17 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(inputScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(checkButton)
-                .addGap(8, 8, 8)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(checkButton)
+                            .addComponent(arrayListButton))
+                        .addGap(8, 8, 8))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(treesetButton)
+                            .addComponent(hashsetButton))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addComponent(resultsScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(statusLabel)
@@ -90,8 +194,59 @@ public class MainFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void checkButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkButtonActionPerformed
-        controller.checkText();
+        String text = inputTextArea.getText();
+        checkButton.setEnabled(false);
+        statusLabel.setText("Checking... ArrayList searches may take a while.");
+        new SwingWorker<String, Void>() {
+            @Override
+            protected String doInBackground() {
+                return compareDictionaries(text);
+            }
+            @Override
+            protected void done() {
+                try {
+                    resultsTextArea.setText(get());
+                    resultsTextArea.setCaretPosition(0);
+                    statusLabel.setText("Finished. Edit the input and check again.");
+                } catch (InterruptedException ex) {
+                    Thread.currentThread().interrupt();
+                    statusLabel.setText("Checking interrupted.");
+                } catch (ExecutionException ex) {
+                    statusLabel.setText("Checking failed.");
+                    resultsTextArea.setText(ex.getCause().toString());
+                } finally {
+                    checkButton.setEnabled(true);
+                }
+            }
+        }.execute();
     }//GEN-LAST:event_checkButtonActionPerformed
+
+    private void arrayListButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_arrayListButtonActionPerformed
+        try {
+            spellChecker = new HashSetSpellChecker();
+            errorList.setListData(spellChecker.analyseText(textTextPane.getText()).toArray());
+        } catch (IOException ex) {
+            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_arrayListButtonActionPerformed
+
+    private void hashsetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hashsetButtonActionPerformed
+        try {
+            spellchecker = new HashSetSpellChecker();
+            errorList.setListData(spellChecker.analyseText(textTextPane.getText()).toArray());
+        } catch (IOException ex) {
+            Logger.getLogger(MainFrame.class.getName().log(Level.SEVERE, null, ex));
+        }
+    }//GEN-LAST:event_hashsetButtonActionPerformed
+
+    private void treesetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_treesetButtonActionPerformed
+        try {
+            spellchecker = new TreeSetSpellChecker();
+            errorList.setListData(spellchecker.analyseText(textTextPane.getText()).toArray();
+        } catch (IOException ex) {
+            Logger.getLogger(MainFrame.class.getName().log(Level.SEVER, null, ex));
+        }
+    }//GEN-LAST:event_treesetButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -129,12 +284,15 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton arrayListButton;
     private javax.swing.JButton checkButton;
+    private javax.swing.JButton hashsetButton;
     private javax.swing.JScrollPane inputScrollPane;
     private javax.swing.JTextArea inputTextArea;
     private javax.swing.JScrollPane resultsScrollPane;
     private javax.swing.JTextArea resultsTextArea;
     private javax.swing.JLabel statusLabel;
+    private javax.swing.JButton treesetButton;
     // End of variables declaration//GEN-END:variables
 }
 

@@ -8,30 +8,23 @@ import java.nio.file.Path;
 import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.Locale;
-import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/** Shared text analysis; the collection passed to analyseText determines lookup speed. */
-public class SpellChecker {
+/** Common word loading and analysis for the three dictionary types. */
+public abstract class SpellChecker {
     private static final Pattern WORD = Pattern.compile("\\p{L}[\\p{L}\\p{M}]*");
-    private final ArrayList<String> arrayWords = new ArrayList<>();
-    private final TreeSet<String> treeWords = new TreeSet<>();
+    public abstract ArrayList<Error> analyseText(String text);
 
-    public SpellChecker(Path file) throws IOException {
-        loadWords(file);
-    }
-
-    private void loadWords(Path file) throws IOException {
+    protected void loadWords(Collection<String> words) throws IOException {
+        Path file = Path.of("DE_Wortliste_UTF8.txt");
         try (BufferedReader reader = Files.newBufferedReader(file, StandardCharsets.UTF_8)) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String word = normalize(line.replace("\uFEFF", "").trim());
                 if (!word.isEmpty()) {
-                    arrayWords.add(word);
-                    treeWords.add(word);
+                    words.add(word);
                 }
             }
         }
@@ -41,45 +34,17 @@ public class SpellChecker {
         return Normalizer.normalize(word, Normalizer.Form.NFC).toLowerCase(Locale.GERMAN);
     }
 
-    /** Finds each occurrence; positions are zero-based and end is exclusive. */
-    public List<Misspelling> analyseText(String text, boolean useTreeSet) {
-        List<Misspelling> result = new ArrayList<>();
-        Collection<String> dictionary = arrayWords;
-        if (useTreeSet) {
-            dictionary = treeWords;
-        }
+    protected ArrayList<Error> findErrors(String text, Collection<String> words) {
+        ArrayList<Error> errors = new ArrayList<>();
         Matcher matcher = WORD.matcher(text);
+        int position = 0;
         while (matcher.find()) {
             String word = matcher.group();
-            String key = normalize(word);
-            if (!dictionary.contains(key)) {
-                result.add(new Misspelling(word, matcher.start(), matcher.end()));
+            if (!words.contains(normalize(word))) {
+                errors.add(new Error(word, position));
             }
+            position++;
         }
-        return result;
-    }
-
-    public int getArraySize() {
-        return arrayWords.size();
-    }
-
-    public int getTreeSize() {
-        return treeWords.size();
-    }
-
-    public static class Misspelling {
-        public final String word;
-        public final int start;
-        public final int end;
-        public Misspelling(String word, int start, int end) {
-            this.word = word;
-            this.start = start;
-            this.end = end;
-        }
-
-        @Override
-        public String toString() {
-            return word + " (positions " + (start + 1) + "–" + end + ")";
-        }
+        return errors;
     }
 }

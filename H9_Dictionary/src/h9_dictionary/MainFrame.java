@@ -5,6 +5,7 @@
 package h9_dictionary;
 
 import java.io.IOException;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -101,6 +102,12 @@ public class MainFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void translateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_translateButtonActionPerformed
+        String word = wordField.getText().trim();
+        if (word.isEmpty()) {
+            outputTextArea.setText("Enter a word or phrase to translate.");
+            return;
+        }
+
         int index = structureComboBox.getSelectedIndex();
         DictionaryModel.Structure structure = DictionaryModel.Structure.values()[index];
         DictionaryModel.Direction direction = DictionaryModel.Direction.values()[directionComboBox.getSelectedIndex()];
@@ -109,7 +116,12 @@ public class MainFrame extends javax.swing.JFrame {
             if (dictionaries[index] == null) {
                 dictionaries[index] = new DictionaryModel(structure);
             }
-            outputTextArea.setText(dictionaries[index].translationText(wordField.getText(), direction));
+            List<String> translations = dictionaries[index].translate(word, direction);
+            if (translations.isEmpty()) {
+                outputTextArea.setText("No translation found.");
+            } else {
+                outputTextArea.setText(String.join("\n", translations));
+            }
             outputTextArea.setCaretPosition(0);
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(),

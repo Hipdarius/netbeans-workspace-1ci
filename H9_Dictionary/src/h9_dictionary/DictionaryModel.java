@@ -70,17 +70,6 @@ public class DictionaryModel {
         return french.find(key);
     }
 
-    public String translationText(String word, Direction direction) {
-        if (word.isBlank()) {
-            return "Enter a word or phrase to translate.";
-        }
-        List<String> translations = translate(word, direction);
-        if (translations.isEmpty()) {
-            return "No translation found.";
-        }
-        return String.join("\n", translations);
-    }
-
     public int getEntryCount() {
         return entryCount;
     }
